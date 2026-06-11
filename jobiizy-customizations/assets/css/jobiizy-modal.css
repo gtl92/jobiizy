@@ -1,0 +1,748 @@
+/* =========================================================
+   JOBIIZY – MODALE PREVIEW OFFRE
+   ========================================================= */
+
+/* Bloque le scroll du body quand la modale est ouverte */
+body.jobiizy-modal-open {
+  overflow: hidden;
+}
+body.jobiizy-preview a:not(.jobiizy-modal-close),
+body.jobiizy-preview button:not(.jobiizy-modal-close) {
+    pointer-events: none;
+}
+
+body.jobiizy-preview input,
+body.jobiizy-preview textarea,
+body.jobiizy-preview select {
+    pointer-events: none;
+    background: #f6f6f6;
+}
+
+body.jobiizy-preview {
+    user-select: none;
+    overflow: hidden;
+}
+
+body.jobiizy-preview .jobiizy-modal-close {
+    user-select: auto;
+}
+body.jobiizy-preview header,
+body.jobiizy-preview footer,
+body.jobiizy-preview .site-header,
+body.jobiizy-preview .site-footer,
+body.jobiizy-preview .elementor-location-header,
+body.jobiizy-preview .elementor-location-footer {
+    display: none !important;
+}
+
+/* ---------------------------
+   Conteneur principal
+---------------------------- */
+#jobiizy-preview-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: none;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: none;
+  overscroll-behavior: contain;
+    opacity: 0;
+  transition: opacity .15s ease;
+  max-width: unset;
+    max-height: unset;
+}
+
+/* État ouvert */
+#jobiizy-preview-modal.is-open {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    opacity: 1;
+
+  /* z-index: 22222; */
+}
+
+
+/* ---------------------------
+   Overlay
+---------------------------- */
+#jobiizy-preview-modal .jobiizy-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(3px);
+  z-index: 1;
+}
+
+/* ---------------------------
+   Box centrale
+---------------------------- */
+#jobiizy-preview-modal .jobiizy-modal-box {
+  /* position: relative; */
+  width: min(1200px, 95vw);
+  height: min(90vh, 900px);
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 25px 80px rgba(0,0,0,.35);
+  z-index: 2;
+}
+/* ---------------------------
+   Header
+---------------------------- */
+#jobiizy-preview-modal .jobiizy-modal-header {
+  position: relative;
+  z-index: 20;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 14px 18px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+}
+
+#jobiizy-preview-modal .jobiizy-modal-body {
+  flex: 1;                 /* prend toute la hauteur restante */
+  overflow-y: auto;        /* scroll vertical */
+  overflow-x: hidden;
+
+  padding: 20px;
+  background: #f9fafb;
+
+  -webkit-overflow-scrolling: touch; /* iOS smooth */
+}
+
+/* Badge externe / interne (si présent) */
+#jobiizy-preview-modal .jobiizy-preview-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  margin-left: 10px;
+}
+
+.jobiizy-preview-badge.external {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.jobiizy-preview-badge.internal {
+  background: #e7f1ff;
+  color: #084298;
+}
+
+/* ---------------------------
+   Bouton close (✕)
+---------------------------- */
+#jobiizy-preview-modal .jobiizy-modal-close {
+  appearance: none;
+  border: none;
+  background: transparent;
+
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 400;
+  color: #444;
+
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+
+  z-index: 30;
+  pointer-events: auto;
+}
+
+#jobiizy-preview-modal .jobiizy-modal-close:hover {
+  background: #f0f0f0;
+  color: #000;
+}
+
+
+/* ---------------------------
+   Iframe preview
+---------------------------- */
+#jobiizy-preview-modal .jobiizy-preview-frame {
+  position: relative;
+  z-index: 1;
+
+  flex: 1;
+  width: 100%;
+  border: none;
+
+  background: #ffffff;
+}
+
+/* Désactiver toute interaction interne en mode preview */
+body.jobiizy-preview-mode
+#jobiizy-preview-modal .jobiizy-preview-frame {
+  pointer-events: none;
+}
+
+/* ---------------------------
+   Footer
+---------------------------- */
+#jobiizy-preview-modal .jobiizy-modal-footer {
+  position: relative;
+  z-index: 20;
+  flex-shrink: 0;
+
+  padding: 12px 16px;
+  background: #ffffff;
+  border-top: 1px solid #e5e5e5;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Bouton Fermer */
+#jobiizy-preview-modal .jobiizy-modal-footer .jobiizy-modal-close {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 14px;
+  background: #3b82f6;
+  color: #fff;
+  border-radius: 8px;
+}
+
+#jobiizy-preview-modal .jobiizy-modal-footer .jobiizy-modal-close:hover {
+  background: #2563eb;
+}
+
+/*---------------------------
+   Responsive
+---------------------------- */
+@media (max-width: 768px) {
+  #jobiizy-preview-modal .jobiizy-modal-box {
+    width: 96vw;
+    height: 94vh;
+    border-radius: 10px;
+  }
+}
+
+/* ---------------------------
+   Preview offre sans sauvegarde 
+---------------------------- */
+.jobiizy-preview {
+  font-family: Inter, system-ui, sans-serif;
+  line-height: 1.6;
+  user-select: none;
+}
+
+.jobiizy-preview-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.jobiizy-preview-badge.internal {
+  background: #e8f3ff;
+  color: #0b5ed7;
+}
+
+.jobiizy-preview-badge.external {
+  background: #fff1f0;
+  color: #b42318;
+}
+
+.jobiizy-preview-title {
+  margin: 8px 0 4px;
+  font-size: 24px;
+}
+
+.jobiizy-preview-hint {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+.jobiizy-preview-section {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.jobiizy-preview-section.highlight {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.jobiizy-preview-section.muted {
+  color: #9ca3af;
+}
+
+.jobiizy-preview-content {
+  white-space: pre-wrap;
+}
+
+.jobiizy-preview-contact {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+
+/* JobiiZy – Select natif harmonisé (uniquement dans Candidature Externe) */
+.jobiizy-external-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 44px 12px 14px;
+
+  font-size: 14px;
+  line-height: 1.4;
+
+  border-radius: var(--radius-large) !important;
+  border: 1px solid var(--color-border) !important;
+  /*background-color: var(--color-bg-light) !important;*/
+  background-color: #154097 !important;
+  color:white;
+  cursor: pointer;
+
+  /* flèche */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 8L10 12L14 8' stroke='%239CA3AF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+}
+
+.jobiizy-external-group select:hover {
+  border-color: #9CA3AF !important;
+}
+
+.jobiizy-external-group select:focus {
+  outline: none;
+  border-color: #154097 !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+  background-color: #154097; 
+  color:white;
+}
+
+/* Base neutre */
+.jobiizy-application-mode {
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    transition: background 0.2s ease, border-color 0.2s ease;
+	flex: 0 0 100%;
+}
+
+/* Mode interne */
+.jobiizy-application-mode.is-internal {
+    background: #f8fff9;
+    border-color: #2ecc71;
+}
+
+/* Mode externe */
+.jobiizy-application-mode.is-external {
+    background: #fff8f2;
+    border-color: #e67e22;
+}
+
+.jobiizy-job-preview-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #ddd;
+}
+
+.jobiizy-preview-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}/* =========================================================
+ * JobiiZy – Popup Modal Offres Externes
+ * Version stable & pro
+  * version 1.0.9
+ * ========================================================= */
+ 
+ /* ======================================================
+   MODALE JOBIIZY – BASE
+====================================================== */
+
+#jobiizy-apply-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    overscroll-behavior: contain;
+
+}
+#jobiizy-apply-modal .jobiizy-modal {
+  z-index: 2;
+}
+/* ======================================================
+   BACKDROP
+====================================================== */
+
+.jobiizy-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(3px);
+  z-index:1;
+}
+
+/* ======================================================
+   MODALE
+====================================================== */
+
+.jobiizy-modal {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  max-height: 85vh;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+
+  /* stabilité visuelle */
+  box-sizing: border-box;
+
+  /* shadow propre */
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.2),
+    0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ======================================================
+   HEADER
+====================================================== */
+
+.jobiizy-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  background: black;
+  color: white;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.jobiizy-modal-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.jobiizy-modal-subtitle {
+  margin-top: 6px;
+  font-size: 14px;
+  color: white;
+  line-height: 1.4;
+}
+
+/* bouton X */
+.jobiizy-modal-close {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: white;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jobiizy-modal-close:hover {
+  background: #e5e5e5;
+  color:black;
+}
+
+/* ======================================================
+   BODY
+====================================================== */
+
+.jobiizy-modal-body {
+  padding: 10px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* ======================================================
+   BOXES (Informations / Contact / Notes)
+====================================================== */
+
+.jobiizy-box {
+  padding: 16px 18px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  /* border: 1px solid transparent;*/
+}
+
+/* INFO */
+.jobiizy-box--info {
+  background: #eef4ff;
+  border-color: #b5c7ff;
+  border-radius: 12px;
+}
+
+/* CONTACT */
+.jobiizy-box--contact {
+  background: #f0fdf4;
+  border-color: #86efac;
+border-radius: 12px;
+}
+
+/* NOTES */
+.jobiizy-box--notes {
+  background: #fff7ed;
+  border-color: #fed7aa;
+  border-radius: 12px;
+}
+
+.jobiizy-box strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.jobiizy-external-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ======================================================
+   POPUP CONTENT
+====================================================== */
+.jobiizy-popup-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.7);
+    backdrop-filter: blur(4px);
+}
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+
+@media (max-width: 640px) {
+  .jobiizy-modal {
+    max-width: 92vw;
+    max-height: 90vh;
+  }
+
+  .jobiizy-modal-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .jobiizy-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
+}
+
+/* ======================================================
+   FOOTER ACTIONS
+====================================================== */
+
+.jobiizy-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid #eee;
+}
+
+/* ======================================================
+   BUTTONS – Metro UI inspired
+====================================================== */
+
+.jobiizy-btn {
+  appearance: none;
+  border: none;
+  border-radius: 15px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+/* Primary */
+.jobiizy-btn-primary {
+  background: #5431c8; /* bleu Metro */
+  color: #fff;
+}
+
+.jobiizy-btn-primary:hover {
+  background: #aa94f0;
+  color:black;
+}
+
+/* Secondary */
+.jobiizy-btn-secondary {
+  background: #f3f4f6;
+  color: #111;
+}
+
+.jobiizy-btn-secondary:hover {
+  background: #e5e7eb;
+}
+
+.jobiizy-title-copy {
+  margin-left: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  opacity: .6;
+}
+
+
+/* ======================================================
+   LOCK SCROLL – POPUP APPLY
+====================================================== */
+
+body.jobiizy-apply-open {
+  overflow: hidden;
+  height: 100vh;
+}
+.jobiizy-title-copy:hover {
+  opacity: 1;
+}
+
+.jobiizy-toast {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+
+  background: #d7122f;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 0px;
+
+  font-size: 13px;
+  line-height: 1.3;
+
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+
+  z-index: 10;
+  pointer-events: none;
+}
+
+.jobiizy-toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* JobiiZy – Select natif harmonisé (uniquement dans Candidature Externe) */
+.jobiizy-external-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 44px 12px 14px;
+
+  font-size: 14px;
+  line-height: 1.4;
+
+  border-radius: var(--radius-large) !important;
+  border: 1px solid var(--color-border) !important;
+  /*background-color: var(--color-bg-light) !important;*/
+  background-color: #154097 !important;
+  color:white;
+  cursor: pointer;
+
+  /* flèche */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 8L10 12L14 8' stroke='%239CA3AF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+}
+
+.jobiizy-external-group select:hover {
+  border-color: #9CA3AF !important;
+}
+
+.jobiizy-external-group select:focus {
+  outline: none;
+  border-color: #154097 !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+  background-color: #154097; 
+  color:white;
+}
+
+/* Base neutre */
+.jobiizy-application-mode {
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    transition: background 0.2s ease, border-color 0.2s ease;
+	flex: 0 0 100%;
+}
+
+/* Mode interne */
+.jobiizy-application-mode.is-internal {
+    background: #f8fff9;
+    border-color: #2ecc71;
+}
+
+/* Mode externe */
+.jobiizy-application-mode.is-external {
+    background: #fff8f2;
+    border-color: #e67e22;
+}
+
+.jobiizy-job-preview-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #ddd;
+}
+
+.jobiizy-preview-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ======================================================
+   FIX SCROLL DEFINITIF – Jobiizy
+====================================================== */
+html.jobiizy-modal-open,
+body.jobiizy-modal-open {
+  overflow: hidden !important;
+  height: 100vh !important;
+  overscroll-behavior: none;
+}

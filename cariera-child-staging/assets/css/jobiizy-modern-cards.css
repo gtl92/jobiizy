@@ -1,0 +1,952 @@
+/* =========================================================
+   JOBIIZY MODERN CARDS - Version 2.0 (Sticky + Infinite Scroll)
+   ========================================================= */
+
+/* ===========================================
+   FIX STICKY CRITIQUE - Forcer overflow visible
+   =========================================== */
+
+/* Reset overflow sur TOUS les conteneurs Elementor possibles */
+body .elementor-section,
+body .elementor-section-wrap,
+body .elementor-section-stretched,
+body .elementor-top-section,
+body .elementor-inner-section,
+body .elementor-container,
+body .elementor-row,
+body .elementor-column,
+body .elementor-column-wrap,
+body .elementor-widget-wrap,
+body .elementor-widget,
+body .elementor-widget-container,
+body .elementor-element,
+body .e-con,
+body .e-con-inner,
+body .e-child,
+body [data-elementor-type],
+body .elementor-section-content-middle,
+body .elementor-widget-jobiizy_listing_split_view,
+body .elementor-widget-jobiizy_listing_split_view > .elementor-widget-container {
+    overflow: visible !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+}
+
+/* ===========================================
+   WRAPPER PRINCIPAL
+   =========================================== */
+body .jobiizy-modern-split-view,
+body .elementor-widget-jobiizy_listing_split_view .jobiizy-modern-split-view {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%) !important;
+    min-height: 100vh !important;
+    padding: 0 !important;
+    border-radius: 20px;
+    overflow: visible !important;
+    position: relative !important;
+}
+
+/* ===========================================
+   BARRE DE RECHERCHE STICKY - FIX COMPLET
+   =========================================== */
+body .jobiizy-search-bar-sticky {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 32px !important; /* Hauteur admin bar WordPress */
+    z-index: 999 !important;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+    padding: 20px 30px !important;
+    margin: 0 !important;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.2) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Sans admin bar (visiteurs non connectés) */
+body:not(.admin-bar) .jobiizy-search-bar-sticky {
+    top: 0 !important;
+}
+
+/* Si header sticky du thème Cariera */
+body.sticky-header .jobiizy-search-bar-sticky,
+body .header-sticky-active .jobiizy-search-bar-sticky {
+    top: 80px !important; /* Ajuster selon hauteur header */
+}
+
+body:not(.admin-bar).sticky-header .jobiizy-search-bar-sticky {
+    top: 48px !important;
+}
+
+body .jobiizy-search-bar-container {
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    gap: 20px !important;
+    align-items: center !important;
+}
+
+/* ===========================================
+   HEADER COMPTEUR
+   =========================================== */
+body .jobiizy-split-header {
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    padding: 20px 30px 10px !important;
+}
+
+body .jobiizy-job-count {
+    color: #e2e8f0 !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin: 0 !important;
+}
+
+body .jobiizy-job-count i {
+    color: #60a5fa !important;
+}
+
+body .jobiizy-job-count strong {
+    color: #3b82f6 !important;
+    font-weight: 700 !important;
+}
+
+/* ===========================================
+   LAYOUT SPLIT VIEW
+   =========================================== */
+body .jobiizy-split-view-wrapper {
+    display: grid !important;
+    grid-template-columns: 1fr 550px !important;
+    gap: 30px !important;
+    max-width: 1400px !important;
+    margin: 30px auto 0 !important;
+    padding: 0 20px 60px !important;
+    min-height: calc(100vh - 320px) !important;
+}
+
+/* ===========================================
+   COLONNE LISTINGS
+   =========================================== */
+body .jobiizy-listings-column {
+    display: block !important;
+    max-height: calc(100vh - 50px) !important;
+    overflow-y: auto !important;
+    padding: 10px 15px 10px 5px !important;
+    scroll-behavior: smooth !important;
+}
+
+/* Scrollbar custom */
+body .jobiizy-listings-column::-webkit-scrollbar {
+    width: 8px !important;
+}
+
+body .jobiizy-listings-column::-webkit-scrollbar-track {
+    background: rgba(30, 41, 59, 0.5) !important;
+    border-radius: 10px !important;
+}
+
+body .jobiizy-listings-column::-webkit-scrollbar-thumb {
+    background: rgba(59, 130, 246, 0.5) !important;
+    border-radius: 10px !important;
+}
+
+body .jobiizy-listings-column::-webkit-scrollbar-thumb:hover {
+    background: rgba(59, 130, 246, 0.8) !important;
+}
+
+/* ===========================================
+   COLONNE DÉTAILS
+   =========================================== */
+body .jobiizy-detail-column {
+    background: rgba(30, 41, 59, 0.6) !important;
+    border: 1px solid rgba(100, 116, 139, 0.3) !important;
+    border-radius: 20px !important;
+    padding: 30px !important;
+    position: sticky !important;
+    top: 180px !important;
+    max-height: calc(100vh - 240px) !important;
+    overflow-y: auto !important;
+}
+
+body .jobiizy-detail-content {
+    color: #e2e8f0 !important;
+}
+
+/* ===========================================
+   CARDS MODERNES
+   =========================================== */
+body .jobiizy-modern-card,
+body .jobiizy-modern-split-view .jobiizy-modern-card,
+body .elementor-widget-jobiizy_listing_split_view .jobiizy-modern-card,
+body article.jobiizy-modern-card {
+    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
+    border: 1px solid rgba(100, 116, 139, 0.3) !important;
+    border-radius: 20px !important;
+    padding: 25px !important;
+    margin-bottom: 20px !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    cursor: pointer !important;
+}
+
+body .jobiizy-modern-card:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Hover */
+body .jobiizy-modern-card:hover {
+    transform: translateY(-6px) scale(1.01) !important;
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(59, 130, 246, 0.35) !important;
+    border-color: rgba(59, 130, 246, 0.6) !important;
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%) !important;
+}
+
+/* Card active */
+body .jobiizy-modern-card.active {
+    border-color: #3b82f6 !important;
+    background: linear-gradient(135deg, #1e3a5f 0%, #2d4a6f 100%) !important;
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Contenu card */
+body .job-card-content,
+body .jobiizy-modern-card .job-card-content {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* ===========================================
+   BADGE FEATURED
+   =========================================== */
+body .jobiizy-modern-card .featured-badge {
+    position: absolute !important;
+    top: 15px !important;
+    right: 15px !important;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+    color: white !important;
+    padding: 6px 12px !important;
+    border-radius: 8px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    z-index: 2 !important;
+}
+
+/* ===========================================
+   HEADER CARD (Logo + Entreprise)
+   =========================================== */
+body .jobiizy-modern-card .job-card-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-bottom: 15px !important;
+}
+
+body .jobiizy-modern-card .company-logo-wrapper {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    flex-shrink: 0 !important;
+}
+
+body .jobiizy-modern-card .company-logo {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+body .jobiizy-modern-card .company-name {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: rgba(59, 130, 246, 0.22) !important;
+    color: #93c5fd !important;
+    border: 1px solid rgba(59, 130, 246, 0.45) !important;
+    padding: 6px 14px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+}
+
+body .jobiizy-modern-card .company-name i {
+    color: #60a5fa !important;
+}
+
+/* ===========================================
+   TITRE
+   =========================================== */
+body .jobiizy-modern-card .job-title {
+    margin: 0 0 15px !important;
+    font-size: 18px !important;
+    line-height: 1.4 !important;
+    color: #f8fafc !important;
+    font-weight: 700 !important;
+}
+
+body .jobiizy-modern-card .job-title a {
+    color: #f8fafc !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
+}
+
+body .jobiizy-modern-card:hover .job-title,
+body .jobiizy-modern-card:hover .job-title a {
+    color: #60a5fa !important;
+    text-shadow: 0 0 10px rgba(96, 165, 250, 0.3) !important;
+}
+
+/* ===========================================
+   MÉTADONNÉES
+   =========================================== */
+body .jobiizy-modern-card .job-meta {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    margin-bottom: 15px !important;
+    font-size: 14px !important;
+}
+
+body .jobiizy-modern-card .job-meta span {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    color: #cbd5e1 !important;
+}
+
+body .jobiizy-modern-card .job-meta i {
+    color: #60a5fa !important;
+    font-size: 16px !important;
+}
+
+body .jobiizy-modern-card .job-type {
+    background: rgba(34, 197, 94, 0.2) !important;
+    color: #86efac !important;
+    border: 1px solid rgba(34, 197, 94, 0.35) !important;
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+}
+
+/* ===========================================
+   EXTRAIT
+   =========================================== */
+body .jobiizy-modern-card .job-excerpt {
+    color: #94a3b8 !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 15px !important;
+}
+
+/* ===========================================
+   FOOTER + BOUTON
+   =========================================== */
+body .jobiizy-modern-card .job-card-footer {
+    display: flex !important;
+    justify-content: flex-end !important;
+    margin-top: 10px !important;
+}
+
+body .jobiizy-modern-card .btn-view-job,
+body .btn-view-job {
+    background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 18px !important;
+    border-radius: 10px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    transition: all 0.3s ease !important;
+}
+
+body .jobiizy-modern-card .btn-view-job:hover {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+    transform: translateX(5px) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.5) !important;
+}
+
+/* ===========================================
+   INFINITE SCROLL - LOADER & INDICATEURS
+   =========================================== */
+
+/* Conteneur du loader */
+.jobiizy-load-more-container {
+    padding: 30px 20px !important;
+    text-align: center !important;
+}
+
+/* Loader spinner */
+.jobiizy-loader {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 15px !important;
+    padding: 20px !important;
+}
+
+.jobiizy-loader-spinner {
+    width: 40px !important;
+    height: 40px !important;
+    border: 3px solid rgba(59, 130, 246, 0.2) !important;
+    border-top-color: #3b82f6 !important;
+    border-radius: 50% !important;
+    animation: jobiizy-spin 0.8s linear infinite !important;
+}
+
+@keyframes jobiizy-spin {
+    to { transform: rotate(360deg); }
+}
+
+.jobiizy-loader-text {
+    color: #94a3b8 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+
+/* Barre de progression */
+.jobiizy-progress-container {
+    background: rgba(30, 41, 59, 0.6) !important;
+    border: 1px solid rgba(100, 116, 139, 0.3) !important;
+    border-radius: 12px !important;
+    padding: 20px !important;
+    margin-top: 10px !important;
+}
+
+.jobiizy-progress-info {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 10px !important;
+    color: #cbd5e1 !important;
+    font-size: 13px !important;
+}
+
+.jobiizy-progress-bar {
+    height: 6px !important;
+    background: rgba(100, 116, 139, 0.3) !important;
+    border-radius: 3px !important;
+    overflow: hidden !important;
+}
+
+.jobiizy-progress-fill {
+    height: 100% !important;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa) !important;
+    border-radius: 3px !important;
+    transition: width 0.3s ease !important;
+}
+
+/* Message fin de liste */
+.jobiizy-end-message {
+    background: rgba(34, 197, 94, 0.1) !important;
+    border: 1px solid rgba(34, 197, 94, 0.3) !important;
+    border-radius: 12px !important;
+    padding: 20px !important;
+    text-align: center !important;
+    color: #86efac !important;
+    font-size: 14px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+}
+
+.jobiizy-end-message i {
+    font-size: 20px !important;
+}
+
+/* Bouton charger plus (alternative) */
+.jobiizy-load-more-btn {
+    background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+    color: white !important;
+    border: none !important;
+    padding: 14px 30px !important;
+    border-radius: 12px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+}
+
+.jobiizy-load-more-btn:hover {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5) !important;
+}
+
+.jobiizy-load-more-btn:disabled {
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+.jobiizy-load-more-btn .btn-spinner {
+    width: 18px !important;
+    height: 18px !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    border-top-color: white !important;
+    border-radius: 50% !important;
+    animation: jobiizy-spin 0.8s linear infinite !important;
+    display: none !important;
+}
+
+.jobiizy-load-more-btn.loading .btn-spinner {
+    display: block !important;
+}
+
+.jobiizy-load-more-btn.loading .btn-text {
+    display: none !important;
+}
+
+/* ===========================================
+   EMPTY STATE
+   =========================================== */
+body .jobiizy-empty-state {
+    position: absolute !important;
+    bottom: 30px !important;
+    right: 30px !important;
+    pointer-events: none !important;
+}
+
+body .jobiizy-empty-box {
+    background: rgba(30, 41, 59, 0.8) !important;
+    border: 2px dashed rgba(100, 116, 139, 0.4) !important;
+    border-radius: 16px !important;
+    padding: 30px 40px !important;
+    text-align: center !important;
+}
+
+body .jobiizy-empty-box i {
+    font-size: 48px !important;
+    color: #60a5fa !important;
+    margin-bottom: 15px !important;
+    display: block !important;
+}
+
+body .jobiizy-empty-text {
+    color: #cbd5e1 !important;
+}
+
+body .jobiizy-empty-text strong {
+    font-size: 18px !important;
+    color: #f8fafc !important;
+    display: block !important;
+    margin-bottom: 5px !important;
+}
+
+body .jobiizy-empty-text small {
+    font-size: 13px !important;
+    color: #94a3b8 !important;
+}
+
+/* ===========================================
+   ANIMATIONS
+   =========================================== */
+@keyframes jobiizy-fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body .jobiizy-modern-card {
+    animation: jobiizy-fade-in-up 0.4s ease-out !important;
+}
+
+body .jobiizy-modern-card:nth-child(2) { animation-delay: 0.1s !important; }
+body .jobiizy-modern-card:nth-child(3) { animation-delay: 0.2s !important; }
+body .jobiizy-modern-card:nth-child(4) { animation-delay: 0.3s !important; }
+body .jobiizy-modern-card:nth-child(5) { animation-delay: 0.4s !important; }
+
+/* Animation pour nouvelles cards chargées */
+.jobiizy-modern-card.newly-loaded {
+    animation: jobiizy-fade-in-up 0.5s ease-out !important;
+}
+
+/* ===========================================
+   POPUP FILTRES
+   =========================================== */
+body .jobiizy-filters-overlay,
+#jobiizy-filters-popup.jobiizy-filters-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(15, 23, 42, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    z-index: 99999 !important;
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 20px !important;
+}
+
+body .jobiizy-filters-overlay.show,
+#jobiizy-filters-popup.jobiizy-filters-overlay.show {
+    display: flex !important;
+    animation: fadeIn 0.3s ease !important;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+body .jobiizy-filters-modal {
+    background: linear-gradient(135deg, #1e293b, #0f172a) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+    border-radius: 24px !important;
+    max-width: 600px !important;
+    width: 100% !important;
+    max-height: 90vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6) !important;
+    animation: modalSlideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+@keyframes modalSlideUp {
+    from { opacity: 0; transform: translateY(30px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ===========================================
+   RESPONSIVE
+   =========================================== */
+@media (max-width: 1024px) {
+    body .jobiizy-split-view-wrapper {
+        grid-template-columns: 1fr !important;
+    }
+    
+    body .jobiizy-detail-column {
+        position: relative !important;
+        top: 0 !important;
+        max-height: none !important;
+    }
+    
+    body .jobiizy-listings-column {
+        max-height: none !important;
+    }
+    
+    body .jobiizy-empty-state {
+        position: relative !important;
+        bottom: auto !important;
+        right: auto !important;
+        margin: 20px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    body .jobiizy-modern-split-view {
+        padding: 20px 10px !important;
+    }
+    
+    body .jobiizy-modern-card {
+        padding: 20px !important;
+    }
+    
+    body .jobiizy-modern-card:hover {
+        transform: translateY(-4px) scale(1.005) !important;
+    }
+    
+    body .jobiizy-search-bar-sticky {
+        padding: 15px !important;
+    }
+    
+    body .jobiizy-search-bar-container {
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+}
+
+/* =========================================================
+   JOBIIZY - FIX STICKY NUCLEAR OPTION
+   À ajouter dans Elementor > Custom CSS ou dans le fichier CSS
+   ========================================================= */
+
+/* 
+ * MÉTHODE 1: Force overflow visible sur ABSOLUMENT tout
+ * Cette approche est agressive mais garantit le fonctionnement
+ */
+
+/* Tous les conteneurs Elementor possibles */
+.elementor-section,
+.elementor-section-wrap,
+.elementor-section-stretched,
+.elementor-top-section,
+.elementor-inner-section,
+.elementor-container,
+.elementor-row,
+.elementor-column,
+.elementor-column-wrap,
+.elementor-widget-wrap,
+.elementor-widget,
+.elementor-widget-container,
+.elementor-element,
+.e-con,
+.e-con-inner,
+.e-child,
+.e-con-boxed,
+.e-con-full,
+[data-elementor-type],
+[data-element_type],
+.elementor-section-content-middle,
+.elementor-widget-jobiizy_listing_split_view,
+.elementor-widget-jobiizy_listing_split_view > .elementor-widget-container,
+.jobiizy-modern-split-view,
+.jobiizy-split-view-outer {
+    overflow: visible !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+}
+
+/* Le wrapper global qu'on a ajouté */
+.jobiizy-split-view-outer {
+    overflow: visible !important;
+    position: relative !important;
+}
+
+/* 
+ * MÉTHODE 2: Cibler spécifiquement les parents de la barre sticky
+ * Ces sélecteurs sont plus spécifiques
+ */
+.jobiizy-search-bar-sticky,
+.jobiizy-search-bar-sticky ~ *,
+.jobiizy-search-bar-sticky + * {
+    /* Ces éléments sont OK */
+}
+
+/* Parents directs et indirects */
+.elementor-widget-container:has(.jobiizy-search-bar-sticky),
+.elementor-widget:has(.jobiizy-search-bar-sticky),
+.elementor-widget-wrap:has(.jobiizy-search-bar-sticky),
+.elementor-column:has(.jobiizy-search-bar-sticky),
+.elementor-row:has(.jobiizy-search-bar-sticky),
+.elementor-container:has(.jobiizy-search-bar-sticky),
+.elementor-section:has(.jobiizy-search-bar-sticky),
+.e-con:has(.jobiizy-search-bar-sticky),
+.e-con-inner:has(.jobiizy-search-bar-sticky),
+.e-child:has(.jobiizy-search-bar-sticky) {
+    overflow: visible !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+}
+
+/* 
+ * LA BARRE STICKY ELLE-MÊME
+ */
+.jobiizy-search-bar-sticky {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 32px !important; /* Admin bar WordPress */
+    z-index: 999 !important;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+    padding: 20px 30px !important;
+    margin: 0 !important;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.2) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Sans admin bar (visiteurs non connectés) */
+body:not(.admin-bar) .jobiizy-search-bar-sticky {
+    top: 0 !important;
+}
+
+/* Header sticky du site (ajuster la valeur selon ton header) */
+body.sticky-header .jobiizy-search-bar-sticky,
+body .header-is-sticky ~ * .jobiizy-search-bar-sticky {
+    top: 80px !important;
+}
+
+body:not(.admin-bar).sticky-header .jobiizy-search-bar-sticky {
+    top: 48px !important;
+}
+
+/* 
+ * FIX MESSAGE FIN DE LISTE - Toujours caché par défaut
+ */
+#jobiizy-end-message {
+    display: none !important;
+}
+
+#jobiizy-end-message.show {
+    display: flex !important;
+}
+
+
+/* =========================================================
+   JOBIIZY - SMART STICKY SEARCH BAR
+   Barre qui apparaît/disparaît intelligemment au scroll
+   ========================================================= */
+
+/* 
+ * OPTION A: Sticky classique avec calcul dynamique du top
+ * Le JS calculera automatiquement la bonne valeur de top
+ */
+.jobiizy-search-bar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: var(--jobiizy-sticky-top, 0px); /* Valeur calculée par JS */
+    z-index: 999;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    padding: 20px 30px;
+    margin: 0;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 
+ * OPTION B: Barre qui se cache au scroll down, réapparaît au scroll up
+ */
+.jobiizy-search-bar-sticky.sticky-hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.jobiizy-search-bar-sticky.sticky-visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* État quand la barre est "collée" (scrollé au-delà de sa position initiale) */
+.jobiizy-search-bar-sticky.is-stuck {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+/* 
+ * OPTION C: Barre compacte quand elle est sticky
+ * Se réduit pour prendre moins de place
+ */
+.jobiizy-search-bar-sticky.is-compact {
+    padding: 12px 20px;
+}
+
+.jobiizy-search-bar-sticky.is-compact .jobiizy-search-field label {
+    display: none;
+}
+
+.jobiizy-search-bar-sticky.is-compact .jobiizy-search-field input {
+    font-size: 14px;
+}
+
+.jobiizy-search-bar-sticky.is-compact .jobiizy-btn-alert span,
+.jobiizy-search-bar-sticky.is-compact .jobiizy-btn-filters span:not(.jobiizy-filter-badge) {
+    display: none;
+}
+
+/* 
+ * Bouton pour afficher/masquer manuellement
+ */
+.jobiizy-toggle-search-btn {
+    position: fixed;
+    top: var(--jobiizy-sticky-top, 80px);
+    right: 20px;
+    z-index: 1000;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: scale(0);
+    pointer-events: none;
+}
+
+.jobiizy-toggle-search-btn.visible {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.jobiizy-toggle-search-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+}
+
+.jobiizy-toggle-search-btn i {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+.jobiizy-toggle-search-btn.search-hidden i {
+    transform: rotate(180deg);
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 768px) {
+    .jobiizy-search-bar-sticky {
+        padding: 15px;
+    }
+    
+    .jobiizy-search-bar-sticky.is-compact {
+        padding: 10px 15px;
+    }
+    
+    .jobiizy-toggle-search-btn {
+        width: 45px;
+        height: 45px;
+        right: 15px;
+    }
+}

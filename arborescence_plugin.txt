@@ -1,0 +1,38 @@
+[ 544]  jobiizy-customizations
+├── [8.0K]  .DS_Store
+├── [ 128]  admin
+│   ├── [5.0K]  anti-spam-admin.php
+│   └── [ 192]  users
+│       ├── [4.6K]  email-log.php
+│       ├── [ 12K]  email-notifications.php
+│       ├── [5.0K]  email-verification.php
+│       └── [ 13K]  user-management.php
+├── [5.9K]  admin-menus.php
+├── [7.6K]  amelioration-entreprise-simple.php
+├── [  96]  api
+│   └── [ 21K]  jobiizy-api-external-jobs.php
+├── [4.0K]  apply-mode.php
+├── [ 160]  assets
+│   ├── [8.0K]  .DS_Store
+│   ├── [  96]  css
+│   │   └── [ 15K]  jobiizy-modal.css
+│   └── [ 224]  js
+│       ├── [ 13K]  jobiizy-apply.js
+│       ├── [ 13K]  jobiizy-apply2512_001.js
+│       ├── [ 13K]  jobiizy-applyORI.js
+│       ├── [  51]  jobiizy-debug.js
+│       └── [1.8K]  jobiizy-function.js
+├── [ 10K]  correctif-logos-entreprises.php
+├── [9.0K]  correction-masse-jobs.php
+├── [ 13K]  diagnostic-jobs-entreprise.php
+├── [7.4K]  filtre-entreprise-jobs.php
+├── [ 57K]  Jobiizy-function.php
+├── [ 11K]  jobiizy-settings-page.php
+├── [ 128]  modules
+│   ├── [6.0K]  .DS_Store
+│   └── [  96]  company
+│       └── [2.2K]  functions-company.php
+└── [  96]  templates
+    └── [5.4K]  company-carousel.php
+
+10 directories, 26 files

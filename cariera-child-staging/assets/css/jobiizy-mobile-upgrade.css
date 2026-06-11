@@ -1,0 +1,882 @@
+/**
+ * JobiiZy - Mobile Upgrade v8.5 CSS
+ * 
+ * CORRECTIONS v7.0 :
+ *   - ✅ Transition header ↔ barre synchronisée (plus de bande noire)
+ *   - ✅ Header caché quand modale ouverte (z-index fix)
+ *   - ✅ Transitions GPU smooth (will-change + cubic-bezier)
+ *   - ✅ Bouton X mmenu stylé
+ *   - ✅ Glow Gemini conservé
+ * 
+ * @version 7.0
+ */
+
+@media (max-width: 1024px) {
+
+    /* ---------------------------------------------------------
+       1. MASQUER LES ANCIENS ÉLÉMENTS
+       --------------------------------------------------------- */
+    .jobiizy-mobile-sticky-bar,
+    #jobiizy-mobile-sticky,
+    .jobiizy-mobile-search-trigger,
+    .jobiizy-toggle-search-btn,
+    .jobiizy-mobile-search-in-header {
+        display: none !important;
+    }
+
+    .jobiizy-search-bar-sticky,
+    #jobiizy-desktop-bar {
+        display: none !important;
+    }
+
+    /* ---------------------------------------------------------
+       2. COMPTEUR D'OFFRES
+       --------------------------------------------------------- */
+    .jobiizy-split-header,
+    #jobiizy-job-counter {
+        display: block !important;
+        padding: 12px 16px 8px !important;
+        margin: 0 !important;
+        background: transparent !important;
+    }
+
+    .jobiizy-split-header .jobiizy-job-count {
+        font-size: 14px !important;
+        justify-content: center !important;
+        text-align: center !important;
+    }
+
+    /* ---------------------------------------------------------
+       3. HEADER - TRANSITIONS SMOOTH v8
+       --------------------------------------------------------- */
+    /* Position fixed uniquement sur les pages avec la barre jobiizy */
+    body.jobiizy-jobs-page header.cariera-main-header,
+    body.jobiizy-jobs-page header.main-header {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 100000 !important;
+        transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    body.admin-bar header.cariera-main-header,
+    body.admin-bar header.main-header {
+        top: 46px !important;
+    }
+
+       /* Classes show/hide uniquement sur pages jobs aussi */
+    body.jobiizy-jobs-page header.cariera-main-header.jb-header-hidden,
+    body.jobiizy-jobs-page header.main-header.jb-header-hidden {
+        transform: translateY(-100%) !important;
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+        /* Retirer opacity de la transition pour éviter le flash */
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+    
+    body.jobiizy-jobs-page header.cariera-main-header.jb-header-visible,
+    body.jobiizy-jobs-page header.main-header.jb-header-visible {
+        transform: translateY(0) !important;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* v8: Header caché instantanément pour la modale (pas de transition) */
+    body.jobiizy-jobs-page header.cariera-main-header.jb-header-hidden-for-modal,
+    body.jobiizy-jobs-page header.main-header.jb-header-hidden-for-modal {
+        transform: translateY(-100%) !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transition: opacity 0.1s ease !important;
+    }
+     /* Neutralise header-fixed de Cariera (frontend.js module 327)
+       qui entre en conflit avec jb-header-hidden/visible sur mobile.
+       Ajouté le 25/02/2026 */
+    body.jobiizy-jobs-page header.cariera-main-header.header-fixed,
+    body.jobiizy-jobs-page header.main-header.header-fixed {
+        visibility: visible !important;
+        opacity: 1 !important;
+        /* transform: none !important;*/  /* on laisse nos classes jb- gérer le transform */
+        position: fixed !important;
+        top: 0 !important;
+    }
+    
+    /* Nos classes prennent le dessus */
+    body.jobiizy-jobs-page header.cariera-main-header.header-fixed.jb-header-hidden,
+    body.jobiizy-jobs-page header.main-header.header-fixed.jb-header-hidden {
+        transform: translateY(-100%) !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+
+    body.jobiizy-jobs-page header.cariera-main-header.header-fixed.jb-header-visible,
+    body.jobiizy-jobs-page header.main-header.header-fixed.jb-header-visible {
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+ 	@media (min-width: 783px) {
+        body.admin-bar header.cariera-main-header,
+        body.admin-bar header.main-header {
+            top: 32px !important;
+	}
+ 
+}
+
+    /* ---------------------------------------------------------
+       4. BARRE DE RECHERCHE MOBILE - BASE v8
+       --------------------------------------------------------- */
+    .jb-mobile-bar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 99999 !important;
+        background: rgba(15, 23, 42, 0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+        /* v8: on anime transform (GPU) au lieu de top (saccadé sur iOS) */
+        transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    box-shadow 0.35s ease,
+                    border-color 0.35s ease;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+            transform: translateY(var(--jb-header-height, 60px));
+    }
+    .jb-mobile-bar.jb-hidden-for-scroll {
+    transform: translateY(-100%) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+    /* Éviter le bandeau noir pendant la transition header → barre */
+    .jb-mobile-bar {
+        transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+        /* Pas de délai — la barre doit bouger EN MÊME TEMPS que le header */
+    }
+    /* v8: Mode normal = barre décalée de la hauteur du header via CSS var */
+    .jb-mobile-bar.jb-normal {
+        transform: translateY(var(--jb-header-height, 60px));
+    }
+
+    /* v8: Mode compact = barre en haut */
+    .jb-mobile-bar.jb-compact {
+        transform: translateY(var(--jb-admin-bar-height, 0px));
+    }
+
+    /* v8: Barre cachée pour modale - instantané */
+    .jb-mobile-bar.jb-hidden-for-modal {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transition: none !important;
+    }
+
+    /* v8: Barre cachée pour menu/detail/filters */
+    .jb-mobile-bar.jb-hidden-for-menu,
+    .jb-mobile-bar.jb-hidden-for-detail,
+    .jb-mobile-bar.jb-hidden-for-filters {
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+
+    /* ---------------------------------------------------------
+       5. MODE COMPACT - GLOW GEMINI (v8: position via transform dans section 4)
+       --------------------------------------------------------- */
+    .jb-mobile-bar.jb-compact {
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        
+        box-shadow: 
+            0 0 50px rgba(59, 130, 246, 0.7),
+            0 0 25px rgba(99, 102, 241, 0.6),
+            0 8px 35px rgba(0, 0, 0, 0.7),
+            inset 0 0 25px rgba(59, 130, 246, 0.2),
+            inset 0 -2px 0 rgba(99, 102, 241, 0.5),
+            inset 0 1px 0 rgba(139, 92, 246, 0.4);
+        
+        border-bottom: 2px solid rgba(99, 102, 241, 0.7);
+        border-top: 1px solid rgba(139, 92, 246, 0.5);
+        
+        animation: jb-glow-pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes jb-glow-pulse {
+        0%, 100% {
+            box-shadow: 
+                0 0 50px rgba(59, 130, 246, 0.7),
+                0 0 25px rgba(99, 102, 241, 0.6),
+                0 8px 35px rgba(0, 0, 0, 0.7),
+                inset 0 0 25px rgba(59, 130, 246, 0.2),
+                inset 0 -2px 0 rgba(99, 102, 241, 0.5),
+                inset 0 1px 0 rgba(139, 92, 246, 0.4);
+        }
+        50% {
+            box-shadow: 
+                0 0 60px rgba(59, 130, 246, 0.8),
+                0 0 30px rgba(99, 102, 241, 0.7),
+                0 8px 35px rgba(0, 0, 0, 0.7),
+                inset 0 0 30px rgba(59, 130, 246, 0.25),
+                inset 0 -2px 0 rgba(99, 102, 241, 0.6),
+                inset 0 1px 0 rgba(139, 92, 246, 0.5);
+        }
+    }
+
+    .jb-mobile-bar.jb-compact::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 15%;
+        right: 15%;
+        height: 2px;
+        background: linear-gradient(90deg,
+            transparent, 
+            rgba(99, 102, 241, 0.5) 25%, 
+            rgba(139, 92, 246, 0.7) 50%, 
+            rgba(99, 102, 241, 0.5) 75%, 
+            transparent);
+        filter: blur(1px);
+        animation: jb-glowFade 0.5s ease 0.2s both;
+    }
+
+    @keyframes jb-glowFade { 
+        from { opacity: 0; } 
+        to { opacity: 1; } 
+    }
+
+    .jb-mobile-bar.jb-compact .jb-mobile-bar-inner {
+        padding: 8px 12px;
+    }
+
+    .jb-mobile-bar.jb-compact .jb-mobile-search-trigger {
+        padding: 10px 14px;
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid rgba(99, 102, 241, 0.4);
+        box-shadow: 
+            0 0 15px rgba(59, 130, 246, 0.2),
+            inset 0 0 10px rgba(59, 130, 246, 0.1);
+    }
+
+    .jb-mobile-bar.jb-compact .jb-mobile-filter-btn {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+    }
+
+    /* ---------------------------------------------------------
+       6. CONTENU DE LA BARRE
+       --------------------------------------------------------- */
+    .jb-mobile-bar-inner {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        transition: padding 0.25s ease;
+    }
+
+    .jb-mobile-bar.jb-compact .jb-mobile-bar-inner {
+        padding-top: max(8px, env(safe-area-inset-top));
+    }
+
+    .jb-mobile-search-trigger {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(100, 116, 139, 0.3);
+        border-radius: 12px;
+        padding: 12px 16px;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: all 0.2s ease;
+    }
+
+    .jb-mobile-search-trigger:active {
+        background: rgba(59, 130, 246, 0.15);
+        border-color: rgba(59, 130, 246, 0.4);
+        transform: scale(0.98);
+    }
+
+    .jb-mobile-search-trigger .jb-search-icon { 
+        color: #60a5fa; 
+        font-size: 18px; 
+        flex-shrink: 0; 
+    }
+    
+    .jb-mobile-search-trigger .jb-search-text { 
+        color: #94a3b8; 
+        font-size: 15px; 
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+    }
+    
+    .jb-mobile-search-trigger .jb-search-text.has-value { 
+        color: #e2e8f0; 
+        font-weight: 500; 
+    }
+
+    .jb-mobile-filter-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: 44px; 
+        height: 44px; 
+        min-width: 44px; 
+        flex-shrink: 0;
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(100, 116, 139, 0.3);
+        border-radius: 12px;
+        color: #60a5fa;
+        font-size: 20px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .jb-mobile-filter-btn:active {
+        background: rgba(59, 130, 246, 0.2);
+        transform: scale(0.95);
+    }
+
+    .jb-mobile-filter-btn .jb-filter-count {
+        position: absolute; 
+        top: -4px; 
+        right: -4px;
+        min-width: 18px; 
+        height: 18px; 
+        padding: 0 5px;
+        background: #3b82f6; 
+        color: white;
+        border: 2px solid rgba(15, 23, 42, 0.95);
+        border-radius: 10px; 
+        font-size: 10px; 
+        font-weight: 700;
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+        opacity: 0; 
+        transform: scale(0); 
+        transition: all 0.2s ease;
+    }
+
+    .jb-mobile-filter-btn .jb-filter-count.visible { 
+        opacity: 1; 
+        transform: scale(1); 
+    }
+
+    /* ---------------------------------------------------------
+       7. TAGS
+       --------------------------------------------------------- */
+    .jb-mobile-active-tags {
+        display: none;
+        padding: 0 14px 8px; 
+        gap: 6px; 
+        flex-wrap: nowrap;
+        overflow-x: auto; 
+        -webkit-overflow-scrolling: touch; 
+        scrollbar-width: none;
+    }
+    
+    .jb-mobile-active-tags::-webkit-scrollbar { 
+        display: none; 
+    }
+    
+    .jb-mobile-active-tags.visible { 
+        display: flex; 
+    }
+
+    .jb-mobile-tag {
+        display: inline-flex; 
+        align-items: center; 
+        gap: 6px;
+        background: rgba(59,130,246,0.15); 
+        border: 1px solid rgba(59,130,246,0.3);
+        border-radius: 8px; 
+        padding: 4px 10px;
+        color: #93c5fd; 
+        font-size: 12px; 
+        font-weight: 500; 
+        white-space: nowrap; 
+        flex-shrink: 0;
+    }
+
+    .jb-mobile-tag .jb-tag-remove { 
+        background: none; 
+        border: none; 
+        color: #93c5fd; 
+        padding: 0; 
+        cursor: pointer; 
+        font-size: 14px; 
+    }
+
+    /* ---------------------------------------------------------
+       8. SPACER
+       --------------------------------------------------------- */
+    .jb-mobile-spacer { 
+        height: 0; 
+        transition: height 0.3s ease; 
+    }
+
+    /* ---------------------------------------------------------
+       9. MODAL RECHERCHE
+       --------------------------------------------------------- */
+    .jobiizy-mobile-search-modal,
+    #jobiizy-mobile-search-modal {
+        position: fixed !important;
+        top: 0 !important; 
+        left: 0 !important; 
+        right: 0 !important; 
+        bottom: 0 !important;
+        width: 100% !important; 
+        height: 100% !important;
+        /* 🆕 v7: z-index au-dessus du header */
+        z-index: 1000000 !important;
+        background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%) !important;
+        display: none !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+        transform: translateY(100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    .jobiizy-mobile-search-modal.show,
+    #jobiizy-mobile-search-modal.show {
+        display: flex !important;
+        transform: translateY(0) !important;
+    }
+
+    /* Header modal */
+    .jobiizy-mobile-search-modal .jobiizy-mobile-search-header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 16px 20px !important;
+        padding-top: max(16px, env(safe-area-inset-top)) !important;
+        border-bottom: 1px solid rgba(59, 130, 246, 0.2) !important;
+        flex-shrink: 0 !important;
+        min-height: 60px !important;
+        gap: 12px !important;
+        background: rgba(15, 23, 42, 0.98) !important;
+    }
+
+    .jobiizy-mobile-search-modal .jobiizy-mobile-search-header h3 {
+        color: #f8fafc !important; 
+        font-size: 18px !important; 
+        font-weight: 700 !important;
+        margin: 0 !important; 
+        flex: 1 !important;
+        display: flex !important; 
+        align-items: center !important; 
+        gap: 10px !important;
+    }
+
+    .jobiizy-mobile-search-modal .jobiizy-mobile-search-header h3 i {
+        color: #60a5fa !important;
+    }
+
+    /* BOUTON CLOSE MODAL - FORCE VISIBLE */
+    .jobiizy-mobile-search-modal .jobiizy-mobile-close-search,
+    #jobiizy-mobile-search-modal .jobiizy-mobile-close-search,
+    #jobiizy-mobile-search-modal #jobiizy-mobile-close-search {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 44px !important; 
+        height: 44px !important;
+        min-width: 44px !important; 
+        min-height: 44px !important;
+        max-width: 44px !important;
+        flex-shrink: 0 !important;
+        background: rgba(248, 113, 113, 0.15) !important;
+        border: 1px solid rgba(248, 113, 113, 0.3) !important;
+        border-radius: 12px !important;
+        color: #fca5a5 !important;
+        font-size: 22px !important;
+        cursor: pointer !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        position: relative !important;
+        z-index: 10 !important;
+        overflow: visible !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        clip: auto !important;
+        clip-path: none !important;
+        transform: none !important;
+        text-indent: 0 !important;
+    }
+
+    .jobiizy-mobile-search-modal .jobiizy-mobile-close-search:active {
+        background: rgba(248, 113, 113, 0.3) !important;
+        transform: scale(0.95) !important;
+    }
+
+    .jobiizy-mobile-search-modal .jobiizy-mobile-close-search i,
+    #jobiizy-mobile-search-modal #jobiizy-mobile-close-search i {
+        font-size: 22px !important;
+        color: #fca5a5 !important;
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    /* Body modal */
+    .jobiizy-mobile-search-modal .jobiizy-mobile-search-body {
+        flex: 1 !important; 
+        padding: 20px !important;
+        overflow-y: auto !important; 
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .jobiizy-mobile-search-modal .jobiizy-mobile-search-field {
+        margin-bottom: 20px !important; 
+        position: relative !important; 
+        overflow: visible !important;
+    }
+
+    .jobiizy-mobile-search-modal .jobiizy-mobile-search-field label {
+        display: flex !important; 
+        align-items: center !important; 
+        gap: 8px !important;
+        color: #94a3b8 !important; 
+        font-size: 12px !important; 
+        font-weight: 700 !important;
+        text-transform: uppercase !important; 
+        margin-bottom: 8px !important;
+    }
+
+    .jobiizy-mobile-search-modal .jobiizy-mobile-search-field input {
+        width: 100% !important;
+        background: rgba(30, 41, 59, 0.6) !important;
+        border: 1px solid rgba(100, 116, 139, 0.3) !important;
+        color: #f8fafc !important;
+        padding: 16px !important;
+        border-radius: 12px !important;
+        font-size: 16px !important;
+        box-sizing: border-box !important;
+        -webkit-appearance: none !important;
+    }
+
+    .jobiizy-mobile-search-modal .jobiizy-mobile-search-field input:focus {
+        outline: none !important;
+        border-color: #3b82f6 !important;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+    }
+
+    .jobiizy-mobile-search-modal .jobiizy-mobile-search-field input::placeholder { 
+        color: #64748b !important; 
+    }
+
+    /* Footer modal */
+    .jobiizy-mobile-search-modal .jobiizy-mobile-search-footer {
+        padding: 16px 20px !important;
+        padding-bottom: max(16px, env(safe-area-inset-bottom)) !important;
+        border-top: 1px solid rgba(59, 130, 246, 0.2) !important;
+        flex-shrink: 0 !important;
+        background: rgba(15, 23, 42, 0.98) !important;
+    }
+
+    .jobiizy-mobile-search-modal .jobiizy-mobile-search-submit {
+        width: 100% !important;
+        padding: 16px !important;
+        background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 14px !important;
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        cursor: pointer !important;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+    }
+
+    .jobiizy-mobile-search-modal .jobiizy-mobile-open-filters {
+        width: 100% !important;
+        padding: 16px !important;
+        background: rgba(59, 130, 246, 0.1) !important;
+        border: 1px solid rgba(59, 130, 246, 0.3) !important;
+        border-radius: 12px !important;
+        color: #93c5fd !important;
+        font-size: 15px !important;
+        text-align: left !important;
+        cursor: pointer !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+    }
+
+    /* ---------------------------------------------------------
+       10. v8: BOUTON X MMENU - corrigé pour overflow visible
+       --------------------------------------------------------- */
+
+
+}
+
+/* ================================================
+   HC-OFFCANVAS-NAV - Intégration JobiiZy (v8.6)
+   - Trigger HC dans le slot Cariera .mmenu-trigger
+   - Cache le bouton Cariera #mobile-nav-toggler
+   - Style proche Cariera
+   ================================================ */
+
+/* Empêcher l’affichage du clone mmenu Cariera si jamais il apparaît */
+nav.main-mobile-nav:not(.jobiizy-mobile-nav),
+nav.mmenu-init,
+nav.mm-menu{
+  display: none !important;
+}
+
+/* HC au-dessus du header + barre */
+.hc-offcanvas-nav,
+.hc-off-canvas-overlay{
+  z-index: 250000 !important;
+  font-family: "Inter", sans-serif !important;
+}
+
+/* Admin bar: drawer descend */
+body.admin-bar .hc-offcanvas-nav .nav-container{
+  top: 46px !important;
+  height: calc(100vh - 46px) !important;
+}
+@media (min-width: 783px){
+  body.admin-bar .hc-offcanvas-nav .nav-container{
+    top: 32px !important;
+    height: calc(100vh - 32px) !important;
+  }
+}
+
+/* Overlay */
+.hc-off-canvas-overlay{
+  background: rgba(0,0,0,.5);
+}
+
+/* Drawer base (style Cariera-like) */
+/* .hc-offcanvas-nav .nav-container{
+  width: 320px;
+  background: #141e32;
+}
+*/
+.hc-offcanvas-nav .nav-container, .hc-offcanvas-nav .nav-wrapper, .hc-offcanvas-nav ul {
+    background: #141e32;
+}
+
+.hc-offcanvas-nav h2{
+ /*  background: #1a1d20;*/
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: .6px;
+  font-size: 14px;
+  padding: 18px 18px;
+  text-transform: uppercase;
+}
+
+.hc-offcanvas-nav .nav-wrapper > ul > li > a,
+.hc-offcanvas-nav .nav-wrapper > ul > li > span{
+  color: rgba(255,255,255,.92);
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  font-size: 15px;
+}
+
+.hc-offcanvas-nav .nav-wrapper > ul > li > a:hover{
+  background: rgba(255,255,255,.06);
+}
+
+/* flèches */
+.hc-offcanvas-nav .nav-next{
+  background: transparent;
+  border-left: 1px solid rgba(255,255,255,.06);
+}
+.hc-offcanvas-nav .nav-next::before{
+  border-color: rgba(255,255,255,.75);
+}
+
+/* bouton close dans le panneau */
+.hc-offcanvas-nav .nav-close-button{
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 10px !important;
+  line-height: 44px !important;
+  font-size: 28px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  /* background: rgba(255,255,255,0.12) !important;*/
+}
+.hc-offcanvas-nav .nav-close-button span::before, .hc-offcanvas-nav .nav-close-button span::after {
+    width: 8px !important;
+    height: 8px !important;
+    border-top: 3px solid #fff !important;
+    border-left: 3px solid #fff !important;
+}
+.hc-offcanvas-nav .nav-content>h2, .hc-offcanvas-nav .nav-content>h3, .hc-offcanvas-nav .nav-content>h4, .hc-offcanvas-nav .nav-content>h5, .hc-offcanvas-nav .nav-content>h6 {
+    color: #fff !important;
+}
+
+.hc-offcanvas-nav.nav-position-right .nav-back span::before {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.hc-offcanvas-nav.nav-position-right .nav-next span::before {
+    transform: translate(-50%, -50%) rotate(135deg);
+}
+/* Badge */
+.hc-offcanvas-nav .jb-subcount{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
+
+  border-radius: 999px;
+  background: #3b5bfd;
+  color: #fff;
+
+  font-size: 12px;
+  font-weight: 700;
+
+    position: absolute !important;
+    right: 52px !important;  /* juste avant la flèche */
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin: 0 !important;
+  margin-right: 14px;  /* espace avant la flèche */
+}
+
+.hc-offcanvas-nav li > a,
+.hc-offcanvas-nav li > span{
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Forcer flex sur les items avec badge pour que margin-left:auto fonctionne */
+.hc-offcanvas-nav li:has(.jb-subcount) > a,
+.hc-offcanvas-nav li:has(.jb-subcount) > span {
+    display: flex !important;
+    align-items: center !important;
+    flex: 1 !important;
+}
+
+.hc-offcanvas-nav .jb-subcount {
+    margin-left: auto !important;
+    margin-right: 12px !important;
+    flex-shrink: 0 !important;
+}
+
+/* -------------------------------
+   TRIGGER HC dans le slot Cariera
+   ------------------------------- */
+@media (max-width: 1024px){
+
+  /* on garde le slot */
+  header.cariera-main-header .mmenu-trigger,
+  header.main-header .mmenu-trigger{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+
+  /* on cache le bouton Cariera */
+  header.cariera-main-header .mmenu-trigger #mobile-nav-toggler,
+  header.main-header .mmenu-trigger #mobile-nav-toggler{
+    display: none !important;
+  }
+
+  header.cariera-main-header .mmenu-trigger .hc-nav-trigger,
+  header.main-header .mmenu-trigger .hc-nav-trigger{
+    overflow: visible !important;      /* évite le clipping */
+  }
+
+  /* bouton HC look Cariera */
+  header.cariera-main-header .mmenu-trigger .hc-nav-trigger,
+  header.main-header .mmenu-trigger .hc-nav-trigger{
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 8px !important;
+    /* background: #1f2327 !important; */
+    display: inline-flex !important;
+    /* align-items: center !important;*/ 
+    justify-content: center !important;
+    text-decoration: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: 0 10px 22px rgb(88 38 175 / 74%) !important;
+	/* box-shadow: 0 10px 22px rgba(0,0,0,.18) !important;*/
+    position: unset;
+  }
+
+  /* 3 barres */
+  header.cariera-main-header .mmenu-trigger .hc-nav-trigger > span,
+  header.main-header .mmenu-trigger .hc-nav-trigger > span{
+  position: relative !important;
+    display: block !important;
+    width: 22px !important;
+    height: 2px !important;
+    background: #000 !important;
+    border-radius: 2px !important;
+    overflow: visible !important;      /* évite le clipping */
+    transition: transform .2s ease, background .2s ease;
+  }
+
+  header.cariera-main-header .mmenu-trigger .hc-nav-trigger > span::before,
+  header.cariera-main-header .mmenu-trigger .hc-nav-trigger > span::after,
+  header.main-header .mmenu-trigger .hc-nav-trigger > span::before,
+  header.main-header .mmenu-trigger .hc-nav-trigger > span::after{
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    width: 22px !important;
+    height: 2px !important;
+    background: #000 !important;
+    border-radius: 2px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+
+  header.cariera-main-header .mmenu-trigger .hc-nav-trigger > span::before,
+  header.main-header .mmenu-trigger .hc-nav-trigger > span::before{ top:-7px  !important; }
+
+  header.cariera-main-header .mmenu-trigger .hc-nav-trigger > span::after,
+  header.main-header .mmenu-trigger .hc-nav-trigger > span::after{ top:7px !important; }
+
+  /* X quand ouvert */
+  html.hc-nav-open header.cariera-main-header .mmenu-trigger .hc-nav-trigger > span,
+  html.hc-nav-open header.main-header .mmenu-trigger .hc-nav-trigger > span{
+    background: transparent !important;
+  }
+
+  html.hc-nav-open header.cariera-main-header .mmenu-trigger .hc-nav-trigger > span::before,
+  html.hc-nav-open header.main-header .mmenu-trigger .hc-nav-trigger > span::before{
+    top: 0;
+    transform: rotate(45deg) !important;
+  }
+
+  html.hc-nav-open header.cariera-main-header .mmenu-trigger .hc-nav-trigger > span::after,
+  html.hc-nav-open header.main-header .mmenu-trigger .hc-nav-trigger > span::after{
+    top: 0;
+    transform: rotate(-45deg) !important;
+  }
+  
+  
+  
+}

@@ -1,0 +1,120 @@
+/* Bouton cœur Jobiizy (invité + connecté) */
+.jobiizy-heart-btn,
+.jobiizy-heart-connected {
+    position: absolute;
+    top: 12px;
+    right: 25px;
+
+    width: 42px !important;
+    height: 42px !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+    min-width: 0 !important;
+
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box !important;
+    border-radius: 50% !important;
+
+    background: #ffffff !important;
+    border: 2px solid #e6445b !important;
+    color: #e6445b !important;
+
+    font-size: 20px !important;
+    line-height: 1 !important;
+    box-shadow: none !important;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+/* Hover */
+.jobiizy-heart-btn:hover,
+.jobiizy-heart-connected:hover {
+    background: #ff0028 !important;
+    color: #fff6f9 !important;
+    border-color: #ff2463 !important;
+}
+
+/* Centrage parfait de l'icône SVG */
+.jobiizy-heart-btn svg,
+.jobiizy-heart-connected svg {
+    width: 20px !important;
+    height: 20px !important;
+    display: block !important;
+    margin: 0 auto !important;
+}
+
+/* Centrage parfait de l'icône Line Awesome / FontAwesome */
+.jobiizy-heart-btn i,
+.jobiizy-heart-connected i {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    font-style: normal !important;
+    line-height: 1 !important;
+    margin: 0 !important; /* Annule le margin-left de Cariera */
+    padding: 0 !important;
+    position: static !important; /* Annule le position: relative de Cariera */
+    top: auto !important; /* Annule le top: 2px de Cariera */
+    left: auto !important;
+}
+
+/* Centrage du ::before (content de l'icône) */
+.jobiizy-heart-btn i::before,
+.jobiizy-heart-connected i::before {
+    display: block !important;
+    line-height: 1 !important;
+    vertical-align: middle !important;
+}
+
+/* Animation de l'icône au hover */
+.jobiizy-heart-outline {
+    transition: all 0.25s ease;
+}
+
+/* Positionne correctement la zone actions dans le header job */
+.listing-actions {
+    position: relative;
+}
+
+/* Overlay de la popup */
+#jobiizy-login-popup-overlay {
+    z-index: 999999 !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Bloque le scroll quand popup ouverte */
+body.jobiizy-popup-open {
+    overflow: hidden;
+}
+
+/* Responsive mobile */
+@media (max-width: 768px) {
+    .jobiizy-heart-btn,
+    .jobiizy-heart-connected {
+        top: 8px;
+        right: 15px;
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 18px !important;
+    }
+
+    .jobiizy-heart-btn svg,
+    .jobiizy-heart-connected svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
+}

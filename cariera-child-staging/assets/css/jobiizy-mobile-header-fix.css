@@ -1,0 +1,53 @@
+/* ============================================================
+   JOBIIZY HEADER MOBILE — compatible Cariera
+   ============================================================ */
+@media (max-width: 1024px) {
+
+  header.cariera-main-header.header1 .header-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    padding: 10px 16px !important;
+  }
+
+  /* Logo à gauche */
+  header.cariera-main-header .logo {
+    order: 1 !important;
+    flex: 0 0 auto !important;
+  }
+
+  /* Burger menu à droite */
+  header.cariera-main-header .mmenu-trigger {
+    order: 4 !important;
+    display: flex !important;
+    align-items: center !important;
+    /* justify-content: flex-end !important;*/
+    margin-left: 12px !important;
+  }
+
+  /* Bloc d’icônes à droite du logo (avant burger) */
+  header.cariera-main-header .extra-menu {
+    order: 3 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 10px !important;
+    margin-left: auto !important;
+    border-top: none !important;
+    margin-top: 0 !important;
+    flex: 0 1 auto !important;
+    padding: 0 !important;
+  }
+
+  /* Icônes */
+  header.cariera-main-header .extra-menu-item i {
+    font-size: 22px !important;
+    color: var(--cariera-dark-text-color, #111) !important;
+  }
+
+  /* Cache le menu desktop */
+  header.cariera-main-header .main-nav-wrapper {
+    display: none !important;
+  }
+}

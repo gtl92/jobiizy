@@ -1,0 +1,477 @@
+/* =======================================================================
+   STYLES POUR LA SECTION 'ENVOYER VOTRE CV' - STYLE HELLOWORK
+   VERSION FINALE OPTIMISÉE + SCOPÉE SUR #cv-form
+   ======================================================================= 
+Version: 2.0.3   
+*/
+
+body:not(.single-job_listing) #cv-form .container {
+  margin: 0 !important;
+}
+
+/* Section principale */
+#cv-form {
+  background: linear-gradient(135deg, #e0c3fc 0%, #9bb5ff 100%);
+  padding: 3rem 0;
+  margin: 2rem 0;
+  position: relative;
+  overflow: visible !important;
+}
+
+#cv-form::before {
+  content: 
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Titre */
+#cv-form h2,
+#cv-form .section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+@media (min-width: 768px) {
+  #cv-form h2,
+  #cv-form .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    text-align: left;
+ 	margin-left: 1rem;
+  }
+}
+
+
+/* Neutraliser le container global UNIQUEMENT dans la section CV */
+#cv-form .container {
+  max-width: 100% !important;
+  /* margin: 0 50px !important;*/
+  padding: 0 1rem !important;
+}
+/* Container */
+#cv-form .cv-form-container {
+  max-width: none;
+  margin: 0;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 2;
+  overflow: visible !important;
+}
+
+/* Carte */
+#cv-form .cv-form-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.1),
+    0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: visible !important;
+  margin-right: 1rem;
+  animation: slideInUp 0.6s ease-out;
+}
+
+@media (min-width: 768px) {
+  #cv-form .cv-form-card {
+    padding: 3rem 4rem;
+  }
+}
+
+/* =======================================================================
+   GRILLE & GROUPES
+   ======================================================================= */
+
+#cv-form .cv-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  overflow: visible !important;
+}
+
+@media (min-width: 768px) {
+  #cv-form .cv-form-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.1rem;
+  }
+}
+
+#cv-form .cv-form-full-width { grid-column: 1 / -1; }
+
+#cv-form .cv-form-group {
+  position: relative;
+  margin-bottom: 1rem;
+  overflow: visible !important;
+  min-height: fit-content;
+}
+
+/* =======================================================================
+   INPUTS & LABELS
+   ======================================================================= */
+
+#cv-form .cv-form-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+#cv-form .cv-form-label-error {
+  color: #E52054 !important;
+  font-weight: 600 !important;
+}
+
+#cv-form .cv-form-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#cv-form .cv-form-input {
+  flex: 1;
+  width: 100%;
+  border: 1px solid #d1d5db;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #111827;
+  background-color: #fff;
+  transition: all 0.2s ease;
+}
+
+#cv-form .cv-form-input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+#cv-form .cv-form-input::placeholder {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+#cv-form .cv-form-input-error {
+  border-color: #E52054 !important;
+  background-color: #fef2f2 !important;
+  box-shadow: 0 0 0 3px rgba(229, 32, 84, 0.1) !important;
+}
+
+/* =======================================================================
+   MESSAGES D'ERREUR
+   ======================================================================= */
+
+#cv-form .cv-form-error-message {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  color: #E52054 !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+#cv-form .cv-form-error-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* =======================================================================
+   FILE UPLOAD
+   ======================================================================= */
+
+/* Style du champ file input */
+#cv-form .cv-form-input[type="file"] {
+  border: none;
+  padding: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* Bouton "Choisir un fichier" */
+#cv-form .cv-form-input[type="file"]::file-selector-button,
+#cv-form .cv-form-input[type="file"]::-webkit-file-upload-button {
+  border: none;
+  padding: 0.65rem 1.25rem;
+  border-radius: 9999px;
+  /* background: linear-gradient(135deg, #5431c8, #6b42f0);*/
+  background:black;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover du bouton */
+#cv-form .cv-form-input[type="file"]::file-selector-button:hover,
+#cv-form .cv-form-input[type="file"]::-webkit-file-upload-button:hover {
+   background: linear-gradient(135deg, #5b5b5d, #757379);
+  box-shadow: 0 3px 8px rgba(84, 49, 200, 0.3);
+}
+
+
+/* Nouveau design HelloWork-like */
+#cv-form .file-upload-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+#cv-form .file-upload {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#cv-form .file-upload input[type="file"] {
+  display: none;
+}
+
+#cv-form .file-upload-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: 0.9rem 1.25rem;
+  width: 100%;
+  background: #5431c8;
+  color: #fff;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  border: none;
+}
+
+#cv-form .file-upload-label:hover {
+  background: linear-gradient(135deg, #5b5b5d, #757379);
+}
+
+#cv-form .upload-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+#cv-form .file-upload-filename {
+  font-size: 0.9rem;
+  color: #111;
+  font-weight: 400;
+}
+/* =======================================================================
+   CHECKBOX
+   ======================================================================= */
+
+#cv-form .cv-form-checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+#cv-form .cv-form-checkbox {
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2px solid #d1d5db;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#cv-form .cv-form-checkbox:checked {
+  background: #6366f1;
+  border-color: #6366f1;
+}
+
+/* =======================================================================
+   BOUTON POSTULER
+   ======================================================================= */
+
+#cv-form .cv-form-actions {
+  margin-top: 2rem;
+}
+
+#cv-form .cv-form-actions .application_button,
+#cv-form .cv-form-actions button[type="submit"] {
+  width: 100%;
+  border-radius: 9999px;
+  background-color: #000;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: .85rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+#cv-form .cv-form-actions .application_button:hover,
+#cv-form .cv-form-actions button[type="submit"]:hover {
+  background-color: #6b42f0;
+  box-shadow: 0 4px 14px rgba(84, 49, 200, 0.4);
+}
+
+/* =======================================================================
+   COLLAPSE MESSAGE
+   ======================================================================= */
+.cv-form-collapse-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.cv-form-collapse-toggle .collapse-icon {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.cv-form-collapse-toggle[aria-expanded="true"] .collapse-icon {
+  transform: rotate(180deg);
+}
+#cv-form .cv-form-collapse-toggle {
+/*  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-weight: 600;
+  color: #111827;
+  border-radius: 6px;
+  padding: .5rem .75rem;
+
+  margin-bottom: .5rem;*/
+    cursor: pointer;
+  font-size: 0.875rem;
+  background: #fff;
+  border: none;
+}
+
+#cv-form textarea.collapse { 
+  display: none !important;
+}
+
+#cv-form textarea.collapse.show {
+  display: block !important;
+  margin-top: .5rem;
+}
+
+/* Comportement du collapse (si ce n’est pas déjà présent) */
+#jobiizy-message.collapse { display: none; }
+#jobiizy-message.collapse.show { display: block; }
+
+/* 1 seul SVG : petite rotation optionnelle quand ouvert */
+.cv-form-collapse-toggle .collapse-icon {
+  width: 16px; height: 16px; margin-left: .5rem; transition: transform .2s;
+}
+.cv-form-collapse-toggle[aria-expanded="true"] .collapse-icon { transform: rotate(180deg); }
+
+/* 2 SVG : on en masque un sur deux */
+.cv-form-collapse-toggle .icon-up   { display: none; width: 16px; height: 16px; margin-left: .5rem; }
+.cv-form-collapse-toggle .icon-down { display: inline; width: 16px; height: 16px; margin-left: .5rem; }
+.cv-form-collapse-toggle.is-open .icon-up   { display: inline; }
+.cv-form-collapse-toggle.is-open .icon-down { display: none; }
+
+/* =======================================================================
+   LAYOUT AVEC SIDEBAR
+   ======================================================================= */
+
+#cv-form .cv-form-layout {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+#cv-form .cv-form-container { grid-column: 1; }
+#cv-form .cv-form-sidebar   { grid-column: 2; }
+
+@media (max-width: 991px) {
+  #cv-form .cv-form-layout {
+    grid-template-columns: 1fr;
+  }
+  #cv-form .cv-form-container,
+  #cv-form .cv-form-sidebar {
+    grid-column: 1;
+  }
+}
+
+/* Styles pour le widget sticky */
+.job-sidebar {
+    position: relative; /* Important pour que le widget absolute s'y ancre */
+}
+
+.widget-job-overview.is-sticky {
+    /* Styles pour l'état fixed */
+    background-color: rgba(255, 255, 255, 0.95); /* Légèrement transparent */
+    backdrop-filter: blur(5px); /* Effet de flou derrière */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.job-overview-placeholder {
+    display: none; /* Cache le placeholder par défaut */
+}
+
+/* Styles pour le widget sticky */
+.widget-job-overview {
+    transition: all 0.3s ease;
+    border-radius: 0.5rem;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Classe pour la transparence en mode sticky */
+.widget-job-overview.widget-background-transparent {
+    background: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+.sidebar-info .widget-job-overview.widget-background-solid{
+    background-color: rgba(12, 14, 18, 0.88) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.31) !important;
+    transition: background .25s ease, border-color .25s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8),
+0 4px 10px rgba(0, 0, 0, 0.05) !important;
+
+}
+
+.sidebar-info .widget-job-overview.widget-background-clamped{
+    background: rgba(1, 1, 1, 1) !important;
+    border-color: rgba(255, 255, 255, 0.54) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1),
+0 4px 10px rgba(0, 0, 0, 0.05);
+
+}
+/* Classe pour indiquer le mode sticky */
+.widget-job-overview.is-sticky {
+    border-radius: 0.75rem;
+    margin: 0;
+}

@@ -1,0 +1,114 @@
+[ 896]  cariera-child-staging
+├── [ 12K]  .DS_Store
+├── [8.7K]  ajax-job-details.php
+├── [2.4K]  anti-spam.php
+├── [ 256]  assets
+│   ├── [8.0K]  .DS_Store
+│   ├── [ 480]  css
+│   │   ├── [ 12K]  cv_form_styles_final.css
+│   │   ├── [ 13K]  cv_form_styles.css
+│   │   ├── [2.8K]  jobiizy-bookmark.css
+│   │   ├── [1.5K]  jobiizy-mobile-header-fix.css
+│   │   ├── [2.7K]  jobiizy-mobile-hidden-states.css
+│   │   ├── [3.5K]  jobiizy-mobile-upgrade copie.css
+│   │   ├── [ 28K]  jobiizy-mobile-upgrade.css
+│   │   ├── [ 26K]  jobiizy-modern-cards.css
+│   │   ├── [2.6K]  jobiizy-modern-cards.css.old.zip
+│   │   ├── [1.5K]  jobiizy-overview.css
+│   │   ├── [ 66K]  jobiizy-split-view.css
+│   │   ├── [3.0K]  jobiizy-sticky-upgrade.css
+│   │   └── [3.8K]  jobiizy-transitions-smooth.css
+│   ├── [ 736]  js
+│   │   ├── [ 15K]  custom_with_scroll copie.js
+│   │   ├── [ 15K]  custom_with_scroll.js
+│   │   ├── [2.9K]  halfajax-button copie.js
+│   │   ├── [2.9K]  halfajax-button.js
+│   │   ├── [7.1K]  inject-company-name.js
+│   │   ├── [5.8K]  job-filters.js
+│   │   ├── [5.1K]  jobiizy-bookmark.js
+│   │   ├── [6.4K]  jobiizy-global.js
+│   │   ├── [ 14K]  jobiizy-mobile-upgrade (à partir de la sauvegarde).js
+│   │   ├── [ 25K]  jobiizy-mobile-upgrade copie.js
+│   │   ├── [ 24K]  jobiizy-mobile-upgrade.js
+│   │   ├── [ 69K]  jobiizy-split-view.js
+│   │   ├── [8.2K]  jobiizy-sticky-upgrade.js
+│   │   ├── [8.1K]  popup-login.js
+│   │   ├── [1.8K]  random-company-bg.js
+│   │   ├── [2.5K]  replace-cvform.js
+│   │   ├── [3.1K]  resume-filters.js
+│   │   ├── [ 11K]  splitview-apply.js
+│   │   ├── [1.3K]  splitview-company-link.js
+│   │   ├── [2.7K]  splitview-redirect.js
+│   │   └── [3.8K]  title-capitalize.js
+│   ├── [  96]  libs
+│   │   └── [ 192]  hc-offcanvas-nav
+│   │       ├── [333K]  hc-offcanvas-nav-6.1.5.zip
+│   │       ├── [ 14K]  hc-offcanvas-nav.carbon.css
+│   │       ├── [ 16K]  hc-offcanvas-nav.css
+│   │       └── [ 30K]  hc-offcanvas-nav.js
+│   ├── [ 192]  media
+│   │   ├── [ 342]  chevron-down.svg
+│   │   ├── [ 342]  chevron-up.svg
+│   │   ├── [1.8K]  icons8-error.svg
+│   │   └── [ 739]  search.svg
+│   └── [  96]  templates
+│       └── [4.9K]  cv-form.php
+├── [ 128]  cariera_core
+│   ├── [6.0K]  .DS_Store
+│   └── [ 128]  elements
+│       ├── [ 128]  listing-half
+│       │   ├── [ 21K]  jobiizy-main-details copie.php
+│       │   └── [ 20K]  jobiizy-main-details.php
+│       └── [ 160]  listing-search
+│           ├── [4.3K]  job-search.php
+│           ├── [ 518]  jobiizy-listingSearchForm.js
+│           └── [4.0K]  listing-searchbox.php
+├── [ 128]  cariera-addons
+│   ├── [6.0K]  .DS_Store
+│   └── [  96]  bookmarks
+│       └── [1.4K]  bookmark-trigger.php
+├── [147K]  cariera-core.zip
+├── [2.2K]  check-template.php
+├── [1.1K]  clear-cache.php
+├── [  96]  elementor-widgets
+│   └── [ 14K]  jobiizy-listing-split-view-widget.php
+├── [3.2M]  error_log
+├── [ 60K]  functions.php
+├── [ 256]  job_manager
+│   ├── [3.9K]  content-single-job_listing-company.php
+│   ├── [ 160]  form-fields
+│   │   ├── [1.2K]  select-field.php
+│   │   ├── [1.6K]  term-multiselect-field.php
+│   │   └── [1.2K]  text-field.php
+│   ├── [2.5K]  job-application.php
+│   ├── [2.5K]  job-resume-search-job-form.php
+│   ├── [9.7K]  job-submit.php
+│   └── [ 128]  single-job
+│       ├── [5.4K]  single-job-listing-jobiizy.php
+│       └── [2.3K]  single-job-listing-overviewNEW.php
+├── [7.9K]  jobiizy-ajax-functions.php
+├── [ 10K]  jobiizy-ajax-search_backup.php
+├── [ 11K]  jobiizy-ajax-search.php
+├── [2.7K]  jobiizy-custom-widgets.php
+├── [6.7K]  jobiizy-sync-fields.php
+├── [  96]  modules
+│   └── [  96]  debug
+│       └── [7.5K]  debug.php
+├── [  96]  pages
+│   └── [ 21K]  jobiizy-packages.html
+├── [ 68K]  screenshot.jpg
+├── [ 85K]  style.css
+├── [ 57K]  style20260112.css
+├── [ 192]  templates
+│   ├── [6.0K]  .DS_Store
+│   ├── [  96]  footer
+│   │   └── [1.4K]  copyright.php
+│   ├── [2.1K]  header-mobile-test.php
+│   └── [ 374]  page-recrutement.php
+├── [ 128]  wp-job-manager-applications
+│   ├── [5.5K]  application-form.php
+│   └── [6.3K]  application-formPREV.php
+└── [  96]  wp-job-manager-bookmarks
+    └── [3.6K]  bookmark-form.php
+
+25 directories, 87 files

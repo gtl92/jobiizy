@@ -1,0 +1,1 @@
+console.log("Jobiizy Customizations JS chargé !");

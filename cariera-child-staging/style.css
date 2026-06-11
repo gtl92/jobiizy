@@ -1,0 +1,2788 @@
+/*
+Theme Name: Cariera Child staging
+Theme URI: https://jobiizy.com/
+Description: Theme enfant base sur Cariera  version rationalisee sans perte fonctionnelle
+Author: Gilles
+Author URI: https://jobiizy.com/
+Template: cariera
+Version: 2.3.10
+Text Domain: cariera-child
+*/
+
+/* =========================================================
+   1) VARIABLES & THEME (clair/sombre)
+   ========================================================= */
+:root {
+    --color-primary: #040a8e;
+    --color-primary-dark: #002b5c;
+    --color-primary-light: #0535c5;
+    --color-accent: #006699;
+    --color-danger: #b71c1c;
+    --color-danger-hover: #e53935;
+    --color-white: #fff;
+    --color-black: #000;
+    --color-grey-light: #d5d5d5;
+    --color-grey-dark: #605858;
+    --color-bg: #f8f8f9;
+    --color-bg-blue: #e3e9ff;
+    --color-bg-light: #fff;
+    --color-border: #e3e3e3;
+    --color-text: #333;
+    --color-text-light: #fff;
+    --color-muted: #666;
+    --radius-small: 4px;
+    --radius-medium: 6px;
+    --radius-large: 1rem;
+    --transition-fast: all .3s ease;
+    --transition-medium: all .6s ease;
+    --cariera-light-grey-secondary: #f4f4f6;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-bg: #1e1e1e;
+        --color-border: #333;
+        --color-text: #e0e0e0;
+        --color-muted: #aaa;
+    }
+}
+
+.background_jobiizy {
+	background: radial-gradient(60% 80% at 20% 30%, rgba(26, 168, 240, 0.55) 0%, transparent 60%), radial-gradient(50% 70% at 80% 70%, rgba(60, 60, 161, 0.7) 0%, transparent 60%), linear-gradient(135deg, #1F1F6E 0%, #0B1437 100%);
+}
+/* =========================================================
+   3) ELEMENTOR / WIDGETS (catÃ©gories, etc.)
+   ========================================================= */
+body .listing-categories.grid-layout3 .listing-category a {
+    background: #fff !important;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    color: #000;
+    box-shadow: inset 0 0 4px #050505;
+}
+
+body .listing-categories.grid-layout3 .listing-category .title {
+    font-size: 1.3rem !important;
+}
+
+body .listing-categories.grid-layout3 .listing-category a:hover {
+    background: #5c5c5c !important;
+    transform: scale(.95);
+}
+
+/* =========================================================
+   4) FORMULAIRES & INPUTS GLOBAUX
+   ========================================================= */
+input[type="text"], input[type="email"], input[type="search"], input[type="url"], input[type="tel"], input[type="number"], input[type="password"], input[type="date"], input[type="time"], textarea, select {
+    border-radius: var(--radius-large) !important;
+    appearance: none;
+    border: 1px solid var(--color-border);
+    /* color:var(--color-text);*/
+    background: var(--color-bg-light);
+}
+
+input::placeholder, textarea::placeholder {
+    /* font-style: italic; */
+    /* optionnel */
+    /* opacity: 1;    */
+    /* important (Firefox) */
+    color: #94a3b8 !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    /* Plus moderne que l'italique */
+}
+
+/* Placeholder = option vide */
+select:has(option[value=""]:checked)
++ .select2
+.select2-selection__rendered {
+    color: #94a3b8 !important;
+    font-style: italic;
+}
+/* Select2 â€“ Ã©tat vide (= placeholder Cariera) */
+
+.select2-container--default
+.select2-selection--single
+.select2-selection__rendered[title] {
+    color: #181b20;
+    /* gris lisible */
+    /* font-style: italic; */
+    font-weight: 400;
+}
+/* Select2 */
+
+.select2-container .select2-selection--single, .select2-container--default .select2-selection--multiple, .select2-container--default .select2-selection {
+    border-radius: var(--radius-large) !important;
+    border: 1px solid var(--color-border);
+    background: #fff;
+    box-shadow: none;
+    position: relative;
+    padding-right: 24px !important;
+    color: var(--color-text);
+}
+
+.select2-container--default .select2-selection--multiple::after {
+    content: "\f107";
+    font-family: "Line Awesome Free";
+    font-weight: 600;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+.select2-search--inline .select2-search__field {
+    min-width: 350px !important;
+    width: auto !important;
+}
+
+/* =========================================================
+   5) LISTING SEARCH (HelloWork-like)
+   ========================================================= */
+#jobiizy-listingSearchForm {
+    /* background-color:#FFFFFF38; */
+    /* margin: 0; */
+    /* background-color: #FFFFFF38 !important; */
+    /* background-color: rgba(255, 255, 255, 0.9) !important; */
+    /* padding: 8px !important; */
+    /* background-color: rgba(255, 255, 255, 0.7) !important; */
+    /* Semi-transparent par dÃ©faut */
+    /* Effet verre dÃ©poli */
+    /* Espace pour l'Ã©lÃ©gance Ã  gauche */
+    /* transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); */
+    display: flex;
+    align-items: center;
+    /* Fond semi-transparent blanc */
+    /* background-color: rgba(255, 255, 255, 0.4) !important; */
+    /* L'effet de flou qui donne le cÃ´tÃ© "verre" */
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border-radius: 9999px !important;
+    padding: 12px 12px 12px 25px !important;
+    /* Bordure subtile pour deinir les contours */
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.4s ease;
+}
+
+#jobiizy-listingSearchForm:focus-within {
+    /* Au clic, on rend le verre legerement plus clair mais on garde la transparence */
+    background-color: rgba(255, 255, 255, 0.6) !important;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-2px);
+}
+/* Separation visuelle entre Quoi et OÃ¹ */
+
+#jobiizy-listingSearchForm .search-keywords {
+    border-right: 1px solid #e2e8f0;
+    /* Petite ligne grise entre les deux champs */
+    flex: 1.2;
+    margin-right: 10px;
+}
+
+/* On stylise les inputs pour qu'ils n'aient plus l'air de "champs de formulaire" */
+#jobiizy-listingSearchForm input[type="text"] {
+    background: transparent !important;
+    border: none !important;
+    color: #040a8e !important;
+    /* Utilise votre bleu primaire pour la lisibilite */
+    font-weight: 600;
+}
+
+/* Animation du bouton Loupe */
+.search-submit button.btn, #jobiizy-listingSearchForm .search-submit input.btn {
+    background: #040a8e !important;
+    /* On utilise ta variable --color-primary */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.search-submit button.btn:hover {
+    background: #000000 !important;
+    transform: scale(1.1) rotate(5deg);
+    /* Petit effet ludique au survol */
+}
+
+span.jobfind-title {
+    display: none;
+}
+
+#jobiizy-listingSearchForm .listing-search-form.style-2 {
+    border-radius: 50px;
+}
+
+#jobiizy-listingSearchForm .listing-search-form input.btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #000 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+#jobiizy-listingSearchForm .job-resume-tab-search .search-keywords input, #jobiizy-listingSearchForm .job-resume-tab-search .search-location input, #jobiizy-listingSearchForm .job-search-form .search-keywords input, #jobiizy-listingSearchForm .job-search-form .search-location input, #jobiizy-listingSearchForm .listing-search-box .search-keywords input, #jobiizy-listingSearchForm .listing-search-box .search-location input {
+    /* padding:5px 20px!important;*/
+}
+
+.search-submit button.btn, .search-submit input[type="submit"].btn, .jobiizy-search-btn, #jobiizy-listingSearchForm .search-submit input.btn {
+    width: 40px;
+    height: 40px;
+    background: #000;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    /* align-items:center; */
+    justify-content: center;
+    transition: transform .2s ease, background-color .3s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    padding: 9px 9px;
+    fill: white;
+    /* content: "Trouver mon job" !important; */
+    color: white;
+}
+
+.search-submit button.btn:hover, .jobiizy-search-btn:hover {
+    background: #222;
+    transform: scale(1.08);
+}
+
+#jobiizy-listingSearchForm .search-submit {
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+    right: 15px;
+}
+
+#jobiizy-listingSearchForm input::placeholder {
+    color: #898585;
+    font-size: 15px;
+    font-weight: 500;
+    opacity: 1;
+}
+
+/* =========================================================
+   6) FILTRES (job/resume) + Recherche avancÃ©e
+   ========================================================= */
+.company_filters, .job_filters, .resume_filters {
+    /* background:var(--color-bg-blue)!important; */
+    border: 1px solid var(--color-border) !important;
+    border-radius: var(--radius-large) !important;
+    margin-bottom: 40px !important;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, .2);
+    padding: 15px;
+}
+/* En-tÃªtes avec bouton reset */
+
+.company_filters .showing_companies, .job_filters .showing_jobs, .resume_filters .showing_resumes {
+    align-items: center;
+    background: var(--color-grey-light) !important;
+    color: var(--color-text);
+    padding: 10px 20px;
+    border-radius: var(--radius-large);
+    margin-top: 12px;
+}
+
+.showing_jobs a.rss_link, .showing_resumes a.rss_link, .showing_companies a.rss_link {
+    display: none !important;
+}
+
+.company_filters .showing_companies a.alert, .job_filters .showing_jobs a.alert, .resume_filters .showing_resumes a.alert {
+    background: var(--color-primary) !important;
+    color: var(--color-white) !important;
+    border-radius: var(--radius-small);
+    border: 1px solid var(--color-primary);
+    transition: background-color .3s ease, color .3s ease;
+    padding: 3px 10px !important;
+}
+
+.company_filters .showing_companies a.alert:hover, .job_filters .showing_jobs a.alert:hover, .resume_filters .showing_resumes a.alert:hover {
+    background: var(--color-primary-light) !important;
+}
+
+.company_filters .showing_companies a.reset, .job_filters .showing_jobs a.reset, .resume_filters .showing_resumes a.reset {
+    background: var(--color-danger) !important;
+    color: #fff !important;
+    border-radius: var(--radius-small);
+    border: 1px solid var(--color-danger);
+    transition: background-color .3s ease, color .3s ease;
+    padding: 6px 14px;
+}
+
+.company_filters .showing_companies a.reset:before, .job_filters .showing_jobs a.reset:before, .resume_filters .showing_resumes a.reset:before {
+    content: none !important;
+}
+
+.company_filters .showing_companies a.reset:hover, .job_filters .showing_jobs a.reset:hover, .resume_filters .showing_resumes a.reset:hover {
+    background: var(--color-danger-hover) !important;
+    border-color: var(--color-danger-hover);
+    color: #fff !important;
+}
+
+/* Bouton "Recherche avancÃ©e" â€” normalisÃ© (et surclasse le parent) */
+body .btn-advanced, body #toggle-advanced-filters, body #advance-search, body .advanced-toggle-btn, body .advanced-btn, body [id^="toggle-advanced-filters"], body [id^="toggle-advanced-resume"], .job_filters .advanced-btn, .job_filters [id^="toggle-advanced-filters"], .job_filters [id^="toggle-advanced-resume"], .resume_filters .advanced-btn, .resume_filters [id^="toggle-advanced-filters"], .resume_filters [id^="toggle-advanced-resume"] {
+    display: inline-block !important;
+    width: fit-content;
+    margin: 10px 0 20px !important;
+    align-self: flex-start;
+    background: var(--color-accent) !important;
+    color: #fff !important;
+    padding: 8px 16px !important;
+    font-weight: 600 !important;
+    border-radius: var(--radius-medium) !important;
+    text-decoration: none !important;
+    transition: var(--transition-fast) !important;
+    cursor: pointer !important;
+    border: 2px solid var(--color-accent) !important;
+    box-sizing: border-box;
+}
+
+body .btn-advanced:hover, body #toggle-advanced-filters:hover, body #advance-search:hover, body .advanced-toggle-btn:hover, body .advanced-btn:hover, body [id^="toggle-advanced-filters"]:hover, body [id^="toggle-advanced-resume"]:hover, .job_filters .advanced-btn:hover, .job_filters [id^="toggle-advanced-filters"]:hover, .job_filters [id^="toggle-advanced-resume"]:hover, .resume_filters .advanced-btn:hover, .resume_filters [id^="toggle-advanced-filters"]:hover, .resume_filters [id^="toggle-advanced-resume"]:hover {
+    background: #fff !important;
+    color: var(--color-accent) !important;
+    border: 2px solid var(--color-accent) !important;
+}
+/* Ã‰tats actifs */
+
+.btn-advanced.active, #toggle-advanced-filters.active, #advance-search.active, .advanced-toggle-btn.active, .advanced-btn.active, [id^="toggle-advanced-filters"].active, [id^="toggle-advanced-resume"].active {
+    background: #fff !important;
+    color: var(--color-accent) !important;
+    border: 2px solid var(--color-accent) !important;
+}
+
+.btn-advanced.active:hover, #toggle-advanced-filters.active:hover, #advance-search.active:hover, .advanced-toggle-btn.active:hover, .advanced-btn.active:hover, [id^="toggle-advanced-filters"].active:hover, [id^="toggle-advanced-resume"].active:hover {
+    background: var(--color-accent) !important;
+    color: #fff !important;
+    border: 2px solid var(--color-accent) !important;
+}
+
+/* Filtres avancÃ©s (ouverture/fermeture lissÃ©e) */
+.job_filters .advanced-search-filters, .resume_filters .advanced-search-filters {
+    display: none !important;
+    margin-top: 15px;
+    padding: 15px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-small);
+    background: var(--color-bg-light);
+    transition: var(--transition-medium);
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transform: translateY(-10px);
+}
+
+.job_filters .advanced-search-filters.active, .resume_filters .advanced-search-filters.active, .job_filters.show-advanced .advanced-search-filters, .resume_filters.show-advanced .advanced-search-filters {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 4%;
+    opacity: 1;
+    max-height: 600px;
+    transform: translateY(0);
+}
+
+.job_filters .advanced-search-filters > div, .resume_filters .advanced-search-filters > div {
+    flex: 1 1 48%;
+    margin-bottom: 15px;
+}
+
+/* Organisation interne (split & alignements) */
+.listing-split-view .listing-search .company_filters .search_companies > div, .listing-split-view .listing-search .job_filters .search_jobs > div, .listing-split-view .listing-search .resume_filters .search_resumes > div {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: flex-end;
+}
+
+.listing-split-view .listing-search .job_filters .search_jobs > div > div, .listing-split-view .listing-search .resume_filters .search_resumes > div > div, .listing-split-view .listing-search .company_filters .search_companies > div > div {
+    flex: 1 1 200px;
+    min-width: 200px;
+}
+
+body .company_filters .search_companies > div, body .job_filters .search_jobs > div, body .resume_filters .search_resumes > div {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 8px !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.job_filters .job_types li {
+    display: inline-block !important;
+}
+/* labels */
+
+.job_filters .job_types .checkbox input, .job_filters .job_types .checkbox label {
+    display: inline !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: static !important;
+}
+
+.job_filters label, .resume_filters label {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+}
+
+.job_filters .job_types .checkbox label, .resume_filters .job_types .checkbox label {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: static !important;
+}
+
+/* =========================================================
+   7) JOB LISTINGS (list/grid/cards)
+   ========================================================= */
+.listing-body {
+    /* background:aliceblue; */
+}
+
+ul.job_listings {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+}
+
+ul.job_listings .job_listing.job-list.single_job_listing_3 {
+    margin-bottom: 10px !important;
+    padding: 0 0 10px !important;
+    border-bottom: none !important;
+}
+
+ul.job_listings .job_listing.job-list.single_job_listing_3 .job-content-wrapper, ul.job_listings .job_listing.job-list.single_job_listing_4 .job-content-wrapper {
+    transition: all .3s ease;
+    border-radius: 15px !important;
+    border: 1px solid rgba(229, 229, 229, 1);
+    /*border:none!important;*/
+    margin-bottom: 10px !important;
+}
+
+ul.job_listings .job_listing.job-list.single_job_listing_3 .job-content-wrapper {
+    height: 240px !important;
+    border-style: solid;
+}
+
+ul.job_listings .job_listing.job-list.single_job_listing_3:hover .job-content-wrapper, ul.job_listings .job_listing.job-list.single_job_listing_4:hover .job-content-wrapper {
+    transition-duration: .1s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .1);
+}
+
+ul.job_listings .job_listing.job-list.single_job_listing_3 .listing-media .job-company {
+    border-radius: 15px !important;
+    background-color: transparent !important;
+    border: none !important;
+}
+
+ul.job_listings .job_listing.job-list.single_job_listing_3 .listing-body .job-actions a {
+    border-radius: 9999px;
+    background: #000;
+    text-transform: none;
+}
+
+ul.job_listings .job_listing.job-list.single_job_listing_3 .listing-body .job-actions .job-quickview {
+    border-radius: 9999px !important;
+    background: grey !important;
+}
+/* Certains templates Cariera wrapent le bouton dans un container flex */
+
+.job_listing .listing-footer a.btn-view-offer, .job_listing .listing-footer .apply-btn a {
+    flex: 0 0 auto !important;
+    width: auto !important;
+}
+/* Layout v4 (bords sÃ©parÃ©s) */
+
+ul.job_listings .job_listing.job-list.single_job_listing_4 .listing-media .job-company {
+    background: linear-gradient(to bottom, #ebf7ff, #c9cff4, #6080d7);
+    border-radius: 15px 0 0 15px !important;
+    /* border:1px solid #ccc; */
+    border-right: none;
+}
+
+ul.job_listings .job_listing.job-list.single_job_listing_4 .listing-body {
+    border-radius: 0 15px 15px 0 !important;
+    /* border: 1px solid #965b5b; */
+    border: none !important;
+    border-left: none;
+}
+
+ul.job_listings .job_listing.job-list.single_job_listing_4 {
+    border-radius: 15px !important;
+    /* border:1px solid #ccc; */
+    /* background: black!important; */
+}
+
+.listing-media {
+    border-radius: 15px !important;
+}
+
+ul.job_listings .job_listing.job-list.single_job_listing_3 .listing-media, ul.job_listings .job_listing.job-list.single_job_listing_4 .listing-media {
+    border-radius: 15px !important;
+    border: none !important;
+}
+/* Pagination */
+
+.woocommerce nav.woocommerce-pagination ul li .current, nav.job-manager-pagination ul li .current {
+    border-radius: 8px !important;
+}
+
+.woocommerce nav.woocommerce-pagination ul li a, nav.job-manager-pagination ul li a {
+    border-radius: 8px !important;
+}
+
+/* Cards hover gÃ©nÃ©riques */
+.card-hover {
+    transition: var(--transition-fast);
+}
+
+.card-hover:hover {
+    transform: translate(-5px, -5px);
+}
+
+ul.job_listings .job_listing.job-grid.single_job_listing_1 {
+    margin-bottom: 40px;
+}
+
+/* --- OPTIMISATION DES CARTES (LOOK MODERN) --- */
+
+/* Le conteneur de la carte */
+ul.job_listings .job_listing.job-grid.single_job_listing_4 > a {
+    background: #ffffff !important;
+    border: 1px solid #f1f5f9 !important;
+    /* Bordure trÃ¨s claire style Tailwind */
+    border-radius: 20px !important;
+    /* Arrondis plus gÃ©nÃ©reux */
+    padding: 20px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* Effet au survol : Ã©lÃ©vation et bordure colorÃ©e */
+ul.job_listings .job_listing.job-grid.single_job_listing_4 > a:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05) !important;
+    border-color: var(--color-primary-light) !important;
+}
+
+/* Le Logo : on le veut propre et bien cadrÃ© */
+ul.job_listings .job_listing.job-grid.single_job_listing_4 .listing-media .job-company img {
+    border-radius: 12px !important;
+    object-fit: contain !important;
+    background: #f8fafc;
+    padding: 5px;
+}
+
+/* Le Titre du Job */
+ul.job_listings .job_listing.job-grid.single_job_listing_4 .job-info .title {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: var(--color-primary-dark) !important;
+    margin-top: 15px !important;
+    line-height: 1.4 !important;
+}
+
+/* Badge de contrat (CDI, Freelance, etc.) */
+/* ul.job_listings .job_listing .job-types {
+    background-color: #e0e7ff !important; 
+    color: #4338ca !important;            
+    padding: 4px 12px !important;
+    border-radius: 9999px !important;     
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    border: none !important;
+}
+*/
+
+/* Localisation */
+ul.job_listings .job_listing .location {
+    font-size: 13px !important;
+    color: #64748b !important;
+    /* Gris ardoise doux */
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+/* =========================================================
+   8) SINGLE JOB PAGE (header, titles, bouton postuler)
+   ========================================================= */
+
+.single-job-v1 .single-job-content {
+    background: var(--cariera-light-grey-secondary) !important;
+    border: 1px solid #000000 !important;
+    /* border-radius: 16px !important; */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+    background: #000000 !important;
+    color: white;
+}
+
+.single-job-v1 .single-job-listing .company-info {
+    /*background:#f9faff!important;*/
+    border-radius: 25px !important;
+}
+
+.single-job-v1 .single-job-listing .company-info:hover {
+    box-shadow: 0 5px 25px rgba(0, 0, 0, .20) !important;
+}
+/* Neutraliser gradient parent (laissÃ© pour le JS BG alÃ©atoire) */
+
+.single-job-v1 .single-job-listing .company-info .job-company, section.page-header.job-header:not(.page-header-bg) {
+    /* background:none!important; */
+    /* background-image:none!important; */
+}
+
+.\.single-job-v1 .single-job-listing .job-description {
+    margin-top: 20px;
+    background: #fafafa91;
+    border: 1px solid var(--cariera-border-color);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, .08);
+    border-radius: 20px;
+    /* display: flex; */
+    padding: 30px;
+    color: #031172;
+}
+/*.single-job-v1 .single-job-listing  .job-description  .job-description-title{font-weight: 600;color: #020202;background: #fcfcfc;border-radius: 15px;border: 1px solid white;font-size: larger;height: 50px;}*/
+
+.single-job-v1 .single-job-listing .job-description .job-description-title {
+    background: transparent !important;
+    color: #ffffff !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    margin-bottom: 25px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    border-bottom: 1px solid rgb(255 255 255 / 15%);
+    /* Ligne de sÃ©paration trÃ¨s fine */
+    padding-bottom: 15px !important;
+}
+
+.job-description-title img {
+    filter: brightness(0) invert(1);
+    /* Si tu veux que l'icÃ´ne suitcase devienne blanche pour matcher le texte */
+    object-fit: contain;
+}
+
+.single-job-v1 .single-job-listing .job-description {
+    padding: 25px !important;
+    color: #ffffff !important;
+    /* Texte lÃ©gÃ¨rement cassÃ© pour ne pas agresser sur le noir */
+    line-height: 1.6 !important;
+    margin-top: unset !important;
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* Style pour les Tags (Tagged as) */
+.job_tags {
+    margin-top: 30px !important;
+    padding: 10px 15px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    /* border-radius: 6px !important; */
+    font-size: 13px !important;
+    color: #94a3b8 !important;
+    /* Gris bleutÃ© */
+}
+
+.job_tags strong {
+    color: #ffffff !important;
+}
+
+.job-sidebar .sidebar-info {
+    top: 10px !important;
+}
+
+.single-job-v1 .single-job-content {
+    padding: 20px 0 !important;
+}
+
+job-description.GTLGTLJOBIIZY {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 100% !important;
+    padding-bottom: 80px !important;
+    /* Espace pour ne pas que le bouton cache le texte du bas */
+}
+
+/* 2. Rendre le conteneur du bouton collant */
+.jobiizy-split-cta {
+    position: sticky !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin-top: auto !important;
+    margin-bottom: 0 !important;
+    padding: 20px !important;
+    padding-bottom: 40px !important;
+    background: #000000 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    z-index: 99 !important;
+    width: 100% !important;
+
+}
+
+.jobiizy-split-cta a.button.btn.btn-main {
+    background-color: rgb(59, 130, 246) !important;
+    /* color: #ffffff !important; */
+    /* width: 100% !important; */
+    display: block !important;
+    /* text-align: center !important; */
+    padding: 16px !important;
+    border-radius: 9999px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    /* margin-top: 20px !important; */
+    transition: transform 0.2s ease, background 0.2s ease !important;
+    border: none !important;
+
+}
+
+
+
+/* Supprimer le titre redondant dans le corps de l'offre */
+.single-job-listing .job-main-title {
+    display: none !important;
+}
+
+/* Conteneur global du logo et du nom de l'entreprise */
+.company-info {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin-top: -60px !important;
+    /* Fait remonter le logo sur le bandeau */
+    margin-bottom: 30px !important;
+    z-index: 10;
+    position: relative;
+}
+
+/* Le wrapper du logo (le cercle/carré) */
+.single-job-v1 .single-job-listing .company-info .job-company {
+    width: 120px !important;
+    height: 120px !important;
+    border-radius: 20px !important;
+    /* border: 1px solid #E0E0E0 !important; */
+    overflow: hidden !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: unset !important;
+    justify-content: center !important;
+    border: unser !important;
+
+}
+
+/* L'image du logo à l'intérieur */
+.job-company img.company_logo {
+    max-width: 80% !important;
+    height: auto !important;
+    object-fit: contain !important;
+}
+
+.job-company-info {
+    text-align: center !important;
+    margin-top: 15px !important;
+}
+
+.single-job-listing-company-name {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+}
+
+.single-job-listing-company-name a {
+    color: #0f0289 !important;
+    text-decoration: none !important;
+}
+
+.single-job-listing-company-name a:hover {
+    color: #3b82f6 !important;
+    /* Bleu Jobiizy au survol */
+}
+
+.single-job-v1 .single-job-listing .company-info .job-company-info {
+    /* align-self: center; */
+    /* flex: 1; */
+    padding-left: unset !important;
+    /* text-align: left; */
+}
+
+section.page-header.job-header:not(.page-header-bg) {
+    background: linear-gradient(to bottom, #ebf7ff, #c9cff4, #6080d7);
+    /* border-radius:10px; */
+    box-shadow: 0 5px 25px rgba(0, 0, 0, .2);
+    /* margin:0 40px; */
+    overflow: hidden;
+}
+
+section.page-header.job-header.page-header-bg {
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center left !important;
+    border-radius: 5px !important;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, .2) !important;
+
+}
+
+.single-job-listing-page .job-title, .single-job-listing-page .page-header:not(.page-header-bg) h1.title {
+    /*color: #f2eded !important;*/
+    color: #1e293b !important;
+
+}
+
+.single-job-listing-page .page-header .page-header-bg h1.title {
+    color: #fff !important;
+}
+
+.single-job-listing-page a.edit-listing {
+    text-transform: none !important;
+}
+
+/* Fond du bandeau - Version claire élégante */
+.page-header.job-header {
+    background: linear-gradient(to bottom right, #e6f3ff, rgb(225, 239, 255) 52.1%, #61a1fc) !important;
+    padding: 80px 0 !important;
+    border-bottom: 2px solid #cbd5e1;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+}
+section.page-header-bg:after {
+    background: transparent !important;
+
+}
+
+/* Effet hover subtil et classe */
+.page-header.job-header:hover {
+    /* background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%) !important; */
+    border-bottom: 2px solid #94a3b8;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
+
+}
+
+/* Sous-titres en gris */
+.page-header.job-header .subtitle,
+.page-header.job-header .meta {
+    color: #64748b !important;
+}
+
+/* Accent bleu Jobiizy - Version optimisée */
+.page-header.job-header {
+    position: relative;
+
+}
+.page-header.job-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px; /* Un peu plus épais pour être visible */
+    background: linear-gradient(90deg, #040a8e 0%, #0612b8 50%, #040a8e 100%) !important;
+    box-shadow: 0 4px 15px rgba(4, 10, 142, 0.5) !important;
+    z-index: 10; /* Pour passer devant d'éventuels overlays */
+}
+
+/* Style du titre principal dans le bandeau */
+.page-header.job-header h1.title {
+    color: #1e293b !important;
+    /* color: #ffffff !important; */
+    font-size: 32px !important;
+    font-weight: 800 !important;
+    margin-bottom: 15px !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+
+}
+
+/* Badge de type d'emploi (Plein temps) dans le bandeau */
+.page-header.job-header .job-type {
+    background: rgba(59, 130, 246, 0.2) !important;
+    color: #0b79ff !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+    padding: 6px 15px !important;
+    /* border-radius: 20px !important; */
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    display: inline-block;
+
+}
+
+/* Titrages */
+.job-title-sidebar {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+.job-company-info .job-main-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    color: #111;
+}
+
+section.page-header-bg:after {
+    z-index: 1 !important;
+
+}
+
+/* Bouton "Postuler" */
+a.application_button.js-scroll-to-form {
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    cursor: pointer;
+    background: rgba(84, 49, 200, 1);
+    color: #fff;
+    text-transform: none;
+    text-decoration: none;
+    transition: background-color .3s ease, transform .2s ease;
+    padding: 12px 24px;
+    box-shadow: 0 2px 8px rgba(84, 49, 200, .3);
+}
+
+a.application_button.js-scroll-to-form:hover {
+    background: rgb(139 124 181);
+    transform: scale(1.05);
+}
+
+a.application_button.js-scroll-to-form:focus {
+    outline: 2px solid rgba(84, 49, 200, .5);
+    outline-offset: 2px;
+}
+
+/* =========================================================
+   9) STICKY JOB OVERVIEW (consolidÃ©)
+   ========================================================= */
+.job-sidebar {
+    position: relative;
+    z-index: 2;
+}
+
+.widget-job-overview {
+    background: #fff;
+    border: 1px solid rgba(246, 246, 246, 1);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, .15);
+    border-radius: 8px;
+    padding: 20px;
+    color: black;
+    position: relative;
+    z-index: 2147483647 !important;
+    isolation: isolate;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    transition: background-color .3s ease, backdrop-filter .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+
+.widget-job-overview[style * ="position: fixed"] {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .2) !important;
+    transform: translateZ(0) scale(1.02);
+    animation: slideInSticky .3s ease-out;
+}
+
+.widget-job-overview[style * ="position: absolute"] {
+    box-shadow: 0 5px 25px rgba(0, 0, 0, .15) !important;
+    transform: translateZ(0) scale(1);
+}
+
+.widget-job-overview.transparent {
+    --tw-bg-opacity: .3;
+    background-color: rgba(255, 255, 255, .3);
+    backdrop-filter: blur(8px);
+}
+
+@keyframes slideInSticky {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) translateZ(0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) translateZ(0);
+    }
+}
+
+.widget-job-overview .job-overview-title-text {
+    /* font-size:20px; */
+    /* font-weight:700; */
+    /* margin-bottom:15px; */
+    /* color: #000000; */
+    /* line-height:1.3; */
+    display: none !important;
+}
+
+.widget-job-overview .job-overview-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+}
+
+.widget-job-overview .job-overview-item:last-child {
+    border-bottom: none;
+    margin-bottom: 20px;
+}
+
+.widget-job-overview .job-overview-item .icon {
+    margin-right: 12px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(84, 49, 200, 1);
+}
+
+.widget-job-overview .job-overview-item .text {
+    flex: 1;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.widget-job-overview .application_button, .widget-job-overview a[href * ="postuler"], .widget-job-overview button[class * ="postuler"] {
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-radius: 9999px;
+    cursor: pointer;
+    background: rgba(84, 49, 200, 1);
+    color: #fff;
+    text-transform: none;
+    text-decoration: none;
+    padding: 12px 24px;
+    font-weight: 600;
+    border: none;
+    transition: all .3s ease;
+    box-shadow: 0 2px 8px rgba(84, 49, 200, .3);
+}
+
+.widget-job-overview .application_button:hover, .widget-job-overview a[href * ="postuler"]:hover, .widget-job-overview button[class * ="postuler"]:hover {
+    background: rgb(139 124 181);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(84, 49, 200, .4);
+}
+
+.sidebar-info .widget-job-overview {
+    background: #0f172a !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 16px !important;
+    padding: 24px !important;
+    color: #ffffff !important;
+
+}
+
+.single-job-listing-page .widget-job-overview .single-job-overview-detail {
+    display: flex !important;
+    align-items: center !important;
+    padding: 2px 0 !important;
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important; */
+}
+
+.single-job-overview-detail:last-of-type {
+    border-bottom: none !important;
+}
+
+.single-job-overview-detail .icon i {
+    color: #3b82f6 !important;
+    /* Ton bleu Jobiizy */
+    font-size: 20px !important;
+    background: rgba(59, 130, 246, 0.15) !important;
+    padding: 10px !important;
+    border-radius: 12px !important;
+    margin-right: 15px !important;
+}
+
+/* Titres internes (ex: "Localisation") */
+.single-job-overview-detail .content h3 {
+    color: #94a3b8 !important;
+    /* Gris bleuté plus doux */
+    font-size: 13px !important;
+    margin: 0 !important;
+    font-weight: 500 !important;
+}
+
+/* Valeurs (ex: "Netanya, Israël") */
+.single-job-overview-detail .content span, .single-job-overview-detail .content a {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    text-decoration: none !important;
+}
+/* Bouton Postuler principal */
+
+.job_application.application .application_button {
+    background-color: #6b42f0!important;
+    color: #ffffff !important;
+    width: 100% !important;
+    display: block !important;
+    text-align: center !important;
+    padding: 16px !important;
+    border-radius: 9999px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    margin-top: 20px !important;
+    transition: transform 0.2s ease, background 0.2s ease !important;
+    border: none !important;
+
+}
+
+.job_application.application .application_button:hover {
+    background-color: ##6b42f0 !important;
+    transform: translateY(-2px) !important;
+
+}
+
+/* Compat divers */
+.related-jobs, .single-listing-featured, .job-listings, .slick-slider {
+    position: relative;
+    z-index: 1 !important;
+}
+
+.modal, .overlay, .popup {
+    z-index: 999998 !important;
+}
+
+.widget-job-overview * {
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   10) BOUTONS DIVERS (Elementor)
+   ========================================================= */
+.deposer-cv.btn {
+    background: unset;
+    border-radius: 9999px;
+    border: 1px solid rgba(25, 92, 201) !important;
+    color: rgba(25, 92, 201) !important;
+    font-weight: normal !important;
+    text-transform: none;
+}
+
+.deposer-cv.btn:hover {
+    color: #fff !important;
+    background: rgba(25, 92, 201) !important;
+}
+
+.inscription-accueil.btn {
+    background: #fff;
+    border-radius: 9999px;
+    border: 1px solid rgba(25, 92, 201) !important;
+    color: rgba(25, 92, 201) !important;
+    font-weight: normal !important;
+    text-transform: none;
+}
+
+.inscription-accueil.btn:hover {
+    color: #fff !important;
+    background: rgba(25, 92, 201) !important;
+}
+
+/* =========================================================
+   11) OUTILS (tooltips, mini utilitaires)
+   ========================================================= */
+[data-tooltip] {
+    position: relative;
+    cursor: help;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 5px 8px;
+    font-size: 12px;
+    white-space: nowrap;
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease-in-out;
+    z-index: 10;
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+}
+
+.custom-tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, .8);
+    color: #fff;
+    padding: 6px 10px;
+    font-size: 13px;
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 9999;
+    white-space: nowrap;
+    max-width: 220px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .3);
+    transition: opacity .2s ease;
+}
+
+.btn-view-offer {
+    display: inline-flex !important;
+    margin: 6px 0 0;
+    padding: 10px 22px !important;
+    background: #fff;
+    color: var(--color-primary) !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg-blue) !important;
+    margin-top: auto;
+}
+
+.btn-view-offer:hover {
+    background: var(--color-primary) !important;
+    color: #fff !important;
+    border: 1px solid var(--color-primary) !important;
+}
+
+.job-manager-form fieldset label {
+    text-transform: none !important;
+}
+
+ul.job_listings .job_listing.job-grid.single_job_listing_4 > a {
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 16px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+    background: #f0f0f0 !important;
+}
+
+ul.job_listings .job_listing.job-grid.single_job_listing_4 > a:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
+    border-color: #9d9e9f66 !important;
+}
+/* --- OPTIMISATION JOBIIZY : CARTES DE JOBS --- */
+
+ul.job_listings .job_listing.job-grid.single_job_listing_4 .job-info-wrapper {
+    border-bottom: none !important;
+    display: unset ! important;
+}
+/* 1. Conteneur principal (Alignement opposÃ©) */
+
+ul.job_listings .job_listing .job-extras {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 12px 16px !important;
+    background-color: #f8fafc !important;
+    /* Couleur de fond gris-bleu */
+    border-top: 1px solid #e2e8f0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* 2. Style de l'icÃ´ne (Cercle Bleu) */
+ul.job_listings .job_listing .job-type-icon {
+    width: 32px !important;
+    height: 32px !important;
+    background-color: #2563eb !important;
+    /* Bleu Jobiizy */
+    color: #ffffff !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2) !important;
+}
+
+/* 3. Style du Badge - Structure Commune (Design) */
+ul.job_listings .job_listing .job-types {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    padding: 6px 12px !important;
+    border-radius: 8px !important;
+    letter-spacing: 0.5px !important;
+    white-space: nowrap !important;
+    display: inline-block !important;
+}
+
+/* 4. Couleurs SpÃ©cifiques (Override selon le type) */
+
+/* PLEIN TEMPS (Vert) */
+ul.job_listings .job_listing.job_listing_type-full-time .job-types, ul.job_listings .job_listing.job-type-plein-temps .job-types , .tag-group .job-type.term-2.full-time{
+    background-color: #dcfce7 !important;
+    color: #166534 !important;
+    border: 1px solid #bbf7d0 !important;
+}
+
+
+/* MI-TEMPS (Indigo / Violet) */
+ul.job_listings .job_listing.job_listing_type-part-time .job-types, ul.job_listings .job_listing.job-type-mi-temps .job-types, .tag-group .job-type.term-3.part-time {
+    background-color: #e0e7ff !important;
+    color: #3730a3 !important;
+    border: 1px solid #c7d2fe !important;
+}
+
+
+/* FREELANCE (Ambre / Jaune) */
+ul.job_listings .job_listing.job_listing_type-freelance .job-types, ul.job_listings .job_listing.job-type-freelance .job-types, .tag-group .job-type.term-5.freelance{
+    background-color: #fef3c7 !important;
+    color: #92400e !important;
+    border: 1px solid #fde68a !important;
+}
+.job_listing.job_listing_type-remote .job-types,
+.job_listing.job-type-teletravail .job-types,
+.job_listing.job-type-remote-work .job-types {
+    background-color: #cffafe !important;  /* Cyan clair */
+    color: #155e75 !important;             /* Cyan foncé */
+    border: 1px solid #a5f3fc !important;
+    box-shadow: 0 2px 6px rgba(21, 94, 117, 0.08);
+}
+
+.job_listing.job_listing_type-temporary .job-types,
+.job_listing.job-type-cdd .job-types,
+.job_listing.job-type-temporary .job-types {
+    background-color: #fed7aa !important;  /* Orange clair */
+    color: #9a3412 !important;             /* Orange foncé */
+    border: 1px solid #fdba74 !important;
+    box-shadow: 0 2px 6px rgba(154, 52, 18, 0.08);
+}
+
+.job_listing.job_listing_type-temporary .job-types,
+.job_listing.job-type-cdd .job-types,
+.job_listing.job-type-temporary .job-types {
+    background-color: #fed7aa !important;  /* Orange clair */
+    color: #9a3412 !important;             /* Orange foncé */
+    border: 1px solid #fdba74 !important;
+    box-shadow: 0 2px 6px rgba(154, 52, 18, 0.08);
+}
+
+
+.job_listing.job_listing_type-internship .job-types,
+.job_listing.job-type-stage .job-types,
+.job_listing.job-type-internship .job-types {
+    background-color: #fce7f3 !important;  /* Rose clair */
+    color: #9f1239 !important;             /* Rose foncé */
+    border: 1px solid #fbcfe8 !important;
+    box-shadow: 0 2px 6px rgba(159, 18, 57, 0.08);
+}
+
+.job_listing.job_listing_type-apprenticeship .job-types,
+.job_listing.job-type-alternance .job-types,
+.job_listing.job-type-apprenticeship .job-types {
+    background-color: #f3e8ff !important;  /* Violet clair */
+    color: #6b21a8 !important;             /* Violet foncé */
+    border: 1px solid #e9d5ff !important;
+    box-shadow: 0 2px 6px rgba(107, 33, 168, 0.08);
+}
+.job_listing.job_listing_type-permanent .job-types,
+.job_listing.job-type-cdi .job-types,
+.job_listing.job-type-permanent .job-types {
+    background-color: #dbeafe !important;  /* Bleu clair */
+    color: #1e3a8a !important;             /* Bleu marine */
+    border: 1px solid #bfdbfe !important;
+    box-shadow: 0 2px 6px rgba(30, 58, 138, 0.08);
+}
+
+/* Style de base (déjà dans votre code) */
+.job-types {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    padding: 6px 12px !important;
+    border-radius: 8px !important;
+    letter-spacing: 0.5px !important;
+    line-height: 1.2 !important;
+    display: inline-block !important;
+    transition: all 0.2s ease;
+}
+/* Effet hover subtil (optionnel mais recommandé) */
+.job-types:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 1️⃣ PLEIN TEMPS - Vert (Success) */
+.job_listing.job_listing_type-full-time .job-types,
+.job_listing.job-type-plein-temps .job-types {
+    background-color: #dcfce7 !important;
+    color: #166534 !important;
+    border: 1px solid #bbf7d0 !important;
+}
+
+/* 2️⃣ MI-TEMPS - Indigo (Info) */
+.job_listing.job_listing_type-part-time .job-types,
+.job_listing.job-type-mi-temps .job-types {
+    background-color: #e0e7ff !important;
+    color: #3730a3 !important;
+    border: 1px solid #c7d2fe !important;
+}
+
+/* 3️⃣ FREELANCE - Ambre (Warning) */
+.job_listing.job_listing_type-freelance .job-types,
+.job_listing.job-type-freelance .job-types {
+    background-color: #fef3c7 !important;
+    color: #92400e !important;
+    border: 1px solid #fde68a !important;
+}
+
+/* 4️⃣ TÉLÉTRAVAIL / REMOTE - Cyan (Tech) */
+.job_listing.job_listing_type-remote .job-types,
+.job_listing.job-type-teletravail .job-types,
+.job_listing.job-type-remote-work .job-types {
+    background-color: #cffafe !important;
+    color: #155e75 !important;
+    border: 1px solid #a5f3fc !important;
+}
+
+/* 5️⃣ CDD / TEMPORARY - Orange (Attention) */
+.job_listing.job_listing_type-temporary .job-types,
+.job_listing.job-type-cdd .job-types {
+    background-color: #fed7aa !important;
+    color: #9a3412 !important;
+    border: 1px solid #fdba74 !important;
+}
+
+/* 6️⃣ STAGE / INTERNSHIP - Rose (Junior) */
+.job_listing.job_listing_type-internship .job-types,
+.job_listing.job-type-stage .job-types {
+    background-color: #fce7f3 !important;
+    color: #9f1239 !important;
+    border: 1px solid #fbcfe8 !important;
+}
+
+/* 7️⃣ ALTERNANCE / APPRENTICESHIP - Violet (Formation) */
+.job_listing.job_listing_type-apprenticeship .job-types,
+.job_listing.job-type-alternance .job-types {
+    background-color: #f3e8ff !important;
+    color: #6b21a8 !important;
+    border: 1px solid #e9d5ff !important;
+}
+
+/* 8️⃣ CDI / PERMANENT - Bleu foncé (Premium) */
+.job_listing.job_listing_type-permanent .job-types,
+.job_listing.job-type-cdi .job-types {
+    background-color: #dbeafe !important;
+    color: #1e3a8a !important;
+    border: 1px solid #bfdbfe !important;
+}
+
+/* 9️⃣ CONTRAT / CONTRACT - Gris (Neutre) */
+.job_listing.job_listing_type-contract .job-types,
+.job_listing.job-type-contrat .job-types {
+    background-color: #f3f4f6 !important;
+    color: #374151 !important;
+    border: 1px solid #d1d5db !important;
+}
+
+/* 🔟 VOLONTARIAT / VOLUNTEER - Vert clair (Bénévolat) */
+.job_listing.job_listing_type-volunteer .job-types,
+.job_listing.job-type-volontariat .job-types {
+    background-color: #d1fae5 !important;
+    color: #065f46 !important;
+    border: 1px solid #a7f3d0 !important;
+}
+
+/* Fond des cartes dans le slider */
+.featured-listings .job-grid {
+    background: rgba(255, 255, 255, 0.03) !important;
+    /* Fond très léger */
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+    transition: all 0.3s ease !important;
+}
+
+.featured-listings .job-grid:hover {
+    /* background: rgb(198 198 198 / 89%) !important; */
+    border-color: #000000 !important;
+    /* Bordure bleue au survol */
+    /* transform: translateY(-5px); */
+}
+
+/* Texte des cartes dans le slider */
+.featured-listings .job-info h2.title {
+    color: #ffffff !important;
+    font-size: 15px !important;
+}
+
+.featured-listings .job-info ul li {
+    color: #94a3b8 !important;
+}
+
+/* --- OPTIMISATION DE LA DESCRIPTION JOBIIZY --- */
+\.single-job-v1 .single-job-listing .job-description {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    color: #475569 !important;
+    padding: 10px 0 !important;
+}
+
+/* Style de la phrase d'accroche (Hook) */
+.job-listing .job-description p:first-of-type {
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    font-size: 15px !important;
+    margin-bottom: 12px !important;
+    border-left: 3px solid #2563eb !important;
+    padding-left: 12px !important;
+}
+
+/* On limite les paragraphes suivants pour Ã©viter les cartes trop longues */
+.job-listing .job-description p:not(:first-of-type):not(.job_tags) {
+    margin-bottom: 8px !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+/* Nettoyage des Tags */
+.job-listing .job-description .job_tags {
+    margin-top: 15px !important;
+    padding-top: 10px !important;
+    border-top: 1px dashed #e2e8f0 !important;
+    font-size: 12px !important;
+    color: #94a3b8 !important;
+    font-style: italic !important;
+}
+
+.job-listing .job-description .job_tags strong {
+    color: #64748b !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    font-size: 10px !important;
+    margin-right: 5px !important;
+}
+
+/* 1) Le track devient flex et Ã©tire les slides */
+ul.job_listings.related-jobs-slider .slick-track {
+    display: flex !important;
+    align-items: stretch !important;
+}
+
+/* 2) Chaque slide doit prendre toute la hauteur disponible */
+ul.job_listings.related-jobs-slider .slick-slide {
+    height: auto !important;
+    box-sizing: border-box;
+}
+
+/* 3) Slick met un <div> wrapper dans chaque slide : on lâ€™Ã©tire aussi */
+ul.job_listings.related-jobs-slider .slick-slide > div {
+    height: 100% !important;
+}
+
+/* 4) Ton <li> et ton <a> prennent toute la hauteur */
+ul.job_listings.related-jobs-slider li.job_listing.job-grid.single_job_listing_4 {
+    height: 100% !important;
+    display: flex !important;
+}
+
+ul.job_listings.related-jobs-slider li.job_listing.job-grid.single_job_listing_4 > a {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+ul.job_listings.related-jobs-slider
+li.job_listing.job-grid.single_job_listing_4 > a .job-extras {
+    margin-top: auto !important;
+}
+
+ul.job_listings.related-jobs-slider
+.job-info .title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    /* â† 2 lignes (mets 3 si tu veux) */
+    overflow: hidden;
+    line-height: 1.3;
+    max-height: calc(1.3em * 2);
+    color: black;
+}
+
+ul.job_listings.related-jobs-slider
+.job-info-wrapper {
+    padding-bottom: 12px !important;
+}
+
+ul.job_listings.related-jobs-slider
+.job-extras {
+    padding-top: 10px !important;
+}
+
+ul.job_listings.related-jobs-slider
+li.job_listing.job-grid.single_job_listing_4 > a {
+    max-height: 340px;
+}
+/* Donner de l'air au slider pour Ã©viter le clipping */
+
+ul.job_listings.related-jobs-slider .slick-list {
+    padding-bottom: 32px !important;
+}
+
+/* Compense visuellement (optionnel mais recommandÃ©) */
+ul.job_listings.related-jobs-slider {
+    margin-bottom: -32px;
+    overflow-x: hidden;
+}
+
+ul.job_listings.related-jobs-slider
+.slick-slide li.job_listing.job-grid.single_job_listing_4, ul.job_listings.related-jobs-slider
+.slick-slide li.job_listing.job-grid.single_job_listing_4 > a {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   12) RESPONSIVE (mobile <=768px) â€” REGROUPÃ‰ EN FIN DE FICHIER
+   =========================================================  */
+
+/* =========================================================
+   REPRISE DESIGN MOBILE - Version Premium
+   ========================================================= */
+@media (max-width: 768px) {
+    #jobiizy-listingSearchFormMobile {
+        background: rgba(255, 255, 255, 0) !important;
+        backdrop-filter: blur(50px);
+        border-radius: 24px !important;
+        /* Coins plus doux */
+        padding: 24px 20px !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5) !important;
+        width: 90% !important;
+        margin: 0 auto !important;
+    }/* On Ã©pure le titre "Trouver mon job" */
+
+    #jobiizy-listingSearchFormMobile::before {
+        /* content: "ðŸ” Trouver mon job" !important;
+                font-size: 14px !important;
+                color: var(--color-primary) !important;
+                letter-spacing: 1px !important;
+                margin-bottom: 15px !important;
+                opacity: 0.8;*/
+    }/* Le champ de saisie */
+
+    #jobiizy-listingSearchFormMobile .search-keywords input[type="text"] {
+        background: #f1f5f9 !important;
+        /* Gris trÃ¨s lÃ©ger */
+        border: 2px solid transparent !important;
+        border-radius: 14px !important;
+        padding: 14px 16px !important;
+        font-size: 16px !important;
+        /* Ã‰vite le zoom auto sur iPhone */
+        transition: all 0.3s ease;
+    }
+
+    #jobiizy-listingSearchFormMobile .search-keywords input:focus {
+        border-color: var(--color-primary) !important;
+        background: rgba(255, 255, 255, 0.2) !important;
+        /* On Ã©claircit un peu au clic */
+        transform: scale(1.0d2);
+        /* TrÃ¨s lÃ©ger zoom pour le feedback */
+    }/* Le bouton de recherche : on le place Ã  droite du champ ou on le rÃ©duit */
+
+    #jobiizy-listingSearchFormMobile .search-submit {
+        /* margin-top: 15px !important; */
+        display: flex;
+        justify-content: center;
+    }
+
+    #jobiizy-listingSearchFormMobile .search-submit .btn {
+        width: 100% !important;
+        /* Bouton pleine largeur sur mobile, plus pratique */
+        height: 50px !important;
+        border-radius: 14px !important;
+        background: var(--color-black) !important;
+        font-weight: 600 !important;
+        font-size: 16px !important;
+    }
+
+    .search-submit button.btn, .search-submit input[type="submit"].btn, .jobiizy-search-btn, #jobiizy-listingSearchForm .search-submit input.btn {
+        border-radius: 14px !important;
+    }
+
+    span.jobfind-title {
+        display: unset;
+    }
+
+    .job-listing {
+        padding: 16px !important;
+        border-radius: 16px !important;
+    }
+
+    .job-listing h3.title {
+        font-size: 17px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    ul.job_listings .job_listing {
+        margin-bottom: 20px !important;
+    }/* ListingSearch mobile */
+
+    #jobiizy-listingSearchForm {
+        border-radius: 16px;
+        width: 95%;
+        margin: 0 auto;
+        padding: 20px 18px 24px;
+    }
+
+    #jobiizy-listingSearchFormMobile {
+        background: #fff;
+        border-radius: 16px;
+        margin: 0 auto;
+        width: 95%;
+        padding: 20px 18px 24px;
+    }
+
+    #jobiizy-listingSearchFormMobile::before {
+        /* content:"TROUVER MON JOB";
+            display:block;
+            font-weight:700;
+            font-size:  15px !important;
+            letter-spacing: .5px !important;
+            color: #ffffff !important;
+            text-align:left;
+            padding-left:30px;
+            */
+    }
+
+    #jobiizy-listingSearchFormMobile .search-keywords {
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 0;
+        box-shadow: none;
+    }
+
+    #jobiizy-listingSearchFormMobile .search-keywords label {
+        display: block;
+        margin-bottom: 4px;
+        font-weight: 600;
+        padding-left: 8px;
+    }
+
+    #jobiizy-listingSearchFormMobile .search-keywords input[type="text"] {
+        width: 100%;
+        border-radius: 12px !important;
+        /* border: 1px solid #ddd !important;*/
+        padding: 12px 16px !important;
+        box-sizing: border-box;
+        font-size: 15px !important;
+        display: block;
+    }
+
+    #jobiizy-listingSearchFormMobile .search-location, #jobiizy-listingSearchFormMobile .search-category, #jobiizy-listingSearchFormMobile label[for="search-location"], #jobiizy-listingSearchFormMobile label[for="search-category"] {
+        display: none !important;
+    }
+
+    #jobiizy-listingSearchFormMobile .listing-search-form {
+        align-items: center;
+        padding: 10px;
+        border-radius: 20px;
+        /* margin-bottom:10px; */
+    }
+
+    #jobiizy-listingSearchFormMobile input[name="search_keywords"] {
+        flex: 1;
+        border: none;
+        padding: 12px 18px;
+        font-size: 15px;
+        outline: none;
+        font-weight: 400;
+    }
+
+    #jobiizy-listingSearchFormMobile .search-submit {
+        margin: 0;
+        width: 100%;
+        /* display: flex; */
+    }
+
+    #jobiizy-listingSearchFormMobile .search-submit .btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #000 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin-right: 4px;
+    }
+
+    #jobiizy-listingSearchFormMobile .search-submit .btn:hover {
+        background: #222 !important;
+        transform: scale(1.05);
+    }/* Filtres & grille */
+
+    .resume_filters.show-advanced .advanced-row, .job_filters .advanced-search-filters.active, .resume_filters .advanced-search-filters.active, .job_filters .advanced-search-filters.active > div, .resume_filters .advanced-search-filters.active > div {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .job_filters .advanced-search-filters.active, .resume_filters .advanced-search-filters.active, .job_filters.show-advanced .advanced-search-filters, .resume_filters.show-advanced .advanced-search-filters {
+        flex-wrap: nowrap !important;
+    }
+
+    .resume_filters.show-advanced .advanced-row .resume-filter, .job_filters .advanced-search-filters > div {
+        width: 100% !important;
+        flex: 1 1 100%;
+    }
+
+    .select2-search--inline .select2-search__field {
+        min-width: 250px !important;
+    }
+
+    .listing-split-view .listing-search .company_filters .search_companies > div, .listing-split-view .listing-search .job_filters .search_jobs > div, .listing-split-view .listing-search .resume_filters .search_resumes > div {
+        flex-direction: column !important;
+        gap: 10px;
+    }
+
+    .listing-split-view .listing-search .job_filters .search_jobs > div > div, .listing-split-view .listing-search .resume_filters .search_resumes > div > div, .listing-split-view .listing-search .company_filters .search_companies > div > div {
+        flex: 1 1 100%;
+        min-width: auto;
+    }/* Job listings v4 â€” bords verticaux en pile */
+
+    ul.job_listings .job_listing.job-list.single_job_listing_4 .listing-media .job-company {
+        border-radius: 15px 15px 0 0 !important;
+        border: 1px solid #ccc !important;
+        border-bottom: none !important;
+    }
+
+    ul.job_listings .job_listing.job-list.single_job_listing_4 .listing-body {
+        border-radius: 0px 0px 15px 15px !important;
+        /* border-radius:unset!important;*/
+        border: 1px solid #ccc !important;
+        border-top: none !important;
+    }
+
+    ul.job_listings .job_listing.job-list.single_job_listing_4 {
+        border-radius: 15px !important;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, .1);
+    }
+
+    ul.job_listings .job_listing.job-list.single_job_listing_4:hover {
+        transform: translate(-2px, -2px) !important;
+    }/* Header de page single job */
+
+    section.page-header.job-header {
+        margin-left: 0;
+        margin-right: 0;
+        border-radius: 0;
+    }/* Sticky overview : non sticky sur mobile */
+
+    .widget-job-overview {
+        position: static !important;
+        top: auto !important;
+        left: auto !important;
+        width: auto !important;
+        z-index: auto !important;
+        transform: none !important;
+        will-change: auto !important;
+        box-shadow: none !important;
+    }
+
+    .job-overview-placeholder {
+        display: none !important;
+        height: 0 !important;
+    }/* Boutons alert/reset compacts */
+
+    .company_filters .showing_companies a.alert, .job_filters .showing_jobs a.alert, .resume_filters .showing_resumes a.alert {
+        padding: 2px 6px !important;
+    }
+
+    .company_filters .showing_companies a.reset, .job_filters .showing_jobs a.reset, .resume_filters .showing_resumes a.reset {
+        padding: 2px 6px !important;
+    }
+}
+
+/* =========================================================
+   FOOTER LEGAL AREA - Version renforcÃ©e
+   ========================================================= */
+footer.main-footer {
+    background: none !important;
+}
+
+footer.main-footer .footer-widget-area
+{
+    background: var(--cariera-footer-bg);
+    padding: 10px 0 !important;
+}
+/* =========================================================
+   FOOTER LEGAL AREA - Version renforcÃ©e
+   ========================================================= */
+
+/* Container principal du copyright */
+.copyright {
+    padding: 10px 0 !important;
+    background: black !important;
+}
+
+.copyright .row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+/* Liens lÃ©gaux (colonne gauche) */
+.jobiizy-footer-legal {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    flex-wrap: wrap !important;
+    color: #cbd5e1 !important;
+    font-size: 12px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.jobiizy-footer-legal .label {
+    font-weight: 600 !important;
+    color: #d1d5db !important;
+    margin-right: 0.25rem !important;
+}
+
+.jobiizy-footer-legal a {
+    color: white !important;
+    text-decoration: none !important;
+    padding: 0.25rem 0.5rem !important;
+    transition: color 0.3s ease !important;
+}
+
+.jobiizy-footer-legal a:hover {
+    color: #60a5fa !important;
+    text-decoration: underline !important;
+}
+
+.jobiizy-footer-legal .sep {
+    color: #64748b !important;
+    margin: 0 0.15rem !important;
+}
+
+/* Copyright (colonne droite) */
+.jobiizy-footer-copyright {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 0.35rem !important;
+    flex-wrap: wrap !important;
+    color: #cbd5e1 !important;
+    font-size: 12px !important;
+    text-align: right !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.jobiizy-footer-copyright a {
+    color: white !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+    transition: color 0.3s ease !important;
+}
+
+.jobiizy-footer-copyright a:hover {
+    color: #60a5fa !important;
+    text-decoration: underline !important;
+}
+
+.jobiizy-footer-copyright .separator {
+    color: #64748b !important;
+    margin: 0 0.25rem !important;
+}
+
+/* Surcharge des colonnes Cariera */
+.copyright .col-md-9, .copyright .col-md-3, .copyright .col-md-6 {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.copyright .col-md-9 {
+    justify-content: flex-start !important;
+}
+
+.copyright .col-md-3 {
+    justify-content: flex-end !important;
+}
+
+.copyright .col-md-6:first-child {
+    justify-content: flex-start !important;
+}
+
+.copyright .col-md-6:last-child {
+    justify-content: flex-end !important;
+}
+
+/* Version mobile : alignement vertical */
+@media (max-width: 767px) {
+    .copyright .row {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+
+    .jobiizy-footer-legal, .jobiizy-footer-copyright {
+        justify-content: center !important;
+        text-align: center !important;
+    }
+
+    .jobiizy-footer-copyright {
+        margin-top: 0 !important;
+    }
+
+    .copyright .col-md-6 {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+}
+
+/* ======================================================
+   Job submit â€“ Choix du formulaire (admin only)
+   ====================================================== */
+.disabled-fields-group.two-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+/* Champs pleine largeur */
+.disabled-fields-group .full-width {
+    grid-column: 1 / -1;
+}
+
+/* Ajustement textarea */
+.disabled-fields-group textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+/* Message Ã  afficher : plus compact */
+.fieldset-field_cfwjm12180 textarea {
+    min-height: 120px;
+}
+
+/* Notes & rÃ©fÃ©rences : plus large */
+.fieldset-field_cfwjm12770 textarea {
+    min-height: 180px;
+    width: 100%;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .disabled-fields-group.two-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ======================================================
+   Forcer la section "Choix du formulaire" en pleine largeur
+   ====================================================== */
+
+/* Le wrapper de la section */
+.disabled-fields-group {
+    width: 100%;
+}
+
+/* IMPORTANT : forcer le parent Ã  span toutes les colonnes */
+.fieldset-application_form, .fieldset-field_cfwjm12180, .fieldset-field_cfwjm12185, .fieldset-field_cfwjm12770, .disabled-fields-group, .titreperso {
+    grid-column: 1 / -1 !important;
+}
+
+/* SÃ©curitÃ© si le formulaire parent est en flex */
+.job-manager-form .disabled-fields-group {
+    flex: 0 0 100%;
+}
+
+/* Notes & rÃ©fÃ©rences : vraiment pleine largeur */
+.jobiizy-split-apply {
+    margin-top: 24px;
+    display: block;
+    text-align: center;
+}
+
+.jobiizy-split-redirect-wrapper {
+    padding-top: 10px;
+}
+
+.jobiizy-split-redirect {
+    display: inline-block;
+    padding: 14px 22px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/*      GEMINI LIVE */
+/* =========================================================
+   GEMINI LIVE - MODERNISATION FINALE
+   ========================================================= */
+
+/* 1. Typographie & Global */
+body {
+    font-family: "Inter", sans-serif !important;
+}
+
+/* 2. Cartes de Job (Desktop) */
+.job-listing {
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 20px !important;
+    /* On fixe Ã  20px pour la cohÃ©rence */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+    background: #fff !important;
+    padding: 20px !important;
+}
+
+/* Effet de survol uniquement sur Desktop (souris) */
+@media (min-width: 769px) {
+    .job-listing:hover {
+        transform: translateY(-5px) !important;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
+        border-color: var(--color-primary-light) !important;
+    }
+
+    .job-listing:hover .btn-view-offer {
+        background-color: var(--color-primary) !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 12px rgba(4, 10, 142, 0.2) !important;
+    }
+
+    .btn-view-offer::after {
+        content: ' →';
+        transition: transform 0.3s ease;
+        display: inline-block;
+    
+    }
+
+    .btn-view-offer:hover::after {
+        transform: translateX(4px);
+    }
+}
+
+/* 3. Le bouton Voir l'offre (Base) */
+
+/* 4. CONFIGURATION MOBILE (Unique Bloc) */
+@media (max-width: 768px) {
+    /* On stabilise la carte : pas de saut au clic */
+    .job-listing {
+        border-radius: 16px !important;
+        transform: none !important;
+        margin-bottom: 15px !important;
+    }
+
+    .job-listing:hover {
+        transform: none !important;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+    }/* Le bouton est bleu d'office sur mobile pour Ãªtre visible immÃ©diatement */
+
+    .btn-view-offer {
+        width: 100% !important;
+        background-color: var(--color-primary) !important;
+        color: #ffffff !important;
+        padding: 14px !important;
+        margin-top: 15px !important;
+        border-radius: 12px !important;
+        font-size: 16px !important;
+        /* Meilleur confort tactile */
+    }
+
+    .btn-view-offer::after {
+        display: none !important;
+        /* On retire la flÃ¨che pour gagner de la place */
+    }/* Feedback au toucher (pression du doigt) */
+
+    .btn-view-offer:active {
+        background-color: var(--color-primary-dark) !important;
+        transform: scale(0.97) !important;
+    }
+}
+/*      GEMINI LIVE */
+
+/*  GEMINI SLICK SLIDER */
+/* --- HOMOGÃ‰NÃ‰ISATION DU CARROUSEL (SLICK) --- */
+
+/* Conteneur de chaque slide */
+.job-carousel .single-job {
+    background: #f0f0f0 !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 20px !important;
+    padding: 35px 25px 25px 25px !important;
+    margin: 15px 0 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    transition: all 0.3s ease !important;
+    display: flex !important;
+    flex-direction: column;
+    height: calc(100% - 20px) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    position: relative;
+}
+
+/* Le Logo dans le carrousel */
+.job-carousel .company img {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 12px !important;
+    object-fit: contain !important;
+    background: #f8fafc;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+/* Titre de l'offre */
+.job-carousel .job-title h5.title a {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: var(--color-primary-dark) !important;
+    text-decoration: none !important;
+    line-height: 1.4;
+}
+
+/* Meta infos (Lieu, Entreprise) */
+.job-carousel .job-meta {
+    font-size: 13px !important;
+    color: #64748b !important;
+    margin: 10px 0 !important;
+}
+
+.job-carousel .job-meta i {
+    color: var(--color-primary) !important;
+    margin-right: 5px;
+}
+
+/* Description (on limite Ã  3 lignes pour l'alignement) */
+.job-carousel .job-description {
+    font-size: 14px !important;
+    color: #475569 !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 20px !important;
+}
+
+/* Bouton du carrousel (RÃ©utilisation du style btn-view-offer) */
+.job-carousel .btn-main {
+    background-color: var(--color-primary) !important;
+    color: #fff !important;
+    border-radius: 12px !important;
+    padding: 12px 20px !important;
+    font-weight: 600 !important;
+    width: 100% !important;
+    border: none !important;
+    transition: transform 0.2s ease !important;
+}
+
+.job-carousel .btn-main:hover {
+    background-color: var(--color-black) !important;
+    transform: translateY(-2px);
+}
+/* Personnalisation des indicateurs (dots) */
+
+.slick-dots li {
+    background: transparent;
+    border: 2px solid #8b90f1;
+    /* border-radius: 50%; */
+    /* cursor: pointer; */
+    /* display: inline-block; */
+    /* height: 10px; */
+    /* margin: 0 5px; */
+    /* position: relative; */
+    transition: all .3s;
+    /* width: 10px; */
+}
+
+.slick-dots li.slick-active {
+    background: #8b90f1;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .3)
+}
+
+.slick-dots li button:before {
+    font-size: 12px !important;
+    color: var(--color-primary) !important;
+    opacity: 0.25;
+}
+
+.slick-dots li.slick-active button:before {
+    color: var(--color-primary) !important;
+    opacity: 1;
+}
+
+/* --- CORRECTION LARGEUR SLIDER --- */
+
+/* 1. On limite la largeur du conteneur parent pour qu'il ne colle pas aux bords */
+.job-carousel.slick-slider {
+    max-width: 1200px;
+    /* Ou la largeur de votre container principal */
+    margin: 0 auto !important;
+    padding: 0 15px !important;
+    /* Ã‰vite que les cartes touchent les bords sur mobile */
+}
+
+/* 2. On force Slick Ã  crÃ©er de l'espace entre les slides sans casser le calcul de largeur */
+.job-carousel .slick-list {
+    margin: 0 -10px !important;
+    /* On "tire" les bords vers l'extÃ©rieur pour compenser le padding des slides */
+}
+
+.job-carousel .slick-slide {
+    padding: 0 10px !important;
+    /* Voici la "gouttiÃ¨re" qui sÃ©pare les cartes */
+}
+
+/* 3. On ajuste la carte single-job pour qu'elle ne soit pas Ã©tirÃ©e artificiellement */
+
+/* --- RENFORCEMENT DISCRET DU SLIDER (STYLE Ã‰TOILE) --- */
+
+/* L'icÃ´ne Ã©toile en haut Ã  droite */
+.job-carousel .single-job::before {
+    content: "*";
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #ffb400;
+    font-size: 20px;
+    filter: drop-shadow(0 0 5px rgba(255, 180, 0, 0.3));
+    transition: all 0.4s ease;
+    z-index: 2;
+}
+
+/* Animation de l'Ã©toile au survol de la carte */
+.el .single-job:hover::before {
+    transform: scale(1.3) rotate(15deg);
+    filter: drop-shadow(0 0 8px rgba(255, 180, 0, 0.6));
+}
+
+/* On change lÃ©gÃ¨rement le fond au survol pour le slider */
+.job-carousel .single-job:hover {
+    background-color: #fcfdfe !important;
+    border-color: var(--color-primary-light) !important;
+    box-shadow: 0 10px 30px rgba(4, 10, 142, 0.08) !important;
+}
+
+/* Texte accompagnant l'Ã©toile (optionnel) */
+.job-carousel .single-job::after {
+    /* content: "Annonce Ã  la une"; */
+    position: absolute;
+    top: 18px;
+    right: 45px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+}
+
+/* --- HEADER DE L'EMPLOYEUR (STYLE FONCÃ‰) --- */
+.job-carousel .single-job .company {
+    background: var(--color-primary-dark) !important;
+    /* Votre bleu foncÃ© */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    /* Bordure discrÃ¨te */
+    padding: 30px !important;
+    margin: -35px -25px 20px -25px !important;
+    /* On annule le padding du parent pour coller aux bords */
+    border-radius: 19px 19px 0 0 !important;
+    /* On arrondit seulement le haut */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* On s'assure que le logo est bien visible sur le bleu foncÃ© */
+.job-carousel .single-job .company img {
+    background: white !important;
+    /* Fond blanc pour le logo */
+    padding: 8px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+    margin-bottom: 0 !important;
+    /* On annule la marge du bas */
+}
+
+/* Ajustement de l'Ã©toile pour qu'elle soit visible sur le fond sombre */
+@media (max-width: 768px) {
+    .job-carousel .single-job::after {
+        display: none;
+        /* On cache le texte sur mobile pour ne laisser que l'Ã©toile */
+    }
+}
+/*  GEMINI Slick Slider */
+/* =========================================================
+   GEMINI JOB TYPE - VERSION FINALE (SÃ‰CURITÃ‰ ANTI-BUG)
+   ========================================================= */
+
+/* 1. PROTECTION DES CARTES 
+   On empÃªche le parent (li) de prendre la couleur du badge */
+li.job_listing, .job-grid, .single-job, .job-carousel .single-job {
+    background-color: #ffffff !important;
+    background-image: none !important;
+}
+
+/* 2. STYLE DE BASE DES BADGES (Neutralisation du "No Job Type")
+   On rend le badge invisible par dÃ©faut (opacitÃ© 0 et pas de fond) */
+.job-types, .job-type, span.job-type, .job-extras .job-types {
+    display: inline-block !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    padding: 6px 12px !important;
+    border-radius: 8px !important;
+    letter-spacing: 0.5px !important;
+    line-height: 1.2 !important;
+    /* Le secret : On cache visuellement mais on garde la structure */
+    background-color: transparent !important;
+    color: transparent !important;
+    border: 1px solid transparent !important;
+    transition: all 0.2s ease;
+}
+
+/* 3. RÃ‰-AFFICHAGE SÃ‰LECTIF (Uniquement si un type est reconnu)
+   On n'applique les couleurs que si le parent possÃ¨de une classe spÃ©cifique */
+
+/* --- PLEIN TEMPS (Vert) --- */
+li[class * ="full-time"] .job-types, li[class * ="plein-temps"] .job-types, .job-type.full-time, .full-time .job-types {
+    background-color: #dcfce7 !important;
+    color: #166534 !important;
+    border-color: #bbf7d0 !important;
+}
+
+/* --- MI-TEMPS (Indigo/Violet) --- */
+li[class * ="part-time"] .job-types, li[class * ="mi-temps"] .job-types, .job-type.part-time, .part-time .job-types {
+    background-color: #e0e7ff !important;
+    color: #3730a3 !important;
+    border-color: #c7d2fe !important;
+}
+
+/* --- FREELANCE (Ambre/Jaune) --- */
+li[class * ="freelance"] .job-types, .job-type.freelance, .freelance .job-types {
+    background-color: #fef3c7 !important;
+    color: #92400e !important;
+    border-color: #fde68a !important;
+}
+
+/* 4. NETTOYAGE DES ICÃ”NES SI VIDE
+   Si Cariera affiche une icÃ´ne vide Ã  cÃ´tÃ© du "No job type", on la cache aussi */
+li:not([class * ="type-"]) .job-type-icon, li:not([class * ="temps"]) .job-type-icon {
+    display: none !important;
+}
+
+/* Masquer tout le bloc job-extras si pas de type d'emploi dÃ©fini */
+li.job_listing:not([class * ="full-time"]):not([class * ="part-time"]):not([class * ="freelance"]):not([class * ="remote"]):not([class * ="contract"]):not([class * ="temporary"]):not([class * ="internship"]) .job-extras {
+    display: none !important;
+}
+/*  GEMINI  JOB TYPE */
+.jobiizy-company-name-inline {
+    display: flex !important;
+    align-items: center !important;
+    font-size: 14px !important;
+    color: #3b82f6 !important; /* Bleu Jobiizy */
+    font-weight: 700 !important;
+    margin: 5px 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.jobiizy-company-name-inline i {
+    margin-right: 6px !important;
+}
+
+/*  GEMINI V2 */
+/* Alignement du Logo et du Nom sur la même ligne */
+.job_listing.job-grid.single_job_listing_4 .logo-wrapper {
+    display: flex !important;
+    align-items: center !important; /* Centrage vertical */
+    gap: 10px !important;           /* Espace entre logo et nom */
+    margin-bottom: 15px !important;
+    overflow: visible !important;
+}
+
+/* Style du badge entreprise */
+.jobiizy-company-name-inline {
+    background: rgba(59, 130, 246, 0.1) !important;
+    color: #3b82f6 !important;
+    padding: 3px 10px !important;
+    border-radius: 6px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+    white-space: nowrap !important;
+}
+
+/* On s'assure que le logo ne s'écrase pas */
+.job_listing.job-grid.single_job_listing_4 .company_logo {
+    width: 40px !important;
+    height: 40px !important;
+    flex-shrink: 0 !important;
+}
+/* GEMINI V2 */
+/* Style du nom d'entreprise dans le panneau de droite */
+.jobiizy-split-company {
+    display: flex !important;
+    align-items: center !important;
+    background: rgba(59, 130, 246, 0.1) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+    padding: 10px 15px !important;
+    border-radius: 8px !important;
+    margin-bottom: 20px !important;
+    color: #60a5fa !important; /* Bleu clair pour le mode sombre */
+    font-weight: 700 !important;
+    font-size: 16px !important;
+}
+
+.jobiizy-split-company i {
+    margin-right: 10px !important;
+    font-size: 18px !important;
+}
+
+/* Badge Recruteur dans la description */
+.jobiizy-recruiter-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+    padding: 10px 18px !important;
+    border-radius: 12px !important;
+    margin-bottom: 25px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.3s ease !important;
+}
+
+/* Icône du bâtiment */
+.jobiizy-recruiter-badge i {
+    color: #3b82f6 !important;
+    font-size: 20px !important;
+    margin-right: 12px !important;
+    filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.5)) !important;
+}
+
+/* Nom de l'entreprise */
+.jobiizy-recruiter-badge .name {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    letter-spacing: 0.3px !important;
+}
+/* Effet au survol (optionnel si cliquable un jour) */
+.jobiizy-recruiter-badge:hover {
+    border-color: rgba(59, 130, 246, 0.6) !important;
+    background: rgba(59, 130, 246, 0.2) !important;
+    transform: translateY(-2px);
+}
+
+/* Texte "Recruteur" */
+.jobiizy-recruiter-badge .label {
+    color: rgba(255, 255, 255, 0.5) !important; /* Blanc cassé transparent */
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.2px !important;
+    margin-right: 8px !important;
+}
+
+.jobiizy-recruiter-badge {
+    transition: opacity 0.3s ease-in-out !important;
+}
+
+/* Claude 05/18 */
+/* Masquer la meta produit WooCommerce sur la page produit */
+.product_meta {
+    display: none;
+}
+.social-sharer-wrapper {
+    display: none;
+}
+.tabs wc-tabs {
+    display: none;
+}
+/* Claude 05/18 */
+
+/* GTL G  20/01/2026 */
+/* Ajout fond gradient    */
+/* Désactiver le padding Cariera uniquement pour la split-view Jobiizy */
+/* Split-view / page emplois : supprimer le padding Cariera sur le <main> */
+/* body.page-id-14122 main.cariera-section-padding {
+  padding: 0px 0px 20px 0 !important;
+  background: linear-gradient(135deg, #1D2B47 0%, #1D2B47 50%, #334155 100%) !important;
+  min-height: 100vh !important;
+} */
+
+main.cariera-section-padding:has(.jobiizy-split-page) {
+  padding: 0 0 20px 0 !important;
+/*  background: linear-gradient(
+    135deg,
+    #1D2B47 0%,
+    #1D2B47 50%,
+    #334155 100%
+  ) !important;*/
+  background: radial-gradient(60% 80% at 20% 30%, rgba(26, 168, 240, 0.55) 0%, transparent 60%), radial-gradient(50% 70% at 80% 70%, rgba(60, 60, 161, 0.7) 0%, transparent 60%), linear-gradient(135deg, #1F1F6E 0%, #0B1437 100%);
+  min-height: 100vh !important;
+}
+/* GTL G 20/01/2026 */
+/* ============================================================
+ * HEADER COMPACT - MOBILE & DESKTOP
+ * Ajouté le 21/02/2025 par Gilles
+ * Réduit le padding pour un header plus compact
+ * et éviter que le bouton close des popups soit masqué
+ * ============================================================ */
+
+/* MOBILE (< 1024px) */
+@media (max-width: 1024px) {
+    header.cariera-main-header,
+    header.main-header {
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+    }
+    
+    /* Inner containers */
+    header.cariera-main-header .header-inner,
+    header.main-header .header-inner,
+    header.cariera-main-header .container,
+    header.main-header .container {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    
+    /* Logo plus compact */
+    header.cariera-main-header .site-branding,
+    header.main-header .site-branding {
+        padding-top: 4px !important;
+        padding-bottom: 4px !important;
+    }
+    
+    header.cariera-main-header .custom-logo,
+    header.main-header .custom-logo,
+    header.cariera-main-header .site-logo img,
+    header.main-header .site-logo img {
+        max-height: 40px !important;
+        width: auto !important;
+    }
+    
+    /* Menu hamburger */
+    header.cariera-main-header .menu-toggle,
+    header.main-header .menu-toggle,
+    header.cariera-main-header .hamburger,
+    header.main-header .hamburger {
+        padding: 8px !important;
+        margin: 0 !important;
+    }
+    
+    /* Icons header */
+    header.cariera-main-header .header-icons,
+    header.main-header .header-icons {
+        padding: 0 !important;
+        gap: 4px !important;
+    }
+    
+    header.cariera-main-header .header-icons a,
+    header.main-header .header-icons a {
+        padding: 8px !important;
+    }
+}
+
+/* DESKTOP (> 1024px) - Légèrement réduit aussi */
+@media (min-width: 1025px) {
+    header.cariera-main-header,
+    header.main-header {
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+    }
+    
+    header.cariera-main-header .custom-logo,
+    header.main-header .custom-logo,
+    header.cariera-main-header .site-logo img,
+    header.main-header .site-logo img {
+        max-height: 50px !important;
+        width: auto !important;
+    }
+}
+
+/* Fin Header Compact */
+/* ============================================================
+ * HAMBURGER HELLOWORK - OVERRIDE CARIERA FRONTEND.JS
+ * Ajouté le 21/02/2025 par Gilles
+ * Force le style en surchargeant les CSS de Cariera
+ * ============================================================ */
+
+/* ============================================================
+ * FIX MMENU-TRIGGER - Cariera frontend.js
+ * Ajouté le 21/02/2025 par Gilles
+ * Corrige le fond sombre et l'alignement
+ * ============================================================ */
+
+@media (max-width: 1024px) {
+    .mmenu-trigger {
+        background: transparent !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Supprimer le flex sur hamburger-box — ça casse hamburger--collapse */
+    .mmenu-trigger .hamburger-box {
+        display: block !important;  /* PAS flex */
+        width: 28px !important;
+        height: 20px !important;
+        position: relative !important;
+    }
+
+    .mmenu-trigger .hamburger-inner,
+    .mmenu-trigger .hamburger-inner::before,
+    .mmenu-trigger .hamburger-inner::after {
+        width: 28px !important;
+        height: 2px !important;
+        background-color: #1e293b !important;
+        border-radius: 2px !important;
+        position: absolute !important;
+        left: 0 !important;
+    }
+
+    .mmenu-trigger .hamburger-inner { top: 9px !important; }
+    .mmenu-trigger .hamburger-inner::before { top: -8px !important; content: "" !important; }
+    .mmenu-trigger .hamburger-inner::after { top: 8px !important; content: "" !important; }
+}
+
+/* Claude 26/02 */ 
+/* Fix artefact Slick - float avant initialisation */
+.slick-slider:not(.slick-initialized) .slick-slide {
+    float: none !important;
+}
+/* Claude 26/02 */ 
+/* Claude 05/18 Page package */
+/* Full page — neutralise le padding Cariera sur cette page */
+.jobiizy-full-page {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+}
+.jobiizy-full-page #main {
+    padding: 0 !important;
+}
+/* Claude 05/18 Page package */
+/* Full page — neutralise le padding Cariera sur cette page */
+
+/* Masquer bouton alerte non pluggé page jobs */
+.jobiizy-btn-alert {
+  display: none !important;
+}

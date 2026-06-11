@@ -1,0 +1,69 @@
+/**
+ * JobiiZy - Mobile Hidden States v1.1
+ * 
+ * Gère les états cachés de la barre:
+ *   - Quand menu mobile ouvert
+ *   - Quand offre affichée (.jobiizy-detail-column.open)
+ *   - Quand popup filtres ouverte
+ * 
+ * @version 1.2
+ */
+
+@media (max-width: 1024px) {
+    
+    /* =========================================================
+       ÉTAT CACHÉ - MENU MOBILE OUVERT
+       ========================================================= */
+    .jb-mobile-bar.jb-hidden-for-menu {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transform: translateY(-20px) !important;
+        transition: 
+            opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+            transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    }
+    
+    /* =========================================================
+       ÉTAT CACHÉ - OFFRE OUVERTE
+       ========================================================= */
+    .jb-mobile-bar.jb-hidden-for-detail {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transform: translateY(-20px) !important;
+        transition: 
+            opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+            transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    }
+    
+    /* =========================================================
+       🆕 ÉTAT CACHÉ - POPUP FILTRES OUVERTE
+       ========================================================= */
+    .jb-mobile-bar.jb-hidden-for-filters {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transform: translateY(-20px) !important;
+        transition: 
+            opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+            transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    }
+    
+    /* =========================================================
+       TRANSITION RETOUR VISIBLE (NB: transform géré par JS, pas ici)
+       ========================================================= */
+    .jb-mobile-bar:not(.jb-hidden-for-menu):not(.jb-hidden-for-detail):not(.jb-hidden-for-filters) {
+        opacity: 1 !important;
+        transition: 
+            opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s,
+            transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s !important;
+    }
+    
+    /* =========================================================
+       SPACER - S'adapte quand barre cachée
+       ========================================================= */
+    .jb-mobile-bar.jb-hidden-for-menu ~ .jb-mobile-spacer,
+    .jb-mobile-bar.jb-hidden-for-detail ~ .jb-mobile-spacer,
+    .jb-mobile-bar.jb-hidden-for-filters ~ .jb-mobile-spacer {
+        height: 0 !important;
+        transition: height 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    }
+}
