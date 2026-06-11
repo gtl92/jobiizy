@@ -160,27 +160,6 @@ add_action( 'wp_enqueue_scripts', function () {
     );
 });
 /**
- * Détermine si une offre utilise un formulaire externe
- * (utilisable partout : templates, AJAX, hooks WPJM)
- */
-if ( ! function_exists( 'jobiizy_is_external_application' ) ) {
-
-    function jobiizy_is_external_application( $job_id ) {
-
-        if ( ! $job_id ) {
-            return false;
-        }
-
-        // ID du formulaire associé à l’offre
-        $form_id = get_post_meta( $job_id, '_job_application_form', true );
-
-        // Liste des formulaires externes
-        $external_forms = [ 12183, 12245 ];
-
-        return in_array( (int) $form_id, $external_forms, true );
-    }
-}
-/**
  * Plugin Name: JobiiZy Customization
  * Description: Custom modifications for JobiiZy
  * Version: 3.0.0
@@ -1646,26 +1625,28 @@ add_action('init', function () {
 /**
  * JobiiZy – Détection offre interne / externe
  */
- function jobiizy_get_internal_application_form_id() {
+function jobiizy_get_internal_application_form_id() {
     return apply_filters(
         'jobiizy_internal_application_form_id',
         12181
     );
 }
 
-function jobiizy_is_external_application( $job_id ) {
+if ( ! function_exists( 'jobiizy_is_external_application' ) ) {
+    function jobiizy_is_external_application( $job_id ) {
 
-    $application_form_id = absint(
-        get_post_meta( $job_id, '_application_form', true )
-    );
+        $application_form_id = absint(
+            get_post_meta( $job_id, '_application_form', true )
+        );
 
-    if ( ! $application_form_id ) {
-        return false; // pas de formulaire → interne
+        if ( ! $application_form_id ) {
+            return false; // pas de formulaire → interne
+        }
+
+        return (
+            $application_form_id !== jobiizy_get_internal_application_form_id()
+        );
     }
-
-    return (
-        $application_form_id !== jobiizy_get_internal_application_form_id()
-    );
 }
 
 
