@@ -106,7 +106,6 @@ function cariera_child_enqueue_assets() {
         'jobiizy-title-capitalize'  => '/assets/js/title-capitalize.js',
         'jobiizy-random-company-bg' => '/assets/js/random-company-bg.js',
         // 'jobiizy-mobile-header-js'  => '/assets/js/jobiizy-mobile-header-fix.js',
-        'jobiizy-overview-js'       => '/assets/js/jobiizy-overview.js',
         'jobiizy-company-link'       => '/assets/js/splitview-company-link.js',
     ];
     
@@ -1570,13 +1569,6 @@ function jobiizy_custom_new_badge() {
     }
 }
 
-/**
- * Forcer le chargement de la police Inter
- */
-add_action( 'wp_enqueue_scripts', 'jobiizy_enqueue_modern_fonts' );
-function jobiizy_enqueue_modern_fonts() {
-    wp_enqueue_style( 'jobiizy-google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap', false );
-}
 
 
 
