@@ -1010,136 +1010,7 @@ add_shortcode('jobiizy_mobile_header', function() {
 * Si vous voulez juste tester rapidement :
 * TEST RAPIDE
 */
-add_action('admin_init', 'jobiizy_quick_test');
-function jobiizy_quick_test() {
-    if (isset($_GET['test_logo'])) {
-        $job_id = isset($_GET['job_id']) ? absint($_GET['job_id']) : 123;
-        $post = get_post($job_id);
-        
-        echo '<pre>';
-        echo 'Job ID: ' . $job_id . "\n";
-        echo 'Logo avec $post: ' . get_the_company_logo($post, 'thumbnail') . "\n";
-        echo 'Logo sans $post: ' . get_the_company_logo(null, 'thumbnail') . "\n";
-        echo '</pre>';
-        exit;
-    }
-}
-/**
- * Fix Cariera : forcer l’enregistrement de _company_id lors de la sauvegarde admin
- */
-add_action('save_post_job_listing', 'jobiizy_fix_company_id_meta', 1, 3);
-function jobiizy_fix_company_id_meta($post_id, $post, $update) {
-
-    // Pas autosave
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-
-    if ($post->post_type !== 'job_listing') return;
-
-    // Le field Cariera envoie ceci :
-    $field_key = '_company_id';
-    //  error_log("📩 POST : " . print_r($_POST, true));
-    // Il se trouve dans $_POST['company_id'] ou dans $_POST['_company_id']
-	$company_id =
-    $_POST['company_id']
-    ?? $_POST['_company_id']
-    ?? $_POST['_company_manager_id']                // 🔥 Nouveau Cariera
-    ?? get_post_meta($post_id, '_company_id', true)
-    ?? get_post_meta($post_id, '_company_manager_id', true);
-
-	if ($company_id) {
-		update_post_meta($post_id, '_company_id', absint($company_id));
-		error_log("🔧 [JOBIIZY FIX] _company_id forcé → $company_id pour job $post_id");
-	} else {
-		error_log("⚠️ [JOBIIZY FIX] Aucun company_id fourni pour job $post_id");
-	}
-}
-/**
- * Fix : Synchronisation automatique du logo entreprise → job listing
- * Version: 1.0.0
- * 
- * PROBLÈME :
- * Dans les anciennes versions de Cariera, quand on créait/éditait un job listing
- * et qu'on associait une entreprise (company), le logo de l'entreprise était
- * automatiquement copié comme "featured image" du job.
- * 
- * Depuis une mise à jour, cette synchronisation ne se fait plus automatiquement.
- * Résultat : les jobs n'ont plus de logo.
- * 
- * SOLUTION :
- * Hook sur la sauvegarde d'un job_listing pour copier automatiquement
- * le logo de la company associée.
- */
-/**
- * Cœur de la synchro : NE PAS hooker directement ici
- */
-function jobiizy_sync_company_logo_core($job_id) {
-
-    // Sécurité de base
-    if (empty($job_id) || get_post_type($job_id) !== 'job_listing') {
-        return;
-    }
-
-    // Récupérer la company associée
-    $company_id = (int) get_post_meta($job_id, '_company_id', true);
-    if (!$company_id) {
-        error_log("❌ [JOBIIZY LOGO] Aucun company_id pour le job $job_id");
-        return;
-    }
-
-    if (!get_post($company_id)) {
-        error_log("❌ [JOBIIZY LOGO] Company $company_id inexistante (job $job_id)");
-        return;
-    }
-
-    // Vérifier que la company a un logo
-    if (!has_post_thumbnail($company_id)) {
-        error_log("⚠️ [JOBIIZY LOGO] Company $company_id sans logo (job $job_id)");
-        return;
-    }
-
-    $thumbnail_id = get_post_thumbnail_id($company_id);
-    if (!$thumbnail_id) {
-        error_log("⚠️ [JOBIIZY LOGO] Company $company_id : thumbnail_id introuvable (job $job_id)");
-        return;
-    }
-
-    // Appliquer le logo au job
-    set_post_thumbnail($job_id, $thumbnail_id);
-    error_log("✅ [JOBIIZY LOGO] Logo $thumbnail_id copié → job $job_id (company $company_id)");
-}
-
-/**
- * 1) Synchro après soumission front-end (formulaire WP Job Manager / Cariera)
- */
-add_action('job_manager_save_job_listing', 'jobiizy_sync_company_logo_from_front', 20, 2);
-function jobiizy_sync_company_logo_from_front($job_id, $values) {
-    // Ici $values peut contenir meta, mais on n’en dépend plus
-    jobiizy_sync_company_logo_core($job_id);
-}
-
-/**
- * 2) Synchro depuis l’admin quand on clique sur "Mettre à jour"
- */
-add_action('save_post_job_listing', 'jobiizy_sync_company_logo_from_admin', 200, 3);
-function jobiizy_sync_company_logo_from_admin($post_id, $post, $update) {
-
-    // Éviter autosave / révisions
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-    if (wp_is_post_revision($post_id)) return;
-
-    if ($post->post_type !== 'job_listing') return;
-
-    // On ne s'intéresse qu'aux vraies mises à jour
-    if (!$update) return;
-
-    // Empêcher une boucle infinie
-    remove_action('save_post_job_listing', 'jobiizy_sync_company_logo_from_admin', 20);
-
-    jobiizy_sync_company_logo_core($post_id);
-
-    // Réactiver le hook
-    add_action('save_post_job_listing', 'jobiizy_sync_company_logo_from_admin', 20, 3);
-}
+require_once __DIR__ . ‘/includes/company-sync.php’;
 
 
 // ============================================================
@@ -1172,11 +1043,6 @@ function jobiizy_suppress_deprecated_warnings($errno, $errstr, $errfile, $errlin
 
 // Activer le filtre (à mettre dans functions.php)
 set_error_handler('jobiizy_suppress_deprecated_warnings');
-
-// Désactive le resize du logo d'entreprise (Cariera)
-add_filter('cariera_company_logo_size', function() {
-    return 'full'; // renvoie la version originale
-});
 
 
 
