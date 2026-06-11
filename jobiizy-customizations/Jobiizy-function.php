@@ -8,8 +8,6 @@
 // =======================================================
 // REDIRECTION GLOBALE DES LOGS DU PLUGIN JOBIIZY
 // =======================================================
-$child_error_log = get_stylesheet_directory() . '/error_log';
-@ini_set('error_log', $child_error_log);
 /**
  * Les error_log() peuvent causer des sorties HTML si mal configurés
  * Ajoutez cette vérification au début de votre fichier
@@ -405,6 +403,11 @@ add_action('plugins_loaded', function () {
 add_action('init', function () {
     if (!isset($_GET['debug_meta'])) {
         return;
+    }
+
+    // Réservé aux administrateurs connectés, via l'espace admin uniquement
+    if ( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
+        wp_die( 'Accès refusé.', 403 );
     }
 
     $post_id = intval($_GET['debug_meta']);
@@ -1370,30 +1373,18 @@ function jobiizy_antispam_before_register() {
 }
 
 
-// DEBUG COMPLET - Tracer toutes les infos de la page
-// ✅ NOUVEAU CODE (remplacez par) :
-add_action('wp', function() {
-    // ❌ Ne JAMAIS exécuter dans l'admin
-    if ( is_admin() ) {
-        return;
-    }
-    
-    if ( wp_doing_ajax() ) {
-        return;
-    }
-    
-    if ( is_page('job-dashboard') ) {
-        return;
-    }
-    
-    global $post;
-    error_log('=====================================');
-    error_log('📍 URL: ' . $_SERVER['REQUEST_URI']);
-    error_log('📄 Post Type: ' . get_post_type());
-    error_log('🆔 Post ID: ' . get_the_ID());
-    error_log('📝 Post Title: ' . get_the_title());
-    error_log('=====================================');
-}, 999);
+// DEBUG COMPLET - Actif uniquement si WP_DEBUG = true
+if ( defined('WP_DEBUG') && WP_DEBUG ) {
+    add_action('wp', function() {
+        if ( is_admin() || wp_doing_ajax() || is_page('job-dashboard') ) {
+            return;
+        }
+        global $post;
+        error_log('📍 URL: ' . $_SERVER['REQUEST_URI']);
+        error_log('📄 Post Type: ' . get_post_type());
+        error_log('🆔 Post ID: ' . get_the_ID());
+    }, 999);
+}
 
 // ✅ NOUVEAU CODE (remplacez par) :
 // Ce hook doit être 'wp_enqueue_scripts' pour le frontend

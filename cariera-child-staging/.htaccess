@@ -1,0 +1,10 @@
+# === JOBIIZY SECURITY ===
+<Files "error_log">
+    Order deny,allow
+    Deny from all
+</Files>
+
+<FilesMatch "\.zip$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
