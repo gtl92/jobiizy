@@ -849,43 +849,7 @@ function has_active_job_package($user_id) {
     return false;
 }
 
-/* ============================================================
-   MENUS DYNAMIQUES SELON LE RÔLE
-   ============================================================ */
-
-/**
- * 📋 Enregistrer les emplacements de menus
- */
-function jobiizy_register_menus() {
-    register_nav_menus([
-        'menu_admin' => __('Menu Admin'),
-        'menu_employeur' => __('Menu Employeur'),
-        'menu_candidat' => __('Menu Candidat'),
-        'menu_default' => __('Menu Public'),
-    ]);
-}
-add_action('init', 'jobiizy_register_menus');
-
-/**
- * 🔄 Changer le menu principal selon le rôle de l'utilisateur
- */
-add_filter('wp_nav_menu_args', function($args) {
-    if (isset($args['theme_location']) && $args['theme_location'] === 'primary') {
-        $user = wp_get_current_user();
-        $menu_location = 'menu_default';
-
-        if (in_array('administrator', (array) $user->roles)) {
-            $menu_location = 'menu_admin';
-        } elseif (in_array('employer', (array) $user->roles)) {
-            $menu_location = 'menu_employeur';
-        } elseif (in_array('candidate', (array) $user->roles)) {
-            $menu_location = 'menu_candidat';
-        }
-        
-        $args['theme_location'] = $menu_location;
-    }
-    return $args;
-}, 10);
+require_once __DIR__ . '/includes/menus.php';
 
 /* ============================================================
    SHORTCODES ET HOOKS ADDITIONNELS
@@ -1585,43 +1549,7 @@ add_action('wp_footer', function() {
 }, 999);
 */
 
-// Fix le TITRE 
-add_filter('wpseo_title', function($title) {
-    if (is_singular('job_listing')) {
-        global $post;
-        
-        $location = get_post_meta($post->ID, '_job_location', true) ?: 'Israël';
-        
-        // Récupère le job type depuis les termes (pas meta)
-        $terms = get_the_terms($post->ID, 'job_listing_type');
-        $job_type = (!empty($terms) && !is_wp_error($terms)) 
-            ? $terms[0]->name 
-            : 'CDI';
-        
-        return get_the_title($post->ID) . ' à ' . $location . ' — ' . $job_type . ' Francophone';
-    }
-    return $title;
-});
-
-// Fix la META DESCRIPTION
-add_filter('wpseo_metadesc', function($desc) {
-    if (is_singular('job_listing')) {
-        global $post;
-        
-        $location = get_post_meta($post->ID, '_job_location', true) ?: 'Israël';
-        
-        // Récupère le job type depuis les termes
-        $terms = get_the_terms($post->ID, 'job_listing_type');
-        $job_type = (!empty($terms) && !is_wp_error($terms)) 
-            ? $terms[0]->name 
-            : 'CDI';
-        
-        $title = get_the_title($post->ID);
-        
-        return 'Offre d\'emploi: ' . $title . ' (' . $job_type . ') à ' . $location . '. Emploi francophone en Israël. Postulez gratuitement.';
-    }
-    return $desc;
-});
+require_once __DIR__ . '/includes/seo.php';
 
 // Claude Add package html
 // functions.php
