@@ -1,0 +1,176 @@
+/* Overlay popup */
+#jobiizy-login-popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Box de la popup */
+.jobiizy-popup-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 480px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Bouton fermer */
+.jobiizy-popup-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #f5f5f5;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    line-height: 1;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.jobiizy-popup-close:hover {
+    background: #e0e0e0;
+    color: #333;
+    transform: rotate(90deg);
+}
+
+/* Titre */
+.jobiizy-popup-box h2 {
+    margin: 0 0 12px;
+    font-size: 26px;
+    color: #1a1a1a;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* Description */
+.jobiizy-popup-box p {
+    color: #666;
+    margin-bottom: 28px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* Conteneur des boutons */
+.jobiizy-popup-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Ligne des boutons secondaires */
+.jobiizy-popup-secondary-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* Bouton principal */
+.jobiizy-popup-btn-primary {
+    display: block;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #040a8e 0%, #0612b8 100%);
+    color: #fff !important;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(4, 10, 142, 0.3);
+}
+
+.jobiizy-popup-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(4, 10, 142, 0.4);
+    background: linear-gradient(135deg, #0612b8 0%, #040a8e 100%);
+}
+
+/* Boutons secondaires */
+.jobiizy-popup-btn-secondary {
+    display: block;
+    padding: 14px 20px;
+    background: #f5f5f5;
+    color: #333 !important;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.jobiizy-popup-btn-secondary:hover {
+    background: #fff;
+    border-color: #040a8e;
+    color: #040a8e !important;
+    transform: translateY(-1px);
+}
+
+/* Emoji dans le titre */
+.jobiizy-popup-emoji {
+    font-size: 32px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .jobiizy-popup-box {
+        padding: 30px 24px;
+        max-width: 95%;
+    }
+
+    .jobiizy-popup-box h2 {
+        font-size: 22px;
+    }
+
+    .jobiizy-popup-secondary-row {
+        grid-template-columns: 1fr;
+    }
+
+    .jobiizy-popup-btn-primary {
+        padding: 14px 20px;
+        font-size: 15px;
+    }
+
+    .jobiizy-popup-btn-secondary {
+        padding: 12px 18px;
+        font-size: 13px;
+    }
+}
