@@ -343,14 +343,6 @@ function jobiizy_mobile_body_class($classes) {
 }
 add_filter('body_class', 'jobiizy_mobile_body_class');
 
-function jobiizy_emplois_body_class($classes) {
-    if (is_page(JOBIIZY_JOBS_PAGE_ID)) {
-        $classes[] = 'jobiizy-emplois-page';
-    }
-    return $classes;
-}
-add_filter('body_class', 'jobiizy_emplois_body_class');
-
 /**
  * Ajuster la configuration du header sticky pour mobile
  * (si Cariera a des options spécifiques)
