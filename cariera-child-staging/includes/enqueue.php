@@ -129,7 +129,7 @@ function jobiizy_enqueue_cvform_script() {
 
 // ── splitview-redirect.js + nettoyage scripts polluants (priority 100) ───────
 add_action('wp_enqueue_scripts', function() {
-    if (!is_page('emplois') && !is_post_type_archive('job_listing')) return;
+    if (!is_page(JOBIIZY_JOBS_PAGE_ID) && !is_post_type_archive('job_listing')) return;
 
     $rel  = '/assets/js/splitview-redirect.js';
     $path = get_stylesheet_directory() . $rel;

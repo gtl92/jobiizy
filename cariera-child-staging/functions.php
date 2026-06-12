@@ -37,6 +37,7 @@ if (file_exists($jobiizy_debug_file)) {
 // function jobiizy_error($msg)                  { /* désactivé */ }
 
 
+require_once __DIR__ . '/includes/config.php';
 require_once get_stylesheet_directory() . '/anti-spam.php';
 require_once __DIR__ . '/includes/enqueue.php';
 
@@ -391,8 +392,7 @@ add_shortcode('jobiizy_mobile_header', function() {
 * Si vous voulez juste tester rapidement :
 * TEST RAPIDE
 */
-require_once __DIR__ . ‘/includes/company-sync.php’;
-
+require_once __DIR__ . '/includes/company-sync.php';
 
 // ============================================================
 // FILTRE PERSONNALISÉ POUR MASQUER LES WARNINGS SPÉCIFIQUES
