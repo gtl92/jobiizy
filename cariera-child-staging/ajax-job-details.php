@@ -60,11 +60,10 @@ function jobiizy_load_job_details_handler() {
 	<div class="jobiizy-job-detail">
 		
 		<!-- Bouton en haut (visible immédiatement) -->
-		<div class="jobiizy-split-cta jobiizy-cta-top">
-			<a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>" class="button btn chrome-btn chrome-btn-filled" style="width:100%;text-align:center;" target="_blank">
-				<span class="chrome-btn-glow"></span>
-				<span class="chrome-btn-bg"></span>
-				<span class="chrome-btn-content">Voir l'offre / Postuler</span>
+		<div class="jobiizy-split-cta-blue jobiizy-cta-top">
+			<a href="<?php echo get_permalink( $post_id ); ?>" class="button btn btn-main" data-job-url="<?php echo get_permalink( $post_id ); ?>" target="_blank">
+				<i class="las la-briefcase"></i>
+				<?php esc_html_e( 'Voir l\'offre / Postuler', 'cariera' ); ?>
 			</a>
 		</div>
 		

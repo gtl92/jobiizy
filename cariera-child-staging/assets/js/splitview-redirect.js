@@ -42,24 +42,18 @@ document.addEventListener('click', function (e) {
     // éviter doublon
     if ($('.jobiizy-split-cta', right)) return;
 
-    const glow    = document.createElement('span');
-    glow.className = 'chrome-btn-glow';
-    const bg      = document.createElement('span');
-    bg.className   = 'chrome-btn-bg';
-    const content  = document.createElement('span');
-    content.className  = 'chrome-btn-content';
-    content.textContent = "Voir l'offre / Postuler";
-
-    const btn = document.createElement('a');
-    btn.href      = singleUrl;
-    btn.className = 'button btn chrome-btn chrome-btn-filled';
-    btn.style.cssText = 'width:100%;text-align:center;';
-    btn.appendChild(glow);
-    btn.appendChild(bg);
-    btn.appendChild(content);
-
     const ctaWrap = document.createElement('div');
     ctaWrap.className = 'jobiizy-split-cta';
+    ctaWrap.style.marginTop = '16px';
+
+    const btn = document.createElement('a');
+    btn.href = singleUrl;
+    btn.className = 'button btn btn-main';
+    btn.textContent = 'Voir l’offre / Postuler';
+    btn.style.display = 'inline-block';
+    btn.style.width = '100%';
+    btn.style.textAlign = 'center';
+
     ctaWrap.appendChild(btn);
     right.appendChild(ctaWrap);
 
