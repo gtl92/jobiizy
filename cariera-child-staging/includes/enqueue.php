@@ -50,6 +50,16 @@ function cariera_child_enqueue_assets() {
         }
     }
 
+    $override_css = $theme_dir . '/assets/css/jobiizy-design-override.css';
+    if (file_exists($override_css)) {
+        wp_enqueue_style(
+            'jobiizy-design-override',
+            $theme_uri . '/assets/css/jobiizy-design-override.css',
+            ['cariera-parent-style', 'cariera-child-style'],
+            filemtime($override_css)
+        );
+    }
+
     $js_files = [
         'jobiizy-global'            => '/assets/js/jobiizy-global.js',
         'resume-filters'            => '/assets/js/resume-filters.js',
