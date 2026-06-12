@@ -293,11 +293,10 @@ if ( file_exists( $css_hidden ) ) {
 				</div>
 			</div>
 			
-			<a id="jobiizy-load-more-btn" class="load_more_jobs btn chrome-btn chrome-btn-filled" href="#">
-				<span class="chrome-btn-glow"></span>
-				<span class="chrome-btn-bg"></span>
-				<span class="chrome-btn-content">Charger plus d'annonces</span>
-			</a>
+			<button type="button" class="jobiizy-load-more-btn" id="jobiizy-load-more-btn">
+				<span class="btn-spinner"></span>
+				<span class="btn-text"><i class="las la-plus-circle"></i> Charger plus d'offres</span>
+			</button>
 		</div>
 		<?php endif; ?>
 		
