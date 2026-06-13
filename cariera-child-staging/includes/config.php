@@ -5,4 +5,4 @@
  */
 
 /** ID de la page "emplois" (split-view des offres). */
-define('JOBIIZY_JOBS_PAGE_ID', XXXXX);
+define('JOBIIZY_JOBS_PAGE_ID', 14122);

@@ -247,3 +247,16 @@ function jobiizy_enqueue_hc_offcanvas() {
         wp_enqueue_script('jobiizy-mobile-upgrade', $uri . '/assets/js/jobiizy-mobile-upgrade.js', ['jquery', 'hc-offcanvas-nav'], filemtime($js_m), true);
     }
 }
+
+// ── jobiizy-emplois-refonte.css — template Emplois Refonte ───────────────────
+add_action('wp_enqueue_scripts', function() {
+    if (!is_page_template('templates/page-emplois-refonte.php')) return;
+    $path = get_stylesheet_directory() . '/assets/css/jobiizy-emplois-refonte.css';
+    if (!file_exists($path)) return;
+    wp_enqueue_style(
+        'jobiizy-emplois-refonte',
+        get_stylesheet_directory_uri() . '/assets/css/jobiizy-emplois-refonte.css',
+        ['jobiizy-design-override'],
+        filemtime($path)
+    );
+});
