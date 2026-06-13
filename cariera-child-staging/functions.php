@@ -42,38 +42,7 @@ require_once get_stylesheet_directory() . '/anti-spam.php';
 require_once __DIR__ . '/includes/enqueue.php';
 
 require_once __DIR__ . '/includes/templates.php';
-
-
-/* ============================================================
-   FONCTIONNALITÉS PERSONNALISÉES JOBIIZY
-   ============================================================ 
-*/
-
-/**
- * 🔘 Bouton "Voir l'offre" dans les listes d'emplois
- * 
- * Ajoute un bouton sous chaque offre dans les pages d'archives/recherche
- */
-add_action('job_listing_info_end', 'jobiizy_add_view_offer_button');
-function jobiizy_add_view_offer_button() {
-    global $post;
-    echo '<a href="' . esc_url(get_the_job_permalink($post)) . '" class="btn-view-offer">' 
-        . esc_html__("Voir l'offre", 'cariera') . '</a>';
-}
-
-/**
- * 💼 Type de contrat personnalisé : Télétravail
- * 
- * Ajoute "Remote Work / Télétravail" aux types de contrats disponibles
- */
-add_filter('wpjm_job_listing_employment_type_options', function($types) {
-    $types['REMOTE_WORK'] = esc_html__('Remote Work', 'wp-job-manager');
-    // Traduction française
-    if (get_locale() === 'fr_FR') {
-        $types['REMOTE_WORK'] = 'Télétravail';
-    }
-    return $types;
-});
+require_once __DIR__ . '/includes/job-hooks.php';
 
 /**
  * 📧 Email de notification de candidature personnalisé
@@ -122,78 +91,8 @@ function custom_job_application_notification_message($message, $application, $jo
     return ob_get_clean();
 }
 
-/**
- * 🏷️ Champ de recherche par tags
- * 
- * Ajoute un sélecteur de tags dans le formulaire de recherche d'emplois
- */
-add_action('job_manager_job_filters_search_jobs_end', 'cariera_add_search_tags_field');
-function cariera_add_search_tags_field($atts) {
-    $tags = get_terms(['taxonomy' => 'job_listing_tag', 'hide_empty' => false]);
-    if (empty($tags) || is_wp_error($tags)) return;
-
-    echo '<div class="search_tag_list search_categories">';
-    echo '<label>Tags</label>';
-    echo '<select name="search_keywords[]" multiple class="cariera-select2-search" data-placeholder="Choisissez un ou plusieurs tags">';
-    foreach ($tags as $tag) {
-        echo '<option value="' . esc_attr($tag->name) . '">' . esc_html($tag->name) . '</option>';
-    }
-    echo '</select></div>';
-}
-
 require_once __DIR__ . '/includes/cvtheque.php';
 require_once __DIR__ . '/includes/menus.php';
-
-/* ============================================================
-   SHORTCODES ET HOOKS ADDITIONNELS
-   ============================================================ */
-
-/**
- * 📄 Shortcode [jobiizy_cv_form] - Formulaire CV pour non-connectés
- * 
- * Usage : [jobiizy_cv_form job_id="123"]
- */
-add_shortcode('jobiizy_cv_form', function($atts = []) {
-    $atts = shortcode_atts([
-        'job_id' => get_the_ID(),
-        'title' => 'Envoyer votre CV'
-    ], $atts, 'jobiizy_cv_form');
-    
-    $job_id = absint($atts['job_id']);
-    if (!$job_id) return '';
-
-    ob_start();
-    $template = get_stylesheet_directory() . '/assets/templates/cv-form.php';
-    if (file_exists($template)) {
-        include $template;
-    } else {
-        echo '<p style="color:red">⚠️ Fichier cv-form.php manquant dans /assets/templates/</p>';
-    }
-    return ob_get_clean();
-});
-
-/**
- * 📌 Ajouter le titre du job dans le widget overview (sidebar)
- */
-add_action('single_job_listing_meta_start', 'jobiizy_add_title_in_job_overview');
-function jobiizy_add_title_in_job_overview() {
-    if (is_singular('job_listing')) {
-        echo '<div class="single-job-overview-detail job-overview-title">';
-        echo '<div class="content">';
-        echo '<h2 class="job-overview-title-text">' . esc_html(get_the_title()) . '</h2>';
-        echo '</div></div>';
-    }
-}
-
-/**
- * 🏷️ Ajouter le titre du job avant le bloc entreprise
- */
-add_action('single_job_listing_start', 'jobiizy_add_job_title_before_company', 25);
-function jobiizy_add_job_title_before_company() {
-    if (is_singular('job_listing')) {
-        echo '<h2 class="job-main-title">' . esc_html(get_the_title()) . '</h2>';
-    }
-}
 
 require_once __DIR__ . '/includes/popup.php';
 
@@ -311,23 +210,6 @@ function jobiizy_suppress_deprecated_warnings($errno, $errstr, $errfile, $errlin
 // Activer le filtre (à mettre dans functions.php)
 set_error_handler('jobiizy_suppress_deprecated_warnings');
 
-
-
-
-// GEMINI LIVE 
-/**
- * Ajouter un badge "Nouveau" sur les offres de moins de 3 jours
- */
-add_action( 'cariera_job_listing_meta_start', 'jobiizy_custom_new_badge' );
-
-function jobiizy_custom_new_badge() {
-    $post_date = get_the_date('U');
-    $delta = ( time() - $post_date ) / ( 60 * 60 * 24 );
-    
-    if ( $delta <= 3 ) {
-        echo 'NOUVEAU';
-    }
-}
 
 
 
