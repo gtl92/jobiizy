@@ -121,18 +121,20 @@ get_header();
       <form class="jze-search" method="GET" action="" role="search">
         <div class="jze-search-field">
           <i class="las la-search" aria-hidden="true"></i>
-          <input type="text" name="keywords"
+          <input type="text" id="jobiizy-keywords" name="keywords"
                  placeholder="Métier, entreprise, compétence…"
                  value="<?php echo esc_attr($hero_keywords); ?>"
                  autocomplete="off">
+          <div class="jze-ac-dropdown" id="jze-ac-kw" hidden></div>
         </div>
         <span class="jze-search-sep" aria-hidden="true"></span>
         <div class="jze-search-field">
           <i class="las la-map-marker" aria-hidden="true"></i>
-          <input type="text" name="location"
+          <input type="text" id="jobiizy-location" name="location"
                  placeholder="Ville, région…"
                  value="<?php echo esc_attr($hero_location); ?>"
                  autocomplete="off">
+          <div class="jze-ac-dropdown" id="jze-ac-loc" hidden></div>
         </div>
         <button type="submit" class="jze-search-btn">
           <i class="las la-search" aria-hidden="true"></i>
@@ -378,6 +380,100 @@ get_header();
     }
   });
 
+})();
+
+// ── AUTOCOMPLÉTION HERO ───────────────────────────────────────────────────
+(function () {
+  'use strict';
+
+  var DEBOUNCE = 300;
+  var timers   = {};
+
+  function debounce(fn, key) {
+    clearTimeout(timers[key]);
+    timers[key] = setTimeout(fn, DEBOUNCE);
+  }
+
+  function esc(s) {
+    return String(s)
+      .replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+      .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  // Rendu des suggestions keywords (type: job | company)
+  function renderKw(items, el) {
+    if (!items || !items.length) { el.hidden = true; return; }
+    el.innerHTML = items.map(function (item) {
+      var label = esc(item.title || item.name || '');
+      var sub   = item.type === 'company'
+        ? (item.jobs_count ? item.jobs_count + ' offre' + (item.jobs_count > 1 ? 's' : '') : '')
+        : esc(item.company || '');
+      return '<div class="jze-ac-item" data-value="' + label + '">'
+           + '<span class="jze-ac-label">' + label + '</span>'
+           + (sub ? '<span class="jze-ac-sub">' + sub + '</span>' : '')
+           + '</div>';
+    }).join('');
+    el.hidden = false;
+  }
+
+  // Rendu des suggestions localisation
+  function renderLoc(items, el) {
+    if (!items || !items.length) { el.hidden = true; return; }
+    el.innerHTML = items.map(function (item) {
+      var label = esc(item.name || '');
+      var sub   = item.count ? item.count + ' offre' + (item.count > 1 ? 's' : '') : '';
+      return '<div class="jze-ac-item" data-value="' + label + '">'
+           + '<span class="jze-ac-label">' + label + '</span>'
+           + (sub ? '<span class="jze-ac-sub">' + sub + '</span>' : '')
+           + '</div>';
+    }).join('');
+    el.hidden = false;
+  }
+
+  function setupAC(inputId, dropId, action, renderFn) {
+    var input = document.getElementById(inputId);
+    var drop  = document.getElementById(dropId);
+    if (!input || !drop) return;
+
+    input.addEventListener('input', function () {
+      var q = this.value.trim();
+      if (q.length < 2) { drop.hidden = true; return; }
+      var val = q;
+      debounce(function () {
+        var body = new URLSearchParams();
+        body.append('action', action);
+        body.append('query', val);
+        fetch(ajaxUrl, { method: 'POST', body: body })
+          .then(function (r) { return r.json(); })
+          .then(function (data) { if (data.success) renderFn(data.data, drop); })
+          .catch(function () { drop.hidden = true; });
+      }, inputId);
+    });
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') drop.hidden = true;
+    });
+
+    input.addEventListener('blur', function () {
+      setTimeout(function () { drop.hidden = true; }, 200);
+    });
+  }
+
+  // Clic sur une suggestion → remplit le champ
+  document.addEventListener('click', function (e) {
+    var item = e.target.closest('.jze-ac-item');
+    if (!item) return;
+    var drop  = item.closest('.jze-ac-dropdown');
+    if (!drop) return;
+    var input = drop.previousElementSibling;
+    if (input && input.tagName === 'INPUT') {
+      input.value = item.dataset.value || '';
+    }
+    drop.hidden = true;
+  });
+
+  setupAC('jobiizy-keywords', 'jze-ac-kw',  'jobiizy_autocomplete_keywords', renderKw);
+  setupAC('jobiizy-location', 'jze-ac-loc', 'jobiizy_autocomplete_location',  renderLoc);
 })();
 </script>
 
