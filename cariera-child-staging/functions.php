@@ -47,7 +47,7 @@ require_once __DIR__ . '/includes/job-hooks.php';
 require_once __DIR__ . '/includes/notifications.php';
 require_once __DIR__ . '/includes/cvtheque.php';
 require_once __DIR__ . '/includes/menus.php';
-
+require_once __DIR__ . '/includes/shortcodes.php';
 require_once __DIR__ . '/includes/popup.php';
 
 
@@ -115,22 +115,6 @@ if (defined('JOBIIZY_DEBUG') && JOBIIZY_DEBUG) {
     }, 9999);
 }
 
-/*
- *  ============================================================
- *  DIAGNOSTIC GÉNÉRAL
- * ============================================================ 
-*/
-add_shortcode('jobiizy_mobile_header', function() {
-    ob_start();
-    include get_stylesheet_directory() . '/templates/header-mobile-test.php';
-    return ob_get_clean();
-});
-
-/* 
-* 🎯 Version courte (test rapide)
-* Si vous voulez juste tester rapidement :
-* TEST RAPIDE
-*/
 require_once __DIR__ . '/includes/company-sync.php';
 
 // ============================================================
@@ -243,14 +227,6 @@ add_action('wp_footer', function() {
 
 require_once __DIR__ . '/includes/seo.php';
 
-// Claude Add package html
-// functions.php
-add_shortcode('jobiizy_packages', function() {
-    ob_start();
-    include get_stylesheet_directory() . '/templates/jobiizy-packages.html';
-    return ob_get_clean();
-});
-// Puis dans la page WP : [jobiizy_packages]
 add_action('template_redirect', function() {
     if (is_page('devenir-employeur')) {
         error_log('REDIRECT DEBUG - User: ' . get_current_user_id() 
