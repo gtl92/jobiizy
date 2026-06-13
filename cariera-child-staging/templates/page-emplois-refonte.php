@@ -352,6 +352,9 @@ get_header();
     });
     li.classList.add('active');
 
+    // Révéler le panneau détail (caché par défaut via CSS)
+    detailCol.classList.add('is-active');
+
     // Ouvrir le drawer sur mobile (< 1024 px)
     if (window.innerWidth < 1024) {
       detailCol.classList.add('open');

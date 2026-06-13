@@ -602,6 +602,14 @@
   padding: 0;
 }
 
+/* Panneau détail (droite) caché jusqu'à sélection d'une offre */
+.jze-split-section .jobiizy-detail-column {
+  display: none;
+}
+.jze-split-section .jobiizy-detail-column.is-active {
+  display: block;
+}
+
 /* Placeholder vide */
 .jze-split-empty {
   display: flex;
