@@ -325,14 +325,17 @@ get_header();
   if (!detailPanel || !detailCol) return;
 
   // ── Clic sur une offre dans la colonne gauche ─────────────────────────────
+  // On écoute sur .job_listing (et non a[href]) pour couvrir tous les templates
+  // WPJM/Cariera, qu'ils wrappent ou non avec un <a> en top-level.
   document.addEventListener('click', function (e) {
-    var link = e.target.closest('.listing-jobs-container .job_listing a[href]');
-    if (!link) return;
-    e.preventDefault();
+    var li = e.target.closest('.listing-jobs-container .job_listing');
+    if (!li) return;
+
+    // Empêcher la navigation si un lien est ciblé ou présent dans la carte
+    var link = e.target.closest('a[href]') || li.querySelector('a[href]');
+    if (link) e.preventDefault();
 
     // Extraire le post_id depuis la classe "post-{ID}" du <li.job_listing>
-    var li = link.closest('.job_listing');
-    if (!li) return;
     var m = li.className.match(/\bpost-(\d+)\b/);
     if (!m) return;
     var postId = m[1];
