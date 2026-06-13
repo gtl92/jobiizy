@@ -39,10 +39,16 @@
   // ---- 2) Injection bouton dans la colonne droite quand elle a du contenu
   function injectCTA(singleUrl) {
     const right = $('.listing-details-container .listing');
-    if (!right) return;
+    if (!right) {
+      console.warn('[Jobiizy] injectCTA: .listing-details-container .listing introuvable');
+      return;
+    }
 
     // éviter doublon
-    if ($('.jobiizy-split-cta', right)) return;
+    if ($('.jobiizy-split-cta', right)) {
+      console.log('[Jobiizy] CTA déjà présent dans le panel → skip');
+      return;
+    }
 
     const glow    = document.createElement(‘span’);
     glow.className = ‘chrome-btn-glow’;
@@ -74,18 +80,19 @@
   if (!rightListing) return;
 
   const observer = new MutationObserver(() => {
-    // Priorité 1 : URL capturée au clic (fiable, indépendante du permalink)
-    // Priorité 2 : attribut data-job-url injecté par ajax-job-details.php
-    // Priorité 3 : fallback sur les patterns d’URL connus
     const url =
       jzeLastJobUrl ||
       rightListing.querySelector(‘[data-job-url]’)?.dataset.jobUrl ||
       rightListing.querySelector(‘a[href*="/job/"], a[href*="/poste/"], a[href*="/emploi/"]’)?.href;
+
+    const hasCTA = !!rightListing.querySelector(‘.jobiizy-split-cta’);
+    console.log(‘[Jobiizy] observer → url:’, url ? url.split(‘/’).slice(-2).join(‘/’) : ‘null’, ‘| .jobiizy-split-cta déjà là:’, hasCTA);
 
     if (!url) return;
     injectCTA(url);
   });
 
   observer.observe(rightListing, { childList: true, subtree: true });
+  console.log(‘[Jobiizy] Observer branché sur:’, rightListing);
 
 })();

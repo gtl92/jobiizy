@@ -372,14 +372,19 @@ get_header();
     fetch(ajaxUrl, { method: 'POST', body: body })
       .then(function (r) { return r.json(); })
       .then(function (data) {
+        console.log('[JZE] AJAX post_id=' + postId
+          + ' success=' + data.success
+          + ' CTA_in_html=' + (data.data ? (data.data.indexOf('jobiizy-split-cta') !== -1) : 'N/A'));
         if (data.success) {
           detailPanel.innerHTML = data.data;
+          console.log('[JZE] .jobiizy-split-cta dans le panel après inject:', !!detailPanel.querySelector('.jobiizy-split-cta'));
         } else {
           detailPanel.innerHTML =
             '<p class="jze-split-error">Offre introuvable.</p>';
         }
       })
-      .catch(function () {
+      .catch(function (err) {
+        console.error('[JZE] Fetch error:', err);
         detailPanel.innerHTML =
           '<p class="jze-split-error">Erreur de chargement.</p>';
       });
