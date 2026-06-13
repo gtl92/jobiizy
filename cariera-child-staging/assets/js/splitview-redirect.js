@@ -23,16 +23,18 @@
     return;
   }
 
-  // ---- 1) Interception clic sur les offres (liste gauche)
-  // ---- 1) Interception clic sur les offres (liste gauche)
-// ⚠️ Désactivé : on laisse Cariera gérer le split Ajax (refresh colonne droite)
-document.addEventListener('click', function (e) {
-  const link = e.target.closest('.job_listings .job_listing a[href], .job_listings .job-grid a[href]');
-  if (!link) return;
+  // URL de l'offre cliquée — stockée ici, utilisée dans l'observer
+  let jzeLastJobUrl = null;
 
-  // IMPORTANT : ne surtout pas faire preventDefault/stopPropagation
-  // sinon Cariera ne reçoit plus le clic et ne charge pas la colonne droite.
-}, true);
+  // ---- 1) Interception clic sur les offres (liste gauche)
+  // Stocke l'URL sans intercepter l'event (Cariera gère le split Ajax).
+  document.addEventListener('click', function (e) {
+    const link = e.target.closest('.job_listings .job_listing a[href], .job_listings .job-grid a[href]');
+    if (!link) return;
+    jzeLastJobUrl = link.href;
+    // IMPORTANT : ne surtout pas faire preventDefault/stopPropagation
+    // sinon Cariera ne reçoit plus le clic et ne charge pas la colonne droite.
+  }, true);
 
   // ---- 2) Injection bouton dans la colonne droite quand elle a du contenu
   function injectCTA(singleUrl) {
@@ -72,12 +74,16 @@ document.addEventListener('click', function (e) {
   if (!rightListing) return;
 
   const observer = new MutationObserver(() => {
-    // Essaye de récupérer l’URL de l’offre depuis le contenu injecté
-    // Cas fréquent : on retrouve un lien canonical / permalink dans un <a>
-    const anyLink = rightListing.querySelector('a[href*="/job/"], a[href*="/poste/"], a[href*="/emploi/"]');
-    if (!anyLink) return;
+    // Priorité 1 : URL capturée au clic (fiable, indépendante du permalink)
+    // Priorité 2 : attribut data-job-url injecté par ajax-job-details.php
+    // Priorité 3 : fallback sur les patterns d’URL connus
+    const url =
+      jzeLastJobUrl ||
+      rightListing.querySelector(‘[data-job-url]’)?.dataset.jobUrl ||
+      rightListing.querySelector(‘a[href*="/job/"], a[href*="/poste/"], a[href*="/emploi/"]’)?.href;
 
-    injectCTA(anyLink.href);
+    if (!url) return;
+    injectCTA(url);
   });
 
   observer.observe(rightListing, { childList: true, subtree: true });
