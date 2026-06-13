@@ -651,3 +651,20 @@
   outline-offset: 2px;
   border-radius: 12px;
 }
+
+/* ════════════════════════════════════════════════════════
+   MASQUAGE ARTEFACTS ELEMENTOR
+   body.jobiizy-emplois-page = is_page(14122) uniquement.
+   /les-jobs/ a un page-id différent → non affecté.
+════════════════════════════════════════════════════════ */
+body.jobiizy-emplois-page .elementor-section {
+  display: none !important;
+}
+/* Exceptions : header, footer et leurs éléments Elementor */
+body.jobiizy-emplois-page header .elementor-section,
+body.jobiizy-emplois-page footer .elementor-section,
+body.jobiizy-emplois-page [data-elementor-type] .elementor-section,
+body.jobiizy-emplois-page .elementor-location-header .elementor-section,
+body.jobiizy-emplois-page .elementor-location-footer .elementor-section {
+  display: block !important;
+}
