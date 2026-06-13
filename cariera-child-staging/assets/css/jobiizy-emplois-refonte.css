@@ -653,6 +653,30 @@
 }
 
 /* ════════════════════════════════════════════════════════
+   RESET LAYOUT CARIERA
+   Neutralise les offsets column/sidebar Bootstrap du thème
+   parent sur le <main id="jze-page"> et ses conteneurs.
+════════════════════════════════════════════════════════ */
+body.jobiizy-emplois-page #content,
+body.jobiizy-emplois-page .site-content,
+body.jobiizy-emplois-page #page {
+  padding-left:  0 !important;
+  padding-right: 0 !important;
+  margin-left:   0 !important;
+  margin-right:  0 !important;
+}
+
+#jze-page.jze-page {
+  width:      100% !important;
+  max-width:  100% !important;
+  margin:     0 !important;
+  padding:    0 !important;
+  float:      none !important;
+  clear:      both !important;
+  box-sizing: border-box !important;
+}
+
+/* ════════════════════════════════════════════════════════
    MASQUAGE ARTEFACTS ELEMENTOR
    body.jobiizy-emplois-page = is_page(14122) uniquement.
    /les-jobs/ a un page-id différent → non affecté.
