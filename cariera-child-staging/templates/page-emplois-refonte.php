@@ -277,15 +277,108 @@ get_header();
     </div>
   </section>
 
-  <!-- ══ WIDGET SPLIT-VIEW ════════════════════════════════════════════════════ -->
-  <!-- the_content() rend le widget Elementor listing-split-view de la page     -->
-  <!-- /emplois/ (ID 14122). Sans cet appel, .listing-split-view et             -->
-  <!-- .listing-details-container sont absents du DOM et splitview-redirect.js   -->
-  <!-- avorte immédiatement dans isSplitView(). Supprimer dans Elementor toutes  -->
-  <!-- les sections au-dessus du widget split-view pour éviter le doublon hero.  -->
-  <div class="jze-split-view-area">
-    <?php the_content(); ?>
-  </div>
+  <!-- ══ LISTING SPLIT-VIEW (natif, sans Elementor) ══════════════════════════ -->
+  <!-- Structure duale : classes jobiizy-* pour le CSS + classes listing-* pour  -->
+  <!-- splitview-redirect.js (isSplitView, observer, injectCTA).                 -->
+  <section class="jze-split-section">
+
+    <div class="jobiizy-split-view-outer listing-split-view">
+      <div class="jobiizy-split-view-wrapper">
+
+        <!-- Colonne gauche : liste des offres via shortcode WPJM -->
+        <div class="jobiizy-listings-column listing-jobs-container">
+          <?php echo do_shortcode('[jobs per_page="20" show_filters="false"]'); ?>
+        </div>
+
+        <!-- Colonne droite : panneau détail (peuplé par AJAX) -->
+        <div class="jobiizy-detail-column listing-details-container">
+          <div class="jobiizy-drawer-handle" aria-hidden="true"></div>
+          <button class="jobiizy-drawer-close" aria-label="Fermer le panneau">
+            <i class="las la-times"></i>
+          </button>
+          <div class="listing jobiizy-detail-content">
+            <div class="jze-split-empty">
+              <i class="las la-hand-point-left" aria-hidden="true"></i>
+              <p>Sélectionnez une offre pour voir les détails</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.jobiizy-split-view-wrapper -->
+    </div><!-- /.jobiizy-split-view-outer -->
+
+  </section>
 
 </main>
+
+<!-- ── AJAX handler natif pour le panneau détail ───────────────────────────── -->
+<script>
+(function () {
+  'use strict';
+
+  var ajaxUrl    = '<?php echo esc_js(admin_url('admin-ajax.php')); ?>';
+  var detailPanel = document.querySelector('.listing-details-container .listing');
+  var detailCol   = document.querySelector('.listing-details-container');
+
+  if (!detailPanel || !detailCol) return;
+
+  // ── Clic sur une offre dans la colonne gauche ─────────────────────────────
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('.listing-jobs-container .job_listing a[href]');
+    if (!link) return;
+    e.preventDefault();
+
+    // Extraire le post_id depuis la classe "post-{ID}" du <li.job_listing>
+    var li = link.closest('.job_listing');
+    if (!li) return;
+    var m = li.className.match(/\bpost-(\d+)\b/);
+    if (!m) return;
+    var postId = m[1];
+
+    // Activer la carte sélectionnée
+    document.querySelectorAll('.listing-jobs-container .job_listing').forEach(function (el) {
+      el.classList.remove('active');
+    });
+    li.classList.add('active');
+
+    // Ouvrir le drawer sur mobile (< 1024 px)
+    if (window.innerWidth < 1024) {
+      detailCol.classList.add('open');
+    }
+
+    // Afficher le loader
+    detailPanel.innerHTML =
+      '<p class="jze-split-loading">Chargement&hellip;</p>';
+
+    // Appel AJAX → ajax-job-details.php → wp_ajax_jobiizy_load_job_details
+    var body = new URLSearchParams();
+    body.append('action',  'jobiizy_load_job_details');
+    body.append('post_id', postId);
+
+    fetch(ajaxUrl, { method: 'POST', body: body })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.success) {
+          detailPanel.innerHTML = data.data;
+        } else {
+          detailPanel.innerHTML =
+            '<p class="jze-split-error">Offre introuvable.</p>';
+        }
+      })
+      .catch(function () {
+        detailPanel.innerHTML =
+          '<p class="jze-split-error">Erreur de chargement.</p>';
+      });
+  });
+
+  // ── Fermer le drawer mobile ───────────────────────────────────────────────
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('.jobiizy-drawer-close')) {
+      detailCol.classList.remove('open');
+    }
+  });
+
+})();
+</script>
+
 <?php get_footer();

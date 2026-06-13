@@ -598,3 +598,56 @@
     font-size: 1.875rem;
   }
 }
+
+/* ════════════════════════════════════════════════════════
+   SPLIT-VIEW NATIVE
+════════════════════════════════════════════════════════ */
+.jze-split-section {
+  padding: 0;
+}
+
+/* Placeholder vide */
+.jze-split-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.jze-split-empty i {
+  font-size: 2.5rem;
+  color: #475569;
+  display: block;
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.jze-split-empty p {
+  color: #64748b;
+  font-size: 0.9375rem;
+  margin: 0;
+}
+
+/* Chargement / erreur */
+.jze-split-loading {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 0.9375rem;
+  color: #64748b;
+}
+
+.jze-split-error {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 0.9375rem;
+  color: #f87171;
+}
+
+/* Offre active dans la liste gauche */
+.listing-jobs-container .job_listing.active {
+  outline: 2px solid var(--jz-blue, #00AEEF);
+  outline-offset: 2px;
+  border-radius: 12px;
+}

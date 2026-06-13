@@ -139,7 +139,9 @@ function jobiizy_enqueue_cvform_script() {
 
 // ── splitview-redirect.js + nettoyage scripts polluants (priority 100) ───────
 add_action('wp_enqueue_scripts', function() {
-    if (!is_page(JOBIIZY_JOBS_PAGE_ID) && !is_post_type_archive('job_listing')) return;
+    if (!is_page(JOBIIZY_JOBS_PAGE_ID)
+        && !is_post_type_archive('job_listing')
+        && !is_page_template('templates/page-emplois-refonte.php')) return;
 
     $rel  = '/assets/js/splitview-redirect.js';
     $path = get_stylesheet_directory() . $rel;
@@ -248,15 +250,23 @@ function jobiizy_enqueue_hc_offcanvas() {
     }
 }
 
-// ── jobiizy-emplois-refonte.css — template Emplois Refonte ───────────────────
+// ── jobiizy-emplois-refonte.css + jobiizy-split-view.css — template Emplois Refonte ──
 add_action('wp_enqueue_scripts', function() {
     if (!is_page_template('templates/page-emplois-refonte.php')) return;
-    $path = get_stylesheet_directory() . '/assets/css/jobiizy-emplois-refonte.css';
+    $dir = get_stylesheet_directory();
+    $uri = get_stylesheet_directory_uri();
+
+    $split_css = $dir . '/assets/css/jobiizy-split-view.css';
+    if (file_exists($split_css)) {
+        wp_enqueue_style('jobiizy-split-view', $uri . '/assets/css/jobiizy-split-view.css', [], filemtime($split_css));
+    }
+
+    $path = $dir . '/assets/css/jobiizy-emplois-refonte.css';
     if (!file_exists($path)) return;
     wp_enqueue_style(
         'jobiizy-emplois-refonte',
-        get_stylesheet_directory_uri() . '/assets/css/jobiizy-emplois-refonte.css',
-        ['jobiizy-design-override'],
+        $uri . '/assets/css/jobiizy-emplois-refonte.css',
+        ['jobiizy-design-override', 'jobiizy-split-view'],
         filemtime($path)
     );
 });
