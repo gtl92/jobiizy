@@ -689,26 +689,21 @@ body.jobiizy-emplois-page .elementor-location-footer .elementor-section {
   display: block !important;
 }
 
-/* ── Dropdown autocomplétion du hero ─────────────────────────────────────── */
+/* ── Autocomplétion hero ─────────────────────────────────────────────────── */
+/* Le parent .jze-search-field sert d'ancre au dropdown absolu              */
 .jze-search-field {
-  position: relative; /* ancre le dropdown en absolu */
+  position: relative;
 }
 
-.jze-ac-dropdown {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
+/* Override du positionnement par défaut de jobiizy-split-view.css          */
+/* (left:-20px / right:-20px → 0 pour s'aligner sur le champ du hero)      */
+.jze-search .jobiizy-autocomplete-dropdown {
+  left:  0;
   right: 0;
-  background: #1a2535;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
-  overflow: hidden;
-  z-index: 200;
-  max-height: 300px;
-  overflow-y: auto;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  top:   calc(100% + 4px);
 }
 
+/* Items de suggestion dans les dropdowns du hero */
 .jze-ac-item {
   display: flex;
   align-items: center;
@@ -719,8 +714,7 @@ body.jobiizy-emplois-page .elementor-location-footer .elementor-section {
   transition: background 0.15s ease;
 }
 
-.jze-ac-item:hover,
-.jze-ac-item:focus {
+.jze-ac-item:hover {
   background: rgba(255, 255, 255, 0.07);
 }
 
