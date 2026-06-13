@@ -332,7 +332,7 @@
 
 .jze-job-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
@@ -536,10 +536,6 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .jze-job-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .jze-search {
     flex-wrap: wrap;
     border-radius: var(--jz-radius-lg);
@@ -566,7 +562,7 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 768px) {
   .jze-hero {
     padding: 60px 0 80px;
   }
