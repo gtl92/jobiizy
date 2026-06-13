@@ -277,5 +277,15 @@ get_header();
     </div>
   </section>
 
+  <!-- ══ WIDGET SPLIT-VIEW ════════════════════════════════════════════════════ -->
+  <!-- the_content() rend le widget Elementor listing-split-view de la page     -->
+  <!-- /emplois/ (ID 14122). Sans cet appel, .listing-split-view et             -->
+  <!-- .listing-details-container sont absents du DOM et splitview-redirect.js   -->
+  <!-- avorte immédiatement dans isSplitView(). Supprimer dans Elementor toutes  -->
+  <!-- les sections au-dessus du widget split-view pour éviter le doublon hero.  -->
+  <div class="jze-split-view-area">
+    <?php the_content(); ?>
+  </div>
+
 </main>
 <?php get_footer();
