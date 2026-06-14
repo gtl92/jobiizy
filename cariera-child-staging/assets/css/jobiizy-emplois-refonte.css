@@ -585,6 +585,15 @@
   }
 }
 
+@media (max-width: 480px) {
+  .jze-card,
+  .jze-job-grid {
+    max-width:  100%;
+    overflow:   hidden;
+    box-sizing: border-box;
+  }
+}
+
 @media (max-width: 420px) {
   .jze-cats-grid {
     grid-template-columns: 1fr;
