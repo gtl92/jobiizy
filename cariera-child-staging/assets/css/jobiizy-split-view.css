@@ -2994,5 +2994,34 @@
 }
 .mobile-only { display: none; }
 
+/* ============================================================================
+   HAUTEUR PLEIN ÉCRAN — ZONE LISTE ET DÉTAIL (14-15 pouces)
+   ============================================================================ */
 
+.jobiizy-split-view-outer,
+.listing-split-view {
+  min-height: calc(100vh - 120px) !important;
+}
 
+.jobiizy-split-view-wrapper {
+  height: calc(100vh - 120px) !important;
+}
+
+.jobiizy-listings-column,
+.listing-jobs-container {
+  height: 100% !important;
+  overflow-y: auto !important;
+}
+
+.jobiizy-detail-column,
+.listing-details-container {
+  height: 100% !important;
+  overflow-y: auto !important;
+}
+
+/* Écrans 14-15 pouces (1280-1440px) */
+@media (min-width: 1280px) and (max-width: 1440px) {
+  .jobiizy-split-view-wrapper {
+    height: calc(100vh - 100px) !important;
+  }
+}
