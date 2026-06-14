@@ -89,6 +89,13 @@ get_header();
 .jzc-jobs-wrap {
   padding: 48px 0 80px;
 }
+
+/* Séparateur header / contenu */
+.jzc-header-rule {
+  border: none;
+  border-top: 1px solid rgba(11, 20, 55, 0.08);
+  margin: 0;
+}
 </style>
 
 <main id="jzc-page" class="jzc-page">
@@ -110,19 +117,13 @@ get_header();
 
       <?php if ($term_count > 0) : ?>
         <p class="jzc-cat-meta">
-          <?php printf(
-            _n('%d offre disponible', '%d offres disponibles', $term_count, 'cariera'),
-            $term_count
-          ); ?>
+          <?php echo esc_html($term_count . ' ' . ($term_count > 1 ? 'offres disponibles' : 'offre disponible')); ?>
         </p>
-      <?php endif; ?>
-
-      <?php if ($term_desc) : ?>
-        <p class="jzc-cat-desc"><?php echo esc_html($term_desc); ?></p>
       <?php endif; ?>
 
     </div>
   </div>
+  <hr class="jzc-header-rule">
 
   <!-- ══ LISTE DES OFFRES ═════════════════════════════════════════════════ -->
   <div class="jzc-jobs-wrap">
