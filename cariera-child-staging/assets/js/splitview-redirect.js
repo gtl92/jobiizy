@@ -4,7 +4,7 @@
  * ----------------------------------------------------------
  * - Le clic sur une offre redirige vers la single view
  * - Quand la half-view charge du contenu à droite,
- *   on injecte un bouton "Voir l’offre / Postuler"
+ *   on injecte un bouton "Voir l'offre / Postuler"
  * ==========================================================
  */
 (function () {
@@ -14,7 +14,7 @@
   const $ = (sel, root = document) => root.querySelector(sel);
 
   function isSplitView() {
-    // On vérifie juste qu’on a la structure split-view
+    // On vérifie juste qu'on a la structure split-view
     return !!$('.listing-split-view') && !!$('.listing-details-container');
   }
 
@@ -50,25 +50,25 @@
       return;
     }
 
-    const glow    = document.createElement(‘span’);
-    glow.className = ‘chrome-btn-glow’;
-    const bg      = document.createElement(‘span’);
-    bg.className   = ‘chrome-btn-bg’;
-    const content  = document.createElement(‘span’);
-    content.className   = ‘chrome-btn-content’;
-    content.textContent = "Voir l’offre / Postuler";
+    const glow    = document.createElement('span');
+    glow.className = 'chrome-btn-glow';
+    const bg      = document.createElement('span');
+    bg.className   = 'chrome-btn-bg';
+    const content  = document.createElement('span');
+    content.className   = 'chrome-btn-content';
+    content.textContent = "Voir l'offre / Postuler";
 
-    const btn = document.createElement(‘a’);
+    const btn = document.createElement('a');
     btn.href            = singleUrl;
     btn.dataset.jobUrl  = singleUrl;
-    btn.className       = ‘button btn chrome-btn chrome-btn-filled’;
-    btn.style.cssText   = ‘width:100%;text-align:center;’;
+    btn.className       = 'button btn chrome-btn chrome-btn-filled';
+    btn.style.cssText   = 'width:100%;text-align:center;';
     btn.appendChild(glow);
     btn.appendChild(bg);
     btn.appendChild(content);
 
-    const ctaWrap = document.createElement(‘div’);
-    ctaWrap.className = ‘jobiizy-split-cta’;
+    const ctaWrap = document.createElement('div');
+    ctaWrap.className = 'jobiizy-split-cta';
     ctaWrap.appendChild(btn);
     right.appendChild(ctaWrap);
 
@@ -82,17 +82,17 @@
   const observer = new MutationObserver(() => {
     const url =
       jzeLastJobUrl ||
-      rightListing.querySelector(‘[data-job-url]’)?.dataset.jobUrl ||
-      rightListing.querySelector(‘a[href*="/job/"], a[href*="/poste/"], a[href*="/emploi/"]’)?.href;
+      rightListing.querySelector('[data-job-url]')?.dataset.jobUrl ||
+      rightListing.querySelector('a[href*="/job/"], a[href*="/poste/"], a[href*="/emploi/"]')?.href;
 
-    const hasCTA = !!rightListing.querySelector(‘.jobiizy-split-cta’);
-    console.log(‘[Jobiizy] observer → url:’, url ? url.split(‘/’).slice(-2).join(‘/’) : ‘null’, ‘| .jobiizy-split-cta déjà là:’, hasCTA);
+    const hasCTA = !!rightListing.querySelector('.jobiizy-split-cta');
+    console.log('[Jobiizy] observer → url:', url ? url.split('/').slice(-2).join('/') : 'null', '| .jobiizy-split-cta déjà là:', hasCTA);
 
     if (!url) return;
     injectCTA(url);
   });
 
   observer.observe(rightListing, { childList: true, subtree: true });
-  console.log(‘[Jobiizy] Observer branché sur:’, rightListing);
+  console.log('[Jobiizy] Observer branché sur:', rightListing);
 
 })();
