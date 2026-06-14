@@ -157,6 +157,15 @@ add_action('wp_enqueue_scripts', function() {
     wp_deregister_script('jobiizy-global');
 }, 100);
 
+// ── Désactiver Elementor frontend sur le template Emplois Refonte ────────────
+// elementor/frontend.min.js génère une erreur elementorFrontendConfig manquant
+// car la page n'est pas gérée par Elementor.
+add_action('wp_enqueue_scripts', function() {
+    if (!is_page_template('templates/page-emplois-refonte.php')) return;
+    wp_dequeue_script('elementor-frontend');
+    wp_dequeue_script('elementor-webpack-runtime');
+}, 100);
+
 // ── Google Fonts — Inter ─────────────────────────────────────────────────────
 add_action('wp_enqueue_scripts', function() {
     wp_enqueue_style('inter-google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap', [], null);
