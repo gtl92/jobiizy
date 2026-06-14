@@ -706,8 +706,9 @@ body.jobiizy-emplois-page .elementor-location-footer .elementor-section {
 /* Override du positionnement par défaut de jobiizy-split-view.css          */
 /* (left:-20px / right:-20px → 0 pour s'aligner sur le champ du hero)      */
 .jze-search .jobiizy-autocomplete-dropdown {
-  left:  0;
-  right: 0;
+  width: 100% !important;
+  left:  0 !important;
+  right: 0 !important;
   top:   calc(100% + 4px);
 }
 
