@@ -607,8 +607,13 @@
 /* ════════════════════════════════════════════════════════
    SPLIT-VIEW NATIVE
 ════════════════════════════════════════════════════════ */
+/* Section entière cachée par défaut — JS ajoute .is-active au premier clic */
 .jze-split-section {
+  display: none !important;
   padding: 0;
+}
+.jze-split-section.is-active {
+  display: block !important;
 }
 
 /* Panneau détail (droite) caché jusqu'à sélection d'une offre */

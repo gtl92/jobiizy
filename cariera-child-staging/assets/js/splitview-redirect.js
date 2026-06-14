@@ -23,6 +23,10 @@
     return;
   }
 
+  // Révèle la section split dès que JS confirme la structure (prévient le FOUC)
+  const splitSection = document.querySelector('.jze-split-section');
+  if (splitSection) splitSection.classList.add('is-active');
+
   // URL de l'offre cliquée — stockée ici, utilisée dans l'observer
   let jzeLastJobUrl = null;
 
@@ -32,6 +36,7 @@
     const link = e.target.closest('.job_listings .job_listing a[href], .job_listings .job-grid a[href]');
     if (!link) return;
     jzeLastJobUrl = link.href;
+    if (splitSection) splitSection.classList.add('is-active');
     // IMPORTANT : ne surtout pas faire preventDefault/stopPropagation
     // sinon Cariera ne reçoit plus le clic et ne charge pas la colonne droite.
   }, true);
