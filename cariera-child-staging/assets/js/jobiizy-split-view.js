@@ -825,11 +825,15 @@ if (CONFIG.loadMode === 'scroll') {
     });
     
     $('.jobiizy-btn-apply').on('click', function() {
-        window.location.search = $('.jobiizy-filter-form').serialize();
+        var fKw  = $('.jobiizy-filter-form input[name="search_keywords"]').val();
+        var fLoc = $('.jobiizy-filter-form input[name="search_location"]').val();
+        if (fKw  !== undefined) $('#jobiizy-keywords').val(fKw.trim());
+        if (fLoc !== undefined) $('#jobiizy-location').val(fLoc.trim());
+        closeFiltersPopup();
+        if (typeof window.doLiveSearch === 'function') window.doLiveSearch();
+        else window.location.search = $('.jobiizy-filter-form').serialize();
     });
-   
-    
-    
+
     log('🎉 Initialisation complète');
 
 });
@@ -854,23 +858,27 @@ jQuery(document).ready(function($) {
     function doLiveSearch() {
         var keywords = $('#jobiizy-keywords').val().trim();
         var location = $('#jobiizy-location').val().trim();
-        
-        console.log('🔎 [JobiiZy] Recherche AJAX:', { keywords, location });
-        
+        var category = $('select[name="search_categories"]').val() || '';
+        var jobTypes = $('input[name="filter_job_type[]"]:checked').map(function() { return $(this).val(); }).get();
+
+        console.log('🔎 [JobiiZy] Recherche AJAX:', { keywords, location, category, jobTypes });
+
         // Fermer dropdowns
         $('.jobiizy-autocomplete-dropdown').removeClass('show');
-        
+
         // Ajouter loader
         $('#jobiizy-search-btn').addClass('loading');
         $('.jobiizy-listings-column').css('opacity', '0.5');
-        
+
         $.ajax({
             url: ajaxurl,
             type: 'POST',
             data: {
                 action: 'jobiizy_live_search',
                 search_keywords: keywords,
-                search_location: location
+                search_location: location,
+                search_categories: category,
+                filter_job_type: jobTypes
             },
             success: function(response) {
                 $('#jobiizy-search-btn').removeClass('loading');
@@ -898,6 +906,10 @@ jQuery(document).ready(function($) {
                     else newUrl.searchParams.delete('search_keywords');
                     if (location) newUrl.searchParams.set('search_location', location);
                     else newUrl.searchParams.delete('search_location');
+                    if (category) newUrl.searchParams.set('search_categories', category);
+                    else newUrl.searchParams.delete('search_categories');
+                    newUrl.searchParams.delete('filter_job_type[]');
+                    jobTypes.forEach(function(t) { newUrl.searchParams.append('filter_job_type[]', t); });
                     history.pushState({}, '', newUrl);
                     
                     // Rebind le clic sur les cards
@@ -1495,22 +1507,6 @@ $(document).on('DOMNodeInserted', '.jobiizy-autocomplete-results', function() {
 	}
 	
  */
-	// Bouton recherche
-	$('#jobiizy-search-btn').on('click', function() {
-		doLiveSearch();
-	});
-	
-	// Enter dans les champs
-	$('#jobiizy-keywords, #jobiizy-location').on('keypress', function(e) {
-		if (e.which === 13) {
-			e.preventDefault();
-			var $dropdown = $(this).siblings('.jobiizy-autocomplete-dropdown');
-			if (!$dropdown.hasClass('show') || !$dropdown.find('.selected').length) {
-				doLiveSearch();
-			}
-		}
-	});
-	
 	// ========================================
 	// GÉOLOCALISATION
 	// ========================================
@@ -1730,10 +1726,16 @@ jQuery(document).ready(function($) {
 		$('.jobiizy-filter-form input[type="checkbox"]').prop('checked', true);
 	});
 	
-	// Appliquer
-	$('.jobiizy-btn-apply').on('click', function() {
+	// Appliquer — .off() évite le double-appel avec le handler du 1er ready block
+	$('.jobiizy-btn-apply').off('click').on('click', function() {
 		console.log('✅ [JobiiZy] Application des filtres');
-		window.location.search = $('.jobiizy-filter-form').serialize();
+		var fKw  = $('.jobiizy-filter-form input[name="search_keywords"]').val();
+		var fLoc = $('.jobiizy-filter-form input[name="search_location"]').val();
+		if (fKw  !== undefined) $('#jobiizy-keywords').val(fKw.trim());
+		if (fLoc !== undefined) $('#jobiizy-location').val(fLoc.trim());
+		closePopup();
+		if (typeof window.doLiveSearch === 'function') window.doLiveSearch();
+		else window.location.search = $('.jobiizy-filter-form').serialize();
 	});
 });
 
