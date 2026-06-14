@@ -406,6 +406,7 @@ get_header();
 (function () {
   'use strict';
 
+  var ajaxUrl  = '<?php echo esc_js(admin_url('admin-ajax.php')); ?>';
   var DEBOUNCE = 300;
   var timers   = {};
 
