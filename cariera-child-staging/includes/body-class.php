@@ -25,3 +25,16 @@ function jobiizy_customize_sticky_header() {
         add_filter('cariera_sticky_mobile_header', '__return_true');
     }
 }
+
+// ────────────────────────────────────────────────────────────────────────
+// 2. À AJOUTER dans includes/body-class.php
+//    Ajoute la body class pour le reset CSS Cariera
+// ────────────────────────────────────────────────────────────────────────
+add_filter('body_class', 'jobiizy_offre_globale_body_class');
+function jobiizy_offre_globale_body_class($classes) {
+    if (is_page_template('templates/page-offre-globale.php')) {
+        $classes[] = 'jobiizy-offre-globale-page';
+    }
+    return $classes;
+}
+ 

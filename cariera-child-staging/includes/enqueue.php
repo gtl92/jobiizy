@@ -279,3 +279,51 @@ add_action('wp_enqueue_scripts', function() {
         filemtime($path)
     );
 });
+
+// ════════════════════════════════════════════════════════════════════════
+// ÉTAPE A — Snippets à intégrer dans le thème enfant
+// ════════════════════════════════════════════════════════════════════════
+ 
+add_action('wp_enqueue_scripts', function () {
+    if (!is_page_template('templates/page-offre-globale.php')) return;
+
+    $dir = get_stylesheet_directory();
+    $uri = get_stylesheet_directory_uri();
+
+    // CSS cards (jze-*)
+    $path_refonte = $dir . '/assets/css/jobiizy-emplois-refonte.css';
+    if (file_exists($path_refonte)) {
+        wp_enqueue_style('jobiizy-emplois-refonte', $uri . '/assets/css/jobiizy-emplois-refonte.css',
+            ['jobiizy-design-override'], filemtime($path_refonte));
+    }
+
+    // CSS split-view (dropdown autocomplete) ← NOUVEAU
+    $path_split = $dir . '/assets/css/jobiizy-split-view.css';
+    if (file_exists($path_split)) {
+        wp_enqueue_style('jobiizy-split-view', $uri . '/assets/css/jobiizy-split-view.css',
+            ['jobiizy-design-override'], filemtime($path_split));
+    }
+
+    // CSS propre à la page
+    $path_css = $dir . '/assets/css/jobiizy-offre-globale.css';
+    if (file_exists($path_css)) {
+        wp_enqueue_style('jobiizy-offre-globale', $uri . '/assets/css/jobiizy-offre-globale.css',
+            ['jobiizy-design-override', 'jobiizy-emplois-refonte', 'jobiizy-split-view'],
+            filemtime($path_css));
+    }
+
+    // JS autocomplete ← NOUVEAU
+    $path_js = $dir . '/assets/js/jobiizy-offre-globale.js';
+    if (file_exists($path_js)) {
+        wp_enqueue_script('jobiizy-offre-globale', $uri . '/assets/js/jobiizy-offre-globale.js',
+            ['jquery'], filemtime($path_js), true);
+
+        wp_localize_script('jobiizy-offre-globale', 'jobiizyData', [
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'nonce'   => wp_create_nonce('jobiizy_nonce'),
+        ]);
+    }
+
+    wp_dequeue_script('elementor-frontend');
+    wp_dequeue_script('elementor-webpack-runtime');
+});
