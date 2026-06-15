@@ -36,6 +36,8 @@ Text Domain: cariera-child
     --transition-fast: all .3s ease;
     --transition-medium: all .6s ease;
     --cariera-light-grey-secondary: #f4f4f6;
+    --jobiizy-footer-bg: linear-gradient(135deg, #0B1437 0%, #1F1F6E 100%);
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -1928,7 +1930,8 @@ footer.main-footer {
 
 footer.main-footer .footer-widget-area
 {
-    background: var(--cariera-footer-bg);
+    background: var(--jobiizy-footer-bg);
+    /* background: var(--cariera-footer-bg);*/
     padding: 10px 0 !important;
 }
 /* =========================================================
