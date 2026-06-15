@@ -22,7 +22,13 @@
   margin: 0 auto;
   padding: 0 24px;
 }
-
+.jze-container {
+  max-width: 100% !important;
+  overflow: hidden !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  box-sizing: border-box !important;
+}
 /* ════════════════════════════════════════════════════════
    HERO
 ════════════════════════════════════════════════════════ */
@@ -335,6 +341,12 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
+.jze-job-grid {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
 
 /* ── Carte ───────────────────────────────────────────── */
 .jze-card {
@@ -350,6 +362,10 @@
   transition:
     transform var(--jz-dur-base) var(--jz-ease),
     box-shadow var(--jz-dur-base) var(--jz-ease);
+}
+.jze-card {
+  min-width: 0 !important;
+  box-sizing: border-box !important;
 }
 
 .jze-card:hover {

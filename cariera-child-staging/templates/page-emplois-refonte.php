@@ -108,7 +108,7 @@ get_header();
 ?>
 <main id="jze-page" class="jze-page">
 
-  <!-- ══ HERO ══════════════════════════════════════════════════════════════════ -->
+  <!-- ══ HERO GTL ══════════════════════════════════════════════════════════════════ -->
   <section class="jze-hero" aria-label="Recherche d'emploi">
     <div class="jze-hero-bg" aria-hidden="true"></div>
     <div class="jze-hero-grain" aria-hidden="true"></div>
@@ -285,10 +285,14 @@ get_header();
     </div>
   </section>
 
+
+<?php  
+/*
   <!-- ══ LISTING SPLIT-VIEW (natif, sans Elementor) ══════════════════════════ -->
   <!-- Structure duale : classes jobiizy-* pour le CSS + classes listing-* pour  -->
   <!-- splitview-redirect.js (isSplitView, observer, injectCTA).                 -->
-  <section class="jze-split-section">
+
+   <section class="jze-split-section">
 
     <div class="jobiizy-split-view-outer listing-split-view">
       <div class="jobiizy-split-view-wrapper">
@@ -316,7 +320,8 @@ get_header();
     </div><!-- /.jobiizy-split-view-outer -->
 
   </section>
-
+  */
+?>
 </main>
 
 <!-- ── AJAX handler natif pour le panneau détail ───────────────────────────── -->
