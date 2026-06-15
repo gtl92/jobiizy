@@ -1,0 +1,322 @@
+/* ════════════════════════════════════════════════════════
+   Jobiizy — Offre Globale
+   Template : templates/page-offre-globale.php
+   Dépend de : jobiizy-design-override.css (tokens --jz-*)
+               jobiizy-emplois-refonte.css  (cards .jze-*)
+   Chargé via : enqueue.php → is_page_template('page-offre-globale.php')
+════════════════════════════════════════════════════════ */
+
+/* ── Page wrapper ─────────────────────────────────────── */
+.jzog-page {
+  background: var(--jze-page-bg, #F3F7FA);
+  min-height: 60vh;
+}
+
+/* Reset layout Cariera (même pattern que .jze-page) */
+body.jobiizy-offre-globale-page #content,
+body.jobiizy-offre-globale-page .site-content,
+body.jobiizy-offre-globale-page #page {
+  padding-left:  0 !important;
+  padding-right: 0 !important;
+  margin-left:   0 !important;
+  margin-right:  0 !important;
+}
+
+#jzog-page.jzog-page {
+  width:      100% !important;
+  max-width:  100% !important;
+  margin:     0 !important;
+  padding:    0 !important;
+  float:      none !important;
+  clear:      both !important;
+  box-sizing: border-box !important;
+}
+
+/* Masquer artefacts Elementor sur cette page */
+body.jobiizy-offre-globale-page .elementor-section {
+  display: none !important;
+}
+body.jobiizy-offre-globale-page header .elementor-section,
+body.jobiizy-offre-globale-page footer .elementor-section,
+body.jobiizy-offre-globale-page .elementor-location-header .elementor-section,
+body.jobiizy-offre-globale-page .elementor-location-footer .elementor-section {
+  display: block !important;
+}
+
+/* ════════════════════════════════════════════════════════
+   BARRE DE RECHERCHE SOMBRE
+════════════════════════════════════════════════════════ */
+.jzog-search-bar {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #334155 100%);
+  padding: 36px 0 32px;
+  position: sticky;
+  top: var(--jobiizy-sticky-top, 80px);
+  z-index: 100;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.30);
+}
+
+/* ── Header titre + compteur ─────────────────────────── */
+.jzog-search-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.jzog-search-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.jzog-search-title i {
+  color: var(--jz-blue, #00AEEF);
+  font-size: 1.25rem;
+}
+
+.jzog-count {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 4px 14px;
+}
+
+/* ── Formulaire ──────────────────────────────────────── */
+.jzog-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ── Champ générique ─────────────────────────────────── */
+.jzog-field {
+  position: relative;  /* ancre dropdown autocomplétion */
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;   /* inputs arrondis */
+  padding: 0 16px;
+  flex: 1 1 200px;
+  min-width: 160px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.jzog-field:focus-within {
+  border-color: var(--jz-blue, #00AEEF);
+  background: rgba(0, 174, 239, 0.06);
+}
+
+.jzog-field-icon {
+  color: rgba(255, 255, 255, 0.40);
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.jzog-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 11px 0;
+  width: 100%;
+}
+
+.jzog-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Champ select ────────────────────────────────────── */
+.jzog-field--select {
+  flex: 0 1 190px;
+}
+
+.jzog-select {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: rgba(255, 255, 255, 0.80);
+  font-size: 0.875rem;
+  padding: 11px 0;
+  width: 100%;
+  cursor: pointer;
+  /* Reset apparence native */
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+.jzog-select option {
+  background: #1e293b;
+  color: #fff;
+}
+
+/* ── Bouton rechercher ───────────────────────────────── */
+.jzog-btn-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--jz-blue, #00AEEF);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 11px 26px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.jzog-btn-search:hover {
+  background: #0094cc;
+  box-shadow: 0 4px 16px rgba(0, 174, 239, 0.40);
+}
+
+/* ── Bouton reset ────────────────────────────────────── */
+.jzog-btn-reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.60);
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.jzog-btn-reset:hover {
+  background: rgba(248, 113, 113, 0.15);
+  border-color: rgba(248, 113, 113, 0.40);
+  color: #f87171;
+}
+
+/* ── Dropdown autocomplétion — override pour fond sombre ─ */
+.jzog-field .jobiizy-autocomplete-dropdown {
+  width: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: calc(100% + 6px);
+}
+
+/* ════════════════════════════════════════════════════════
+   SECTION RÉSULTATS
+════════════════════════════════════════════════════════ */
+.jzog-results {
+  padding: 48px 0 64px;
+}
+
+/* ── État vide ───────────────────────────────────────── */
+.jzog-empty {
+  text-align: center;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.jzog-empty i {
+  font-size: 3rem;
+  color: #cbd5e1;
+}
+
+.jzog-empty p {
+  font-size: 1rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* ════════════════════════════════════════════════════════
+   PAGINATION
+════════════════════════════════════════════════════════ */
+.jzog-pagination {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 48px;
+}
+
+.jzog-page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--jz-navy, #0B1437);
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.jzog-page-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  text-decoration: none;
+  color: var(--jz-navy, #0B1437);
+}
+
+.jzog-page-btn.is-current {
+  background: var(--jz-blue, #00AEEF);
+  border-color: var(--jz-blue, #00AEEF);
+  color: #fff;
+  pointer-events: none;
+}
+
+/* ════════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .jzog-search-bar {
+    position: static; /* désactiver sticky sur mobile */
+    padding: 24px 0 20px;
+  }
+
+  .jzog-form {
+    flex-direction: column;
+  }
+
+  .jzog-field,
+  .jzog-field--select,
+  .jzog-btn-search {
+    width: 100%;
+    flex: none;
+  }
+
+  .jzog-btn-search {
+    justify-content: center;
+  }
+
+  .jzog-btn-reset {
+    align-self: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .jzog-results {
+    padding: 32px 0 48px;
+  }
+}
