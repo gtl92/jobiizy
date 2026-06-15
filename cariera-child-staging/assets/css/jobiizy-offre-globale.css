@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════
-   Jobiizy — Offre Globale
+   Jobiizy — Offre Globale v1
    Template : templates/page-offre-globale.php
    Dépend de : jobiizy-design-override.css (tokens --jz-*)
                jobiizy-emplois-refonte.css  (cards .jze-*)
@@ -12,7 +12,7 @@
   min-height: 60vh;
 }
 
-/* Reset layout Cariera (même pattern que .jze-page) */
+/* Reset layout Cariera */
 body.jobiizy-offre-globale-page #content,
 body.jobiizy-offre-globale-page .site-content,
 body.jobiizy-offre-globale-page #page {
@@ -32,7 +32,7 @@ body.jobiizy-offre-globale-page #page {
   box-sizing: border-box !important;
 }
 
-/* Masquer artefacts Elementor sur cette page */
+/* Masquer artefacts Elementor — préserver header/footer */
 body.jobiizy-offre-globale-page .elementor-section {
   display: none !important;
 }
@@ -43,6 +43,11 @@ body.jobiizy-offre-globale-page .elementor-location-footer .elementor-section {
   display: block !important;
 }
 
+/* Fix overflow container parent (clippe le dropdown absolu) */
+.jzog-search-bar .jze-container {
+  overflow: visible !important;
+}
+
 /* ════════════════════════════════════════════════════════
    BARRE DE RECHERCHE SOMBRE
 ════════════════════════════════════════════════════════ */
@@ -51,7 +56,7 @@ body.jobiizy-offre-globale-page .elementor-location-footer .elementor-section {
   padding: 36px 0 32px;
   position: sticky;
   top: var(--jobiizy-sticky-top, 80px);
-  z-index: 100;
+  z-index: 9999;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.30);
 }
 
@@ -100,12 +105,12 @@ body.jobiizy-offre-globale-page .elementor-location-footer .elementor-section {
 
 /* ── Champ générique ─────────────────────────────────── */
 .jzog-field {
-  position: relative;  /* ancre dropdown autocomplétion */
+  position: relative;
   display: flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 999px;   /* inputs arrondis */
+  border-radius: 999px;
   padding: 0 16px;
   flex: 1 1 200px;
   min-width: 160px;
@@ -152,7 +157,6 @@ body.jobiizy-offre-globale-page .elementor-location-footer .elementor-section {
   padding: 11px 0;
   width: 100%;
   cursor: pointer;
-  /* Reset apparence native */
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -208,12 +212,22 @@ body.jobiizy-offre-globale-page .elementor-location-footer .elementor-section {
   color: #f87171;
 }
 
-/* ── Dropdown autocomplétion — override pour fond sombre ─ */
+/* ── Dropdown autocomplétion ─────────────────────────── */
 .jzog-field .jobiizy-autocomplete-dropdown {
-  width: 100% !important;
+  position: absolute !important;
+  top: calc(100% + 6px) !important;
   left: 0 !important;
   right: 0 !important;
-  top: calc(100% + 6px);
+  width: auto !important;
+  z-index: 99999 !important;
+}
+
+.jzog-field .jobiizy-autocomplete-dropdown:not(.show) {
+  display: none !important;
+}
+
+.jzog-field .jobiizy-autocomplete-dropdown.show {
+  display: block !important;
 }
 
 /* ════════════════════════════════════════════════════════
@@ -291,7 +305,7 @@ body.jobiizy-offre-globale-page .elementor-location-footer .elementor-section {
 ════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
   .jzog-search-bar {
-    position: static; /* désactiver sticky sur mobile */
+    position: static;
     padding: 24px 0 20px;
   }
 
@@ -319,4 +333,22 @@ body.jobiizy-offre-globale-page .elementor-location-footer .elementor-section {
   .jzog-results {
     padding: 32px 0 48px;
   }
+}
+
+
+input#jzog-keywords , #jzog-location {
+    background: none !important;
+    border: none !important;
+}
+
+input#jzog-keywords,  #jzog-location:focus {
+    box-shadow: none !important;
+}
+
+select.jzog-select {
+    background: none !important;
+    border: none !important;
+}
+select.jzog-select:focus {
+    box-shadow: none !important;
 }
