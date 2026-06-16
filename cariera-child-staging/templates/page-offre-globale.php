@@ -149,11 +149,6 @@ get_header();
 
   <!-- ══ BARRE DE RECHERCHE SOMBRE ══════════════════════════════════════════ -->
   <section class="jzog-search-bar jze-hero-bg" aria-label="Filtrer les offres">
-<!-- 
-    <div class="jze-hero-bg" aria-hidden="true"></div>
- -->
-    <div class="jze-hero-grain" aria-hidden="true"></div>
-
     <div class="jze-container jze-hero-inner">
  
       <div class="jzog-search-header">
@@ -251,18 +246,9 @@ get_header();
 
         </div>
 
-<!-- 
-        <button type="button" class="jzog-btn-filters" id="jzog-btn-filters">
-          <i class="las la-sliders-h" aria-hidden="true"></i>
-          Filtres
-        </button>
- -->
-
         <button type="submit" class="jzog-btn-search jzog-btn-search--main">
           <i class="las la-search" aria-hidden="true"></i>
-<!-- 
           <span>Rechercher</span>
- -->
         </button>
 
         <?php if ($search_keywords || $search_location || $search_category || $search_type) : ?>

@@ -207,7 +207,6 @@ function setupFiltersDrawer() {
     }
 
     function closeDrawer() {
-       console.log('[JZOG] closeDrawer appelé', new Error().stack);
         $drawer.removeClass('is-open');
         $overlay.removeClass('is-open');
         $btn.removeClass('is-active');
