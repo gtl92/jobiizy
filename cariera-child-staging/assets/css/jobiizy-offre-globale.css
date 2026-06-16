@@ -52,7 +52,9 @@ body.jobiizy-offre-globale-page .elementor-location-footer .elementor-section {
    BARRE DE RECHERCHE SOMBRE
 ════════════════════════════════════════════════════════ */
 .jzog-search-bar {
+/* 
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #334155 100%);
+ */
   padding: 36px 0 32px;
   position: sticky;
   top: var(--jobiizy-sticky-top, 0px);
@@ -352,7 +354,8 @@ select.jzog-select:focus {
 ════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
   .jzog-search-bar {
-    position: static;
+    position: sticky;
+    top: var(--jobiizy-sticky-top, 0px);
     padding: 24px 0 20px;
   }
 
@@ -425,6 +428,15 @@ select.jzog-select:focus {
   .jzog-mobile-filters.is-open {
     transform: translateY(0);
   }
+  
+  .jzog-mobile-filters {
+  pointer-events: auto;
+}
+
+/* L'overlay ne reçoit pas les clics dans la zone du drawer */
+.jzog-drawer-overlay.is-open {
+  pointer-events: auto;
+}
 
   /* Handle + titre visibles uniquement dans le drawer */
   .jzog-drawer-handle {
@@ -461,3 +473,86 @@ select.jzog-select:focus {
     margin-top: 8px;
   }
 }
+
+
+
+/* ── Mobile : header ligne avec compteur + filtres ───── */
+@media (max-width: 900px) {
+
+  .jzog-search-header {
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  /* Bouton Filtres dans le header, style les-jobs */
+  .jzog-btn-filters {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.80);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+
+ 
+  .jzog-btn-filters {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 1.1rem;
+  }
+  .jzog-btn-filters.is-active,
+  .jzog-btn-filters:hover {
+    background: rgba(0,174,239,0.15);
+    border-color: var(--jz-blue, #00AEEF);
+    color: #fff;
+  }
+ /* Badge positionné en absolu sur l'icône */
+  .jzog-btn-filters {
+    position: relative;
+  }
+  .jzog-filters-badge {
+    background: var(--jz-blue, #00AEEF);
+    color: #fff;
+    border-radius: 999px;
+    padding: 1px 7px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+   /* Cacher le label texte si présent */
+  .jzog-btn-filters-label { display: none; }
+
+  /* Form mobile : juste le keyword + bouton search icon */
+  .jzog-form {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  /* Bouton search : icon only sur mobile */
+  .jzog-btn-search--main span { display: none; }
+  .jzog-btn-search--main {
+    display: inline-flex !important;
+    padding: 11px 14px;
+  }
+}
+
+

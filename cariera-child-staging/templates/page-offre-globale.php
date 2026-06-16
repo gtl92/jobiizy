@@ -148,17 +148,16 @@ get_header();
 <main id="jzog-page" class="jzog-page">
 
   <!-- ══ BARRE DE RECHERCHE SOMBRE ══════════════════════════════════════════ -->
-  <section class="jzog-search-bar" aria-label="Filtrer les offres">
+  <section class="jzog-search-bar jze-hero-bg" aria-label="Filtrer les offres">
+<!-- 
     <div class="jze-hero-bg" aria-hidden="true"></div>
+ -->
     <div class="jze-hero-grain" aria-hidden="true"></div>
 
     <div class="jze-container jze-hero-inner">
-      <span class="jze-hero-eyebrow">Emploi 100&nbsp;% en français · Israël</span>
-      <h1 class="jze-hero-title">Votre prochain job<br><em>vous attend ici.</em></h1>
-
+ 
       <div class="jzog-search-header">
-        <h1 class="jzog-search-title">
-          <i class="las la-search" aria-hidden="true"></i>
+        <h1 class="jzog-search-title jze-hero-eyebrow" style="border-radius: unset; border: unset; font-size: small;">
           Toutes les offres
         </h1>
         <?php if ($jobs_query->found_posts) : ?>
@@ -169,6 +168,11 @@ get_header();
                 $jobs_query->found_posts > 1 ? 's' : ''
             ); ?>
           </span>
+              <button type="button" class="jzog-btn-filters" id="jzog-btn-filters">
+      <i class="las la-sliders-h"></i>
+      <span class="jzog-btn-filters-label">Filtres</span>
+    </button>
+
         <?php endif; ?>
       </div>
 
@@ -250,14 +254,18 @@ get_header();
           </button>
         </div>
 
+<!-- 
         <button type="button" class="jzog-btn-filters" id="jzog-btn-filters">
           <i class="las la-sliders-h" aria-hidden="true"></i>
           Filtres
         </button>
+ -->
 
         <button type="submit" class="jzog-btn-search jzog-btn-search--main">
           <i class="las la-search" aria-hidden="true"></i>
+<!-- 
           <span>Rechercher</span>
+ -->
         </button>
 
         <?php if ($search_keywords || $search_location || $search_category || $search_type) : ?>

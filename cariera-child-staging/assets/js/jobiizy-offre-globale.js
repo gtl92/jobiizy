@@ -207,16 +207,20 @@ function setupFiltersDrawer() {
     }
 
     function closeDrawer() {
+       console.log('[JZOG] closeDrawer appelé', new Error().stack);
         $drawer.removeClass('is-open');
         $overlay.removeClass('is-open');
         $btn.removeClass('is-active');
         $('body').css('overflow', '');
     }
 
-    $btn.on('click', openDrawer);
-    $overlay.on('click', closeDrawer);
+    $btn.on('click', function(e) {
+        e.stopPropagation();
+        openDrawer();
+    });
 
-    // Badge : compte les filtres actifs
+$overlay.on('click', closeDrawer);
+    $drawer.on('click', function(e) { e.stopPropagation(); });
     function updateBadge() {
         var count = 0;
         if ($('#jzog-location').val()) count++;
@@ -235,7 +239,6 @@ function setupFiltersDrawer() {
     $drawer.on('change input', 'select, input', updateBadge);
     updateBadge();
 }
-
 
 
     // ── Clic sur un item → remplit le champ, PAS de soumission ──────────────
@@ -265,6 +268,9 @@ function setupFiltersDrawer() {
 
     // ── Init ──────────────────────────────────────────────────────────────────
     $(function () {
+        var headerH = $('.cariera-main-header').outerHeight(true) || 0;
+        document.documentElement.style.setProperty('--jobiizy-sticky-top', headerH + 'px');
+
         setupKeywords();
         setupLocation();
         setupFiltersDrawer();
