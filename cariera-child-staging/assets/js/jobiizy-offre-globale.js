@@ -192,6 +192,52 @@
         $input.on('blur', function () { setTimeout(function () { hideDrop($drop); }, 200); });
     }
 
+// ── Drawer filtres mobile ─────────────────────────────
+function setupFiltersDrawer() {
+    var $btn     = $('#jzog-btn-filters');
+    var $drawer  = $('#jzog-mobile-filters');
+    var $overlay = $('#jzog-drawer-overlay');
+    if (!$btn.length) return;
+
+    function openDrawer() {
+        $drawer.addClass('is-open');
+        $overlay.addClass('is-open');
+        $btn.addClass('is-active');
+        $('body').css('overflow', 'hidden');
+    }
+
+    function closeDrawer() {
+        $drawer.removeClass('is-open');
+        $overlay.removeClass('is-open');
+        $btn.removeClass('is-active');
+        $('body').css('overflow', '');
+    }
+
+    $btn.on('click', openDrawer);
+    $overlay.on('click', closeDrawer);
+
+    // Badge : compte les filtres actifs
+    function updateBadge() {
+        var count = 0;
+        if ($('#jzog-location').val()) count++;
+        if ($('select[name="search_categories"]').val()) count++;
+        if ($('select[name="search_job_type"]').val()) count++;
+
+        var $badge = $btn.find('.jzog-filters-badge');
+        if (count > 0) {
+            if (!$badge.length) $btn.append('<span class="jzog-filters-badge">' + count + '</span>');
+            else $badge.text(count);
+        } else {
+            $badge.remove();
+        }
+    }
+
+    $drawer.on('change input', 'select, input', updateBadge);
+    updateBadge();
+}
+
+
+
     // ── Clic sur un item → remplit le champ, PAS de soumission ──────────────
     // Classe .jzog-ac-fill pour isoler du handler global du split-view.js
     $(document).on('click', '.jzog-ac-fill', function (e) {
@@ -221,6 +267,7 @@
     $(function () {
         setupKeywords();
         setupLocation();
+        setupFiltersDrawer();
     });
 
 })(jQuery);
