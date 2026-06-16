@@ -55,8 +55,8 @@ body.jobiizy-offre-globale-page .elementor-location-footer .elementor-section {
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #334155 100%);
   padding: 36px 0 32px;
   position: sticky;
-  top: var(--jobiizy-sticky-top, 80px);
-  z-index: 9999;
+  top: var(--jobiizy-sticky-top, 0px);
+  z-index: 2;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.30);
 }
 

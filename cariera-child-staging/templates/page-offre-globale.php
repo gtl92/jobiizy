@@ -149,7 +149,12 @@ get_header();
 
   <!-- ══ BARRE DE RECHERCHE SOMBRE ══════════════════════════════════════════ -->
   <section class="jzog-search-bar" aria-label="Filtrer les offres">
-    <div class="jze-container">
+    <div class="jze-hero-bg" aria-hidden="true"></div>
+    <div class="jze-hero-grain" aria-hidden="true"></div>
+
+    <div class="jze-container jze-hero-inner">
+      <span class="jze-hero-eyebrow">Emploi 100&nbsp;% en français · Israël</span>
+      <h1 class="jze-hero-title">Votre prochain job<br><em>vous attend ici.</em></h1>
 
       <div class="jzog-search-header">
         <h1 class="jzog-search-title">
