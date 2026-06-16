@@ -359,7 +359,8 @@ select.jzog-select:focus {
     left: 0;
     right: 0;
     z-index: 99;
-    padding: 24px 0 20px;
+    height: auto;
+    padding: 12px 0;
   }
 
   .jzog-results {
