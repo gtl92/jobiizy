@@ -354,9 +354,16 @@ select.jzog-select:focus {
 ════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
   .jzog-search-bar {
-    position: sticky;
-    top: var(--jobiizy-sticky-top, 0px);
+    position: fixed;
+    top: var(--jobiizy-sticky-top, 60px);
+    left: 0;
+    right: 0;
+    z-index: 99;
     padding: 24px 0 20px;
+  }
+
+  .jzog-results {
+    padding-top: calc(140px + 32px);
   }
 
   .jzog-form {
