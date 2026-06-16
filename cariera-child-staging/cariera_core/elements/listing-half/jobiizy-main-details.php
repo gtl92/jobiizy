@@ -294,7 +294,7 @@ if ( file_exists( $css_hidden ) ) {
 			</div>
 			
 			<?php if ( is_page( JOBIIZY_JOBS_PAGE_ID ) ) : ?>
-			<a id="jobiizy-load-more-btn" class="load_more_jobs btn chrome-btn chrome-btn-filled" href="#">
+			<a id="jobiizy-load-more-btn" class="load_more_jobs btn chrome-btn chrome-btn-dark" href="#">
 				<span class="chrome-btn-glow"></span>
 				<span class="chrome-btn-bg"></span>
 				<span class="chrome-btn-content">Charger plus d'annonces</span>
