@@ -249,9 +249,6 @@ get_header();
           </div>
           <?php endif; ?>
 
-          <button type="submit" class="jzog-btn-search jzog-drawer-apply">
-            <i class="las la-search" aria-hidden="true"></i> Appliquer les filtres
-          </button>
         </div>
 
 <!-- 
