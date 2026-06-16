@@ -772,3 +772,9 @@ body.jobiizy-emplois-page .elementor-location-footer .elementor-section {
   white-space: nowrap;
   flex-shrink: 0;
 }
+
+@media (max-width: 900px) {
+  .jze-hero-inner {
+    z-index: auto !important;
+  }
+}
