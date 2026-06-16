@@ -62,7 +62,7 @@ function jobiizy_load_job_details_handler() {
 		<!-- Bouton en haut (visible immédiatement) -->
 		<div class="jobiizy-split-cta jobiizy-cta-top">
 			<a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>"
-			   class="button btn chrome-btn chrome-btn-filled"
+			   class="button btn chrome-btn chrome-btn-dark"
 			   data-job-url="<?php echo esc_url( get_permalink( $post_id ) ); ?>"
 			   style="width:100%;text-align:center;"
 			   target="_blank">
