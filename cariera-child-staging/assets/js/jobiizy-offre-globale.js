@@ -267,9 +267,14 @@ $overlay.on('click', closeDrawer);
     });
 
     // ── Init ──────────────────────────────────────────────────────────────────
-    $(function () {
+    function setStickyTop() {
         var headerH = $('.cariera-main-header').outerHeight(true) || 0;
         document.documentElement.style.setProperty('--jobiizy-sticky-top', headerH + 'px');
+    }
+
+    $(function () {
+        setStickyTop();
+        $(window).on('resize', setStickyTop);
 
         setupKeywords();
         setupLocation();
