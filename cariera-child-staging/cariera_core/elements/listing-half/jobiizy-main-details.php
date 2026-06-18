@@ -230,8 +230,9 @@ if ( file_exists( $css_hidden ) ) {
      ============================================================================ -->
 <div class="jobiizy-split-header" id="jobiizy-job-counter">
 	<h2 class="jobiizy-job-count">
-		<i class="las la-briefcase"></i>
-		<?php printf( esc_html( _n( 'Nous avons trouvé %s offre d\'emploi pour vous !', 'Nous avons trouvé %s offres d\'emploi pour vous !', $total_jobs, 'cariera' ) ), '<strong id="jobiizy-total-count">' . number_format_i18n( $total_jobs ) . '</strong>' ); ?>
+		<!-- <i class="las la-briefcase"></i> -->
+		<!-- <?php printf( esc_html( _n( 'Nous avons trouvé %s offre d\'emploi pour vous !', 'Nous avons trouvé %s offres d\'emploi pour vous !', $total_jobs, 'cariera' ) ), '<strong id="jobiizy-total-count">' . number_format_i18n( $total_jobs ) . '</strong>' ); ?> -->
+		<?php printf( esc_html( _n( '%s offre d\'emploi pour vous !', '%s offres d\'emploi pour vous !', $total_jobs, 'cariera' ) ), '<strong id="jobiizy-total-count">' . number_format_i18n( $total_jobs ) . '</strong>' ); ?>
 	</h2>
 </div>
 
@@ -341,9 +342,11 @@ if ( file_exists( $css_hidden ) ) {
 <div class="jobiizy-drawer-overlay" id="jobiizy-drawer-overlay"></div>
 
 <!-- BOUTON TOGGLE RECHERCHE (desktop fallback) -->
+<!-- 
 <button type="button" class="jobiizy-toggle-search-btn" id="jobiizy-toggle-search" title="Afficher la recherche">
 	<i class="las la-search"></i>
 </button>
+ -->
 
 <!-- ============================================================================
      MODAL RECHERCHE MOBILE

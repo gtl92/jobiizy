@@ -439,7 +439,7 @@
     padding: 20px 30px 10px;
 }
 
-.jobiizy-job-count {
+/* .jobiizy-job-count {
     color: #e2e8f0;
     font-size: 16px;
     font-weight: 500;
@@ -457,7 +457,47 @@
     color: #3b82f6;
     font-weight: 700;
 }
+*/
 
+/* .jobiizy-job-count {
+	color: #f8fafc !important;
+	font-size: 20px;
+	font-weight: 600;
+	margin: 0;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex: 1;
+}
+*/
+.jobiizy-job-count {
+	color: #f8fafc !important;
+	font-size: 20px;
+	font-weight: 600;
+	margin: 0;
+	/* display: flex; */
+	align-items: center;
+	gap: 12px;
+	/* flex: 1; */
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: rgba(255, 255, 255, 0.55);
+	background: rgba(255, 255, 255, 0.07);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 999px;
+	padding: 4px 14px;
+}
+
+
+.jobiizy-job-count i {
+	color: #60a5fa;
+	font-size: 24px;
+}
+
+.jobiizy-job-count strong {
+	color: #3b82f6;
+	font-weight: 700;
+}
 /* =========================================================
    LAYOUT SPLIT VIEW
    ========================================================= */
@@ -466,7 +506,7 @@
     grid-template-columns: 1fr 550px;
     gap: 30px;
     max-width: 1400px;
-    margin: 30px auto 0;
+    /* margin: 30px auto 0; */
     padding: 0 20px 60px;
     min-height: calc(100vh - 320px);
 }
@@ -1166,7 +1206,7 @@
 	padding: 20px 0;
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 	backdrop-filter: blur(10px);
-	border-radius: 16px 16px 0 0;
+	border-radius: 16px 16px 16px 16px ;
 }
 
 .jobiizy-search-bar-container {
@@ -1269,7 +1309,8 @@
 	right: 20px;
 	top: 70%;
 	transform: translateY(-50%);
-	background: rgba(59, 130, 246, 0.2);
+	/* background: rgba(59, 130, 246, 0.2);*/
+	background: none;
 	border: none;
 	color: #60a5fa;
 	/* width: 32px;
@@ -1555,33 +1596,14 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 20px 30px;
+	/* GTL padding: 20px 30px; */
 	/* background: rgba(30, 41, 59, 0.5); */
 	/* border-bottom: 1px solid rgba(59, 130, 246, 0.2); */
-	margin-bottom: 20px;
+	/* GTL margin-bottom: 20px;*/
 	gap: 20px;
 }
 
-.jobiizy-job-count {
-	color: #f8fafc !important;
-	font-size: 20px;
-	font-weight: 600;
-	margin: 0;
-	display: flex;
-	align-items: center;
-	gap: 12px;
-	flex: 1;
-}
 
-.jobiizy-job-count i {
-	color: #60a5fa;
-	font-size: 24px;
-}
-
-.jobiizy-job-count strong {
-	color: #3b82f6;
-	font-weight: 700;
-}
 
 .jobiizy-toggle-filters {
 	background: linear-gradient(135deg, #3b82f6, #2563eb);

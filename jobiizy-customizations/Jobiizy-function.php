@@ -159,6 +159,32 @@ add_action( 'wp_enqueue_scripts', function () {
         true                    // footer
     );
 });
+
+add_action( 'wp_enqueue_scripts', function () {
+
+    if ( is_admin() ) {
+        return;
+    }
+
+    $plugin_dir = plugin_dir_path( __FILE__ );
+    $plugin_url = plugin_dir_url( __FILE__ );
+
+    $file_rel  = 'assets/js/jobiizy-back-button.js';
+    $file_path = $plugin_dir . $file_rel;
+
+    if ( ! file_exists( $file_path ) ) {
+        error_log( '❌ Jobiizy: jobiizy-back-button.js introuvable' );
+        return;
+    }
+
+    wp_enqueue_script(
+        'jobiizy-back-button',
+        $plugin_url . $file_rel,
+        [],
+        filemtime( $file_path ),
+        true
+    );
+});
 /**
  * Plugin Name: JobiiZy Customization
  * Description: Custom modifications for JobiiZy
@@ -1411,6 +1437,13 @@ add_action('wp_enqueue_scripts', function() {
         
         wp_enqueue_style(
   			'jobiizy-modal',
+        	$plugin_url . $file_rel,
+  			[],
+        	filemtime($file_path)
+		);
+	   	$file_rel  = 'assets/css/jobiizy-back-button.css';
+	    wp_enqueue_style(
+  			'jobiizy-back-button',
         	$plugin_url . $file_rel,
   			[],
         	filemtime($file_path)

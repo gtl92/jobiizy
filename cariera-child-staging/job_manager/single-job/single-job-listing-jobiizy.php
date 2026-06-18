@@ -72,6 +72,7 @@ foreach ( $job_popup_data as $k => $v ) {
     data-notes="<?php echo esc_attr( $job_popup_data['notes'] ); ?>"
 >	
     <?php do_action( 'cariera_single_job_listing_before' ); ?>
+
     <?php get_job_manager_template_part( 'single-job/page-header' ); ?>
 
     <section class="single-job-content">
