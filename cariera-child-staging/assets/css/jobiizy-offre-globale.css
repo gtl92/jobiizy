@@ -55,11 +55,25 @@ body.jobiizy-offre-globale-page .elementor-location-footer .elementor-section {
 /* 
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #334155 100%);
  */
-  padding: 36px 0 32px;
+ background: radial-gradient(60% 80% at 20% 30%, rgba(0, 174, 239, 0.55) 0%, transparent 60%), radial-gradient(50% 70% at 80% 70%, rgba(60, 60, 161, 0.70) 0%, transparent 60%), linear-gradient(135deg, #1F1F6E 0%, #0B1437 100%);
+  padding: 26px 0 22px;
   position: sticky;
   top: var(--jobiizy-sticky-top, 0px);
   z-index: 2;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.30);
+  transition: transform 0.28s ease, opacity 0.2s ease;
+}
+/* Nouveau wrapper porte l'effet scroll-hide */
+.jzog-bar-visible {
+  display: contents;
+  gap: 10px;
+  align-items: center;
+  transition: transform 0.9s ease, opacity 0.9s ease;
+}
+.jzog-search-bar.is-hidden { 
+  transform: translateY(calc(-100% - var(--jobiizy-sticky-top, 0px)));
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ── Header titre + compteur ─────────────────────────── */
@@ -148,6 +162,8 @@ body.jobiizy-offre-globale-page .elementor-location-footer .elementor-section {
 /* ── Champ select ────────────────────────────────────── */
 .jzog-field--select {
   flex: 0 1 190px;
+    background: unset;
+  border	: unset;
 }
 
 .jzog-select {
@@ -315,6 +331,7 @@ input#jzog-keywords, #jzog-location:focus {
 select.jzog-select {
     background: none !important;
     border: none !important;
+    font-size: small;
 }
 select.jzog-select:focus {
     box-shadow: none !important;
@@ -325,10 +342,16 @@ select.jzog-select:focus {
 ════════════════════════════════════════════════════════ */
 .jzog-btn-filters      { display: none; }
 .jzog-btn-search--main { display: inline-flex; }
-.jzog-drawer-apply     { display: none; }
+.jzog-drawer-apply     { display: none !important; }
+.jzog-drawer-head,
+.jzog-drawer-reset     { display: none; }
 .jzog-drawer-handle,
 .jzog-drawer-title     { display: none; }
-
+@media (min-width: 901px) {
+  .jzog-btn-search--main { order: 99; } /* toujours en dernier sur desktop */
+  .jzog-btn-reset        { order: 98; }
+  .jzog-mobile-filters .jzog-drawer-apply { display: none !important; }
+}
 /* display:contents : les enfants participent au flex du form normalement */
 .jzog-mobile-filters   { display: contents; }
 
@@ -361,6 +384,10 @@ select.jzog-select:focus {
     z-index: 99;
     height: auto;
     padding: 12px 0;
+  }
+
+  .jzog-search-bar.has-open-drawer {
+    z-index: 100000;
   }
 
   .jzog-results {
@@ -456,12 +483,45 @@ select.jzog-select:focus {
     margin: 0 auto 20px;
   }
 
+  .jzog-drawer-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 0 20px;
+  }
+
   .jzog-drawer-title {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     color: #fff;
     font-size: 1rem;
     font-weight: 700;
-    margin: 0 0 20px;
+    margin: 0;
+  }
+
+  .jzog-drawer-reset {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: rgba(255,255,255,0.82);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: 9px 10px;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.06);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .jzog-drawer-reset:hover {
+    color: #fff;
+    border-color: rgba(255,255,255,0.26);
+    background: rgba(255,255,255,0.10);
+    text-decoration: none;
   }
 
   /* Champs dans le drawer */
@@ -473,9 +533,20 @@ select.jzog-select:focus {
     margin-bottom: 12px;
   }
 
+  .jzog-mobile-filters .jzog-input,
+  .jzog-mobile-filters .jzog-select {
+    font-size: 16px !important;
+    line-height: 1.35;
+  }
+
+  .jzog-mobile-filters .jzog-select option {
+    font-size: 16px;
+    line-height: 1.35;
+  }
+
   /* Bouton Appliquer */
   .jzog-drawer-apply {
-    display: inline-flex;
+    display: inline-flex !important;
     width: 100%;
     justify-content: center;
     margin-top: 8px;
@@ -563,4 +634,41 @@ select.jzog-select:focus {
   }
 }
 
+@media (max-width: 900px) {
+  .jzog-bar-visible {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+	 .jzog-search-bar {
+	    position: fixed;
+	    left: 0; right: 0;
+	    top: var(--jobiizy-sticky-top, 60px);
+	    z-index: 99;
+	    height: auto;
+	    padding: 12px 0;
+	    transition: transform 0.28s ease, opacity 0.2s ease;
+	  }
+	  .jzog-search-bar.is-hidden {
+	    transform: translateY(calc(-100% - var(--jobiizy-sticky-top, 60px)));
+	    opacity: 0;
+	    pointer-events: none;
+	  }
 
+}
+@media (max-width: 900px) {
+  .jzog-search-header,
+  .jzog-form > .jzog-field,
+  .jzog-form > .jzog-btn-search--main {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .jzog-search-bar.is-hidden .jzog-search-header,
+  .jzog-search-bar.is-hidden .jzog-form > .jzog-field,
+  .jzog-search-bar.is-hidden .jzog-form > .jzog-btn-search--main {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  /* Le drawer #jzog-mobile-filters n'est PAS dans cette liste → jamais affecté */
+}

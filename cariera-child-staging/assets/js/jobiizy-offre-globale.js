@@ -35,6 +35,28 @@
     function showDrop($drop) { $drop.addClass('show'); $drop.find('.jobiizy-autocomplete-results').addClass('show'); }
     function hideDrop($drop) { $drop.removeClass('show'); $drop.find('.jobiizy-autocomplete-results').removeClass('show'); }
 
+    function fillAutocompleteItem($item) {
+        var value  = $item.attr('data-value');
+        var $drop  = $item.closest('.jobiizy-autocomplete-dropdown');
+        var $field = $drop.closest('.jzog-field');
+        var $input = $field.find('input');
+
+        $input.val(value).trigger('change').focus();
+        hideDrop($drop);
+    }
+
+    function handleAutocompletePick(e) {
+        var item = e.target.closest ? e.target.closest('.jzog-ac-fill') : null;
+        if (!item) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+        fillAutocompleteItem($(item));
+    }
+
+    document.addEventListener('pointerdown', handleAutocompletePick, true);
+    document.addEventListener('touchstart', handleAutocompletePick, { capture: true, passive: false });
+
     // ── Autocomplétion keywords ───────────────────────────────────────────────
     function setupKeywords() {
         var $input = $('#jzog-keywords');
@@ -197,12 +219,40 @@ function setupFiltersDrawer() {
     var $btn     = $('#jzog-btn-filters');
     var $drawer  = $('#jzog-mobile-filters');
     var $overlay = $('#jzog-drawer-overlay');
+    var $bar     = $('.jzog-search-bar');
+    var $drawerAnchor = $('<span class="jzog-drawer-anchor" hidden></span>');
     if (!$btn.length) return;
 
+    $drawer.after($drawerAnchor);
+
+    function syncDrawerMount() {
+        if (window.matchMedia('(max-width: 900px)').matches) {
+            if (!$drawer.parent().is('body')) {
+                $drawer.appendTo(document.body);
+            }
+        } else if (!$drawerAnchor.prev().is($drawer)) {
+            $drawer.insertBefore($drawerAnchor);
+        }
+    }
+
+    $drawer.on('mousedown touchstart', function(e) {
+        e.stopPropagation();
+    });
+
+    $drawer.on('click', '.jzog-ac-fill', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        fillAutocompleteItem($(this));
+    });
+
+    $drawer.on('click', function(e) {
+        e.stopPropagation();
+    });
     function openDrawer() {
         $drawer.addClass('is-open');
         $overlay.addClass('is-open');
         $btn.addClass('is-active');
+        $bar.addClass('has-open-drawer');
         $('body').css('overflow', 'hidden');
     }
 
@@ -210,16 +260,18 @@ function setupFiltersDrawer() {
         $drawer.removeClass('is-open');
         $overlay.removeClass('is-open');
         $btn.removeClass('is-active');
+        $bar.removeClass('has-open-drawer');
         $('body').css('overflow', '');
     }
 
     $btn.on('click', function(e) {
         e.stopPropagation();
+        syncDrawerMount();
         openDrawer();
     });
 
-$overlay.on('click', closeDrawer);
-    $drawer.on('click', function(e) { e.stopPropagation(); });
+	$overlay.on('click', closeDrawer);
+    // $drawer.on('click', function(e) { e.stopPropagation(); });
     function updateBadge() {
         var count = 0;
         if ($('#jzog-location').val()) count++;
@@ -236,24 +288,25 @@ $overlay.on('click', closeDrawer);
     }
 
     $drawer.on('change input', 'select, input', updateBadge);
+
+    syncDrawerMount();
+    $(window).on('resize.jzogDrawerMount orientationchange.jzogDrawerMount', syncDrawerMount);
     updateBadge();
 }
 
 
     // ── Clic sur un item → remplit le champ, PAS de soumission ──────────────
     // Classe .jzog-ac-fill pour isoler du handler global du split-view.js
+    $(document).on('mousedown touchstart', '.jzog-ac-fill', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        fillAutocompleteItem($(this));
+    });
+
     $(document).on('click', '.jzog-ac-fill', function (e) {
         e.preventDefault();
         e.stopPropagation();   // ne pas déclencher le submit du form
-
-        var value  = $(this).data('value');
-        var $drop  = $(this).closest('.jobiizy-autocomplete-dropdown');
-        var $field = $drop.closest('.jzog-field');
-        var $input = $field.find('input');
-
-        $input.val(value);
-        hideDrop($drop);
-        $input.focus();        // garde le focus sur le champ
+        fillAutocompleteItem($(this));
     });
 
     // ── Fermer au clic extérieur ──────────────────────────────────────────────
@@ -267,17 +320,74 @@ $overlay.on('click', closeDrawer);
 
     // ── Init ──────────────────────────────────────────────────────────────────
     function setStickyTop() {
-        var headerH = $('.cariera-main-header').outerHeight(true) || 0;
-        document.documentElement.style.setProperty('--jobiizy-sticky-top', headerH + 'px');
+        var header = document.querySelector('.cariera-main-header');
+        var visibleHeaderH = 0;
+
+        if (header) {
+            var rect = header.getBoundingClientRect();
+            visibleHeaderH = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
+        }
+
+        document.documentElement.style.setProperty('--jobiizy-sticky-top', Math.round(visibleHeaderH) + 'px');
+    }
+function setupScrollBehavior() {
+    var $bar = $('.jzog-search-bar');
+    var lastScrollY = window.scrollY || 0;
+    var ticking = false;
+    var threshold = 8;
+    var scrollStopTimer = null;
+
+    if (!$bar.length) return;
+
+    function updateSearchBar() {
+        var currentY = Math.max(window.scrollY || 0, 0);
+
+        if ($('#jzog-mobile-filters').hasClass('is-open')) {
+            $bar.removeClass('is-hidden');
+            clearTimeout(scrollStopTimer);
+            lastScrollY = currentY;
+            ticking = false;
+            return;
+        }
+
+        if (currentY <= 40) {
+            $bar.removeClass('is-hidden');
+        } else if (currentY > lastScrollY + threshold) {
+            $bar.addClass('is-hidden');
+        } else if (currentY < lastScrollY - threshold) {
+            $bar.removeClass('is-hidden');
+        }
+
+        lastScrollY = currentY;
+        ticking = false;
     }
 
-    $(function () {
+    $(window).on('scroll.jzog', function() {
+        setStickyTop();
+
+        if (!ticking) {
+            window.requestAnimationFrame(updateSearchBar);
+            ticking = true;
+        }
+
+        clearTimeout(scrollStopTimer);
+        scrollStopTimer = setTimeout(function() {
+            if (!$('#jzog-mobile-filters').hasClass('is-open')) {
+                $bar.removeClass('is-hidden');
+            }
+        }, 650);
+    });
+}
+   $(function () {
         setStickyTop();
         $(window).on('resize', setStickyTop);
 
         setupKeywords();
         setupLocation();
         setupFiltersDrawer();
+        setupScrollBehavior();
+
     });
+    
 
 })(jQuery);

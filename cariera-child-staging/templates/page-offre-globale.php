@@ -148,13 +148,14 @@ get_header();
 <main id="jzog-page" class="jzog-page">
 
   <!-- ══ BARRE DE RECHERCHE SOMBRE ══════════════════════════════════════════ -->
-  <section class="jzog-search-bar jze-hero-bg" aria-label="Filtrer les offres">
+  <section class="jzog-search-bar jze-hero-bg_" id="jzog-search-bar" aria-label="Filtrer les offres">
     <div class="jze-container jze-hero-inner">
- 
+
       <div class="jzog-search-header">
-        <h1 class="jzog-search-title jze-hero-eyebrow" style="border-radius: unset; border: unset; font-size: small;">
-          Toutes les offres
-        </h1>
+        <button type="button" class="jzog-btn-filters" id="jzog-btn-filters">
+          <i class="las la-sliders-h"></i>
+          <span class="jzog-btn-filters-label">Filtres</span>
+        </button>
         <?php if ($jobs_query->found_posts) : ?>
           <span class="jzog-count">
             <?php printf(
@@ -163,105 +164,112 @@ get_header();
                 $jobs_query->found_posts > 1 ? 's' : ''
             ); ?>
           </span>
-              <button type="button" class="jzog-btn-filters" id="jzog-btn-filters">
-      <i class="las la-sliders-h"></i>
-      <span class="jzog-btn-filters-label">Filtres</span>
-    </button>
-
         <?php endif; ?>
+        <h1 class="jzog-search-title jze-hero-eyebrow" style="border-radius: unset; border: unset; font-size: small;">
+          Toutes les offres
+        </h1>
       </div>
 
       <form id="jzog-main-form" class="jzog-form" method="GET" action="" role="search">
+        <div class="jzog-bar-visible">
 
-        <!-- Mot-clé — toujours visible -->
-        <div class="jzog-field">
-          <i class="las la-search jzog-field-icon" aria-hidden="true"></i>
-          <input
-            type="text"
-            name="search_keywords"
-            id="jzog-keywords"
-            placeholder="Métier, entreprise, compétence…"
-            value="<?php echo esc_attr($search_keywords); ?>"
-            autocomplete="off"
-            class="jzog-input"
-          >
-          <div class="jobiizy-autocomplete-dropdown jobiizy-keywords-dropdown">
-            <div class="jobiizy-autocomplete-loader"><i class="las la-spinner la-spin"></i></div>
-            <div class="jobiizy-autocomplete-results"></div>
-          </div>
-        </div>
-
-        <!-- Champs secondaires : sur desktop dans le flex, sur mobile = drawer -->
-        <div class="jzog-mobile-filters" id="jzog-mobile-filters">
-          <div class="jzog-drawer-handle"></div>
-          <p class="jzog-drawer-title"><i class="las la-sliders-h" aria-hidden="true"></i> Filtres</p>
-
-          <div class="jzog-field jzog-field--location">
-            <i class="las la-map-marker jzog-field-icon" aria-hidden="true"></i>
+          <div class="jzog-field">
+            <i class="las la-search jzog-field-icon" aria-hidden="true"></i>
             <input
               type="text"
-              name="search_location"
-              id="jzog-location"
-              placeholder="Ville, région…"
-              value="<?php echo esc_attr($search_location); ?>"
+              name="search_keywords"
+              id="jzog-keywords"
+              placeholder="Métier, entreprise, compétence…"
+              value="<?php echo esc_attr($search_keywords); ?>"
               autocomplete="off"
               class="jzog-input"
             >
-            <div class="jobiizy-autocomplete-dropdown jobiizy-location-dropdown">
+            <div class="jobiizy-autocomplete-dropdown jobiizy-keywords-dropdown">
               <div class="jobiizy-autocomplete-loader"><i class="las la-spinner la-spin"></i></div>
               <div class="jobiizy-autocomplete-results"></div>
             </div>
           </div>
 
-          <?php if (!is_wp_error($categories) && !empty($categories)) : ?>
-          <div class="jzog-field jzog-field--select">
-            <i class="las la-tag jzog-field-icon" aria-hidden="true"></i>
-            <select name="search_categories" class="jzog-select">
-              <option value="">Toutes catégories</option>
-              <?php foreach ($categories as $cat) : ?>
-                <option value="<?php echo esc_attr($cat->term_id); ?>"
-                  <?php selected($search_category, $cat->term_id); ?>>
-                  <?php echo esc_html($cat->name); ?>
-                  (<?php echo absint($cat->count); ?>)
-                </option>
-              <?php endforeach; ?>
-            </select>
-          </div>
+          <?php if ($search_keywords || $search_location || $search_category || $search_type) : ?>
+            <a href="<?php echo esc_url(get_permalink()); ?>" class="jzog-btn-reset" title="Effacer les filtres">
+              <i class="las la-times"></i>
+            </a>
           <?php endif; ?>
 
-          <?php if (!is_wp_error($job_types) && !empty($job_types)) : ?>
-          <div class="jzog-field jzog-field--select">
-            <i class="las la-briefcase jzog-field-icon" aria-hidden="true"></i>
-            <select name="search_job_type" class="jzog-select">
-              <option value="">Tous les contrats</option>
-              <?php foreach ($job_types as $type) : ?>
-                <option value="<?php echo esc_attr($type->slug); ?>"
-                  <?php selected($search_type, $type->slug); ?>>
-                  <?php echo esc_html($type->name); ?>
-                </option>
-              <?php endforeach; ?>
-            </select>
+          <div class="jzog-mobile-filters" id="jzog-mobile-filters">
+            <div class="jzog-drawer-handle"></div>
+            <div class="jzog-drawer-head">
+              <p class="jzog-drawer-title"><i class="las la-sliders-h" aria-hidden="true"></i> Filtres</p>
+              <?php if ($search_keywords || $search_location || $search_category || $search_type) : ?>
+                <a href="<?php echo esc_url(get_permalink()); ?>" class="jzog-drawer-reset">
+                  <i class="las la-times" aria-hidden="true"></i> Réinitialiser
+                </a>
+              <?php endif; ?>
+            </div>
+
+            <div class="jzog-field jzog-field--location">
+              <i class="las la-map-marker jzog-field-icon" aria-hidden="true"></i>
+              <input
+                type="text"
+                name="search_location"
+                id="jzog-location"
+                form="jzog-main-form"
+                placeholder="Ville, région…"
+                value="<?php echo esc_attr($search_location); ?>"
+                autocomplete="off"
+                class="jzog-input"
+              >
+              <div class="jobiizy-autocomplete-dropdown jobiizy-location-dropdown">
+                <div class="jobiizy-autocomplete-loader"><i class="las la-spinner la-spin"></i></div>
+                <div class="jobiizy-autocomplete-results"></div>
+              </div>
+            </div>
+
+            <?php if (!is_wp_error($categories) && !empty($categories)) : ?>
+              <div class="jzog-field jzog-field--select">
+                <i class="las la-tag jzog-field-icon" aria-hidden="true"></i>
+                <select name="search_categories" form="jzog-main-form" class="jzog-select">
+                  <option value="">Toutes catégories</option>
+                  <?php foreach ($categories as $cat) : ?>
+                    <option value="<?php echo esc_attr($cat->term_id); ?>"
+                      <?php selected($search_category, $cat->term_id); ?>>
+                      <?php echo esc_html($cat->name); ?>
+                      (<?php echo absint($cat->count); ?>)
+                    </option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+            <?php endif; ?>
+
+            <?php if (!is_wp_error($job_types) && !empty($job_types)) : ?>
+              <div class="jzog-field jzog-field--select">
+                <i class="las la-briefcase jzog-field-icon" aria-hidden="true"></i>
+                <select name="search_job_type" form="jzog-main-form" class="jzog-select">
+                  <option value="">Tous les contrats</option>
+                  <?php foreach ($job_types as $type) : ?>
+                    <option value="<?php echo esc_attr($type->slug); ?>"
+                      <?php selected($search_type, $type->slug); ?>>
+                      <?php echo esc_html($type->name); ?>
+                    </option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+            <?php endif; ?>
+
+            <button type="submit" form="jzog-main-form" class="jzog-btn-search jzog-drawer-apply">
+              <i class="las la-search" aria-hidden="true"></i> Appliquer les filtres
+            </button>
           </div>
-          <?php endif; ?>
+
+          <button type="submit" class="jzog-btn-search jzog-btn-search--main">
+            <i class="las la-search" aria-hidden="true"></i>
+          </button>
 
         </div>
-
-        <button type="submit" class="jzog-btn-search jzog-btn-search--main">
-          <i class="las la-search" aria-hidden="true"></i>
-          <span>Rechercher</span>
-        </button>
-
-        <?php if ($search_keywords || $search_location || $search_category || $search_type) : ?>
-          <a href="<?php echo esc_url(get_permalink()); ?>" class="jzog-btn-reset" title="Effacer les filtres">
-            <i class="las la-times"></i>
-          </a>
-        <?php endif; ?>
-
       </form>
     </div>
   </section>
 
-  <!-- Overlay drawer (hors de la section, pas de overflow:hidden) -->
   <div class="jzog-drawer-overlay" id="jzog-drawer-overlay"></div>
 
   <!-- ══ GRILLE DES OFFRES ═══════════════════════════════════════════════════ -->
