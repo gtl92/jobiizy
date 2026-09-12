@@ -24,6 +24,8 @@ require_once __DIR__ . '/includes/popup.php';
 require_once __DIR__ . '/includes/body-class.php';
 require_once __DIR__ . '/includes/company-sync.php';
 require_once __DIR__ . '/includes/seo.php';
+require_once __DIR__ . '/includes/http-status.php';
+require_once __DIR__ . '/includes/job-location-fallback.php';
 
 require_once get_stylesheet_directory() . '/jobiizy-custom-widgets.php';
 require_once get_stylesheet_directory() . '/ajax-job-details.php';
